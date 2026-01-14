@@ -106,10 +106,12 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
     // 同步循环（直接操作 DOM 提升性能）
     let animId: number;
     const sync = () => {
-      // 获取页面滚动偏移和容器位置，用于将物理世界坐标转换为相对于容器的坐标
-      const scrollY = window.scrollY || window.pageYOffset || 0;
+      // 获取容器位置，用于将物理世界坐标转换为相对于容器的坐标
       const containerRect = containerRef.current?.getBoundingClientRect();
-      // 容器在文档中的顶部位置（考虑滚动）
+      // containerRect.top 已经是相对于视口的坐标，不需要再加 scrollY
+      // 物理引擎的世界坐标是相对于文档的，需要转换为相对于容器的坐标
+      // 容器在文档中的位置 = containerRect.top + scrollY
+      const scrollY = window.scrollY || window.pageYOffset || 0;
       const containerTop = containerRect ? containerRect.top + scrollY : 0;
       
       bodiesMap.current.forEach((body, id) => {
@@ -119,9 +121,9 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
           const width = el.offsetWidth || (body as any).width || 0;
           const height = el.offsetHeight || (body as any).height || 0;
           // 使用 absolute 定位，需要将物理世界坐标转换为相对于容器的坐标
-          // 物理引擎的世界坐标是固定的（基于初始视口），当页面滚动时，需要调整 y 坐标
-          // 物理世界坐标 y 是相对于文档顶部的，容器也是相对于文档顶部的
-          // 所以元素相对于容器的 y = 物理世界 y - 容器顶部位置
+          // 物理引擎的世界坐标是相对于文档顶部的（固定坐标系）
+          // 容器在文档中的位置 = containerRect.top（视口坐标）+ scrollY（滚动偏移）
+          // 元素相对于容器的 y = 物理世界 y - 容器在文档中的顶部位置
           const relativeY = body.position.y - containerTop;
           el.style.transform = `translate3d(${body.position.x - width / 2}px, ${relativeY - height / 2}px, ${depth}px) rotate(${body.angle}rad)`;
           el.style.visibility = 'visible';
