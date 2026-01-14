@@ -7,41 +7,38 @@ export const PHYSICS_CONFIG = {
   COLLAPSE_DELAY: 2500, // 初始排列展示时间
 };
 
-export interface Project {
+export interface Section {
   id: string;
-  title: string;
-  type: 'AGENT' | 'WEB' | 'APP';
+  title: string; // 英文标题
+  titleCn: string; // 中文副标题
+  type: 'AGENT' | 'APP' | 'BLOG';
   description: string;
-  tech: string[];
+  icon?: string;
 }
 
-export const PROJECTS: Project[] = [
+export const SECTIONS: Section[] = [
   {
-    id: 'p1',
-    title: 'Autonomous Nexus',
+    id: 'agents',
+    title: 'Agent Collection',
+    titleCn: '智能代理集合',
     type: 'AGENT',
-    description: 'Self-correcting LLM orchestration system.',
-    tech: ['Python', 'LangChain', 'OpenAI']
+    description: '探索智能代理与自动化系统，涵盖 AI Agent、工作流自动化、智能决策等创新应用。',
+    icon: '🤖'
   },
   {
-    id: 'p2',
-    title: 'Still-Alive App',
+    id: 'apps',
+    title: 'App Collection',
+    titleCn: '应用项目集合',
     type: 'APP',
-    description: 'Biometric minimalist productivity tracker.',
-    tech: ['React Native', 'Rust', 'WASM']
+    description: '精选应用项目展示，包括 Web 应用、移动应用、桌面工具等各类产品与解决方案。',
+    icon: '📱'
   },
   {
-    id: 'p3',
-    title: 'Cyber Archive',
-    type: 'WEB',
-    description: 'Real-time 3D data visualization portal.',
-    tech: ['Three.js', 'React', 'Tailwind']
-  },
-  {
-    id: 'p4',
-    title: 'Neural Core',
-    type: 'AGENT',
-    description: 'Edge-deployed small language model.',
-    tech: ['C++', 'TensorFlow', 'CUDA']
+    id: 'blog',
+    title: 'Blog Articles',
+    titleCn: '博客文章',
+    type: 'BLOG',
+    description: '技术分享与思考，记录学习历程、项目经验、技术洞察与行业观察。',
+    icon: '📝'
   }
 ];
