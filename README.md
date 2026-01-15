@@ -1,5 +1,7 @@
 # LChuck Studio - Personal Portfolio
 
+![LChuck Studio Screenshot](./public/screenshot.JPG)
+
 个人作品集与创作空间，一个融合物理引擎交互与 3D 视觉效果的现代化个人网站。
 
 ## ✨ 特性
