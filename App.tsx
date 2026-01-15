@@ -97,17 +97,17 @@ const App: React.FC = () => {
   }
   
   // 动态计算卡片高度，根据卡片宽度和内容需求
-  // 根据卡片宽度动态调整高度比例，确保有足够空间显示内容
-  // 窄卡片需要更高的高度比例来容纳文字
+  // 由于文字可以换行，需要更高的卡片来容纳内容
+  // 根据卡片宽度动态调整高度比例，确保有足够空间显示换行后的文字
   let heightRatio;
   if (cardWidth < 200) {
-    heightRatio = 0.85; // 很窄的卡片需要更高
+    heightRatio = 1.0; // 很窄的卡片需要更高，因为文字会换行更多
   } else if (cardWidth < 250) {
-    heightRatio = 0.75;
+    heightRatio = 0.9;
   } else if (cardWidth < 350) {
-    heightRatio = 0.65;
+    heightRatio = 0.75;
   } else {
-    heightRatio = 0.58; // 正常宽度使用标准比例
+    heightRatio = 0.65; // 正常宽度也需要更高，因为文字换行
   }
   const cardHeight = Math.floor(cardWidth * heightRatio);
   
@@ -241,7 +241,7 @@ const App: React.FC = () => {
           return (
             <PhysicsNode key={section.id} id={section.id} x={clampedX} y={finalCardY} w={cardWidth} h={cardHeight} depth={sectionDepths[i]}>
               <div className="w-full h-full p-3 sm:p-4 md:p-5 lg:p-6 bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-sm group hover:border-red-600/60 transition-all duration-700 flex flex-col justify-between cursor-pointer overflow-hidden">
-                <div className="flex flex-col flex-1 min-h-0">
+                <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
                   <div className="flex justify-between items-start mb-2 sm:mb-3 flex-shrink-0">
                     <span className="text-[1.6vw] sm:text-[1.2vw] md:text-[10px] lg:text-xs mono text-red-600 font-bold tracking-[0.1em]">{section.type}</span>
                     {section.icon && (
@@ -249,10 +249,10 @@ const App: React.FC = () => {
                     )}
                   </div>
                   <div className="mb-2 sm:mb-3 flex-shrink-0">
-                    <h3 className="text-[3vw] sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight group-hover:text-red-600 transition-colors uppercase leading-tight whitespace-nowrap overflow-hidden text-ellipsis">{section.title}</h3>
-                    <p className="text-[1.6vw] sm:text-[1.3vw] md:text-[9px] lg:text-[10px] xl:text-xs text-white/50 mt-0.5 sm:mt-1 font-light italic whitespace-nowrap overflow-hidden text-ellipsis">{section.titleCn}</p>
+                    <h3 className="text-[3vw] sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight group-hover:text-red-600 transition-colors uppercase leading-tight break-words line-clamp-2">{section.title}</h3>
+                    <p className="text-[1.6vw] sm:text-[1.3vw] md:text-[9px] lg:text-[10px] xl:text-xs text-white/50 mt-0.5 sm:mt-1 font-light italic break-words line-clamp-2">{section.titleCn}</p>
                   </div>
-                  <p className="text-[1.8vw] sm:text-[1.5vw] md:text-[10px] lg:text-xs xl:text-sm text-white/60 mt-1 sm:mt-2 md:mt-3 font-medium leading-snug whitespace-nowrap overflow-hidden text-ellipsis flex-shrink-0">{section.description}</p>
+                  <p className="text-[1.6vw] sm:text-[1.4vw] md:text-[10px] lg:text-xs xl:text-sm text-white/60 mt-1 sm:mt-2 md:mt-3 font-medium leading-relaxed break-words overflow-y-auto flex-1 min-h-0">{section.description}</p>
                 </div>
                 <div className="pt-3 sm:pt-4 md:pt-5 lg:pt-6 border-t border-white/5 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-opacity">
                   <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-red-600 rounded-full group-hover:animate-ping"></div>
