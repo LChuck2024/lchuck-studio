@@ -148,7 +148,7 @@ export const Home: React.FC = () => {
                 text="Personal Portfolio & Creative Workspace" 
                 speed={30} 
                 delay={1800} 
-                className="mono text-[1.5vw] sm:text-[1vw] md:text-[10px] lg:text-[12px] xl:text-[14px] tracking-[0.3em] sm:tracking-[0.8em] text-white/20 uppercase font-light whitespace-nowrap"
+                className="mono text-[1.5vw] sm:text-[1vw] md:text-[10px] lg:text-[12px] xl:text-[14px] tracking-[0.3em] sm:tracking-[0.8em] text-gray-400 uppercase font-light whitespace-nowrap"
                 showCursor={false}
               />
             </div>
@@ -157,7 +157,7 @@ export const Home: React.FC = () => {
                 text="个人作品集与创作空间" 
                 speed={40} 
                 delay={3200} 
-                className="mono text-[1.8vw] sm:text-[1.3vw] md:text-[14px] lg:text-[16px] xl:text-[18px] tracking-[0.3em] sm:tracking-[0.8em] text-white/20 uppercase font-light whitespace-nowrap"
+                className="mono text-[1.8vw] sm:text-[1.3vw] md:text-[14px] lg:text-[16px] xl:text-[18px] tracking-[0.3em] sm:tracking-[0.8em] text-gray-400 uppercase font-light whitespace-nowrap"
                 showCursor={false}
               />
             </div>
@@ -174,7 +174,7 @@ export const Home: React.FC = () => {
         return (
           <PhysicsNode key={section.id} id={section.id} x={clampedX} y={finalCardY} w={cardWidth} h={cardHeight} depth={sectionDepths[i]}>
             <div 
-              className="w-full h-full p-3 sm:p-4 md:p-5 lg:p-6 bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-sm group hover:border-red-600/60 transition-all duration-700 flex flex-col justify-between cursor-pointer overflow-hidden"
+              className="w-full h-full p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-100/50 border border-gray-300/50 backdrop-blur-2xl rounded-sm group hover:border-red-600/60 transition-all duration-700 flex flex-col justify-between cursor-pointer overflow-hidden"
               onClick={() => {
                 if (section.type === 'AGENT') navigate('/agents');
                 else if (section.type === 'APP') navigate('/apps');
@@ -189,12 +189,12 @@ export const Home: React.FC = () => {
                   )}
                 </div>
                 <div className="mb-2 sm:mb-3 flex-shrink-0">
-                  <h3 className="text-[3vw] sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight group-hover:text-red-600 transition-colors uppercase leading-tight break-words line-clamp-2">{section.title}</h3>
-                  <p className="text-[1.6vw] sm:text-[1.3vw] md:text-[9px] lg:text-[10px] xl:text-xs text-white/50 mt-0.5 sm:mt-1 font-light italic break-words line-clamp-2">{section.titleCn}</p>
+                  <h3 className="text-[3vw] sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight text-gray-900 group-hover:text-red-600 transition-colors uppercase leading-tight break-words line-clamp-2">{section.title}</h3>
+                  <p className="text-[1.6vw] sm:text-[1.3vw] md:text-[9px] lg:text-[10px] xl:text-xs text-gray-600 mt-0.5 sm:mt-1 font-light italic break-words line-clamp-2">{section.titleCn}</p>
                 </div>
-                <p className="text-[1.6vw] sm:text-[1.4vw] md:text-[10px] lg:text-xs xl:text-sm text-white/60 mt-1 sm:mt-2 md:mt-3 font-medium leading-relaxed break-words overflow-y-auto flex-1 min-h-0">{section.description}</p>
+                <p className="text-[1.6vw] sm:text-[1.4vw] md:text-[10px] lg:text-xs xl:text-sm text-gray-700 mt-1 sm:mt-2 md:mt-3 font-medium leading-relaxed break-words overflow-y-auto flex-1 min-h-0">{section.description}</p>
               </div>
-              <div className="pt-3 sm:pt-4 md:pt-5 lg:pt-6 border-t border-white/5 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-opacity">
+              <div className="pt-3 sm:pt-4 md:pt-5 lg:pt-6 border-t border-gray-300/30 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-opacity">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-red-600 rounded-full group-hover:animate-ping"></div>
               </div>
             </div>
@@ -213,7 +213,7 @@ export const Home: React.FC = () => {
           h={1} 
           depth={scrap.depth}
         >
-          <div className="w-full h-full bg-white/5 shadow-[0_0_15px_rgba(255,255,255,0.05)]"></div>
+          <div className="w-full h-full bg-gray-300/30 shadow-[0_0_15px_rgba(0,0,0,0.1)]"></div>
         </PhysicsNode>
       ))}
       </PhysicsSystem>

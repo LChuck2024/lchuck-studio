@@ -31,7 +31,7 @@ export const NavigationTabs: React.FC = () => {
                 cursor-pointer
                 ${isActive 
                   ? 'text-red-600' 
-                  : 'text-white/30 hover:text-white/70'
+                  : 'text-gray-400 hover:text-gray-700'
                 }
               `;
               return baseClasses;
@@ -95,10 +95,10 @@ export const NavigationTabs: React.FC = () => {
                 {/* 未激活状态下的装饰线 */}
                 {!isActive && (
                   <motion.div
-                    className="absolute bottom-0 left-0 h-[1px] bg-white/20 w-0"
+                    className="absolute bottom-0 left-0 h-[1px] bg-gray-300 w-0"
                     whileHover={{
                       width: '100%',
-                      backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
                     }}
                     transition={{
                       duration: 0.3,
@@ -126,7 +126,7 @@ export const NavigationTabs: React.FC = () => {
           
           {/* 分隔符 */}
           {index < tabs.length - 1 && (
-            <span className="text-white/10 mono text-[1.2vw] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px]">
+            <span className="text-gray-300 mono text-[1.2vw] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px]">
               |
             </span>
           )}

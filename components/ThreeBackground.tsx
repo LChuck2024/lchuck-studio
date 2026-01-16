@@ -30,10 +30,21 @@ export const ThreeBackground: React.FC = () => {
       positions[i + 1] = (Math.random() - 0.5) * 3000;
       positions[i + 2] = (Math.random() - 0.5) * 2000;
 
-      const isRed = Math.random() > 0.92;
-      colors[i] = isRed ? 1 : 0.3;     // R
-      colors[i + 1] = isRed ? 0 : 0.3; // G
-      colors[i + 2] = isRed ? 0 : 0.3; // B
+      // 红蓝渐变色：根据 z 坐标（深度）创建从红色到蓝色的渐变
+      // z 范围：-1000 到 1000，归一化到 0-1
+      const normalizedZ = (positions[i + 2] + 1000) / 2000; // 0 到 1
+      
+      // 红色 (1, 0, 0) 到蓝色 (0, 0, 1) 的渐变
+      // 也可以混合一些随机性让颜色更丰富
+      const redIntensity = 1 - normalizedZ;
+      const blueIntensity = normalizedZ;
+      
+      // 添加一些随机变化，让渐变更自然
+      const variation = (Math.random() - 0.5) * 0.3;
+      
+      colors[i] = Math.max(0, Math.min(1, redIntensity + variation));     // R
+      colors[i + 1] = Math.max(0, Math.min(1, Math.abs(variation) * 0.5)); // G (少量绿色增加层次)
+      colors[i + 2] = Math.max(0, Math.min(1, blueIntensity - variation));  // B
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -43,7 +54,7 @@ export const ThreeBackground: React.FC = () => {
       size: 2.5,
       vertexColors: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.7,
       blending: THREE.AdditiveBlending
     });
 

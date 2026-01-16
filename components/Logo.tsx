@@ -77,7 +77,7 @@ export const Logo: React.FC = () => {
             <Typewriter 
               text="LCHUCK" 
               speed={120} 
-              className="text-white"
+              className="text-gray-900"
             />
             <Typewriter 
               text="STUDIO" 
@@ -112,7 +112,7 @@ export const Logo: React.FC = () => {
         whileHover={{ scale: 1.05 }}
       >
         <div className="w-3 h-3 bg-red-600 rotate-45 border border-red-400"></div>
-        <span className="text-lg font-black tracking-tight italic text-white">
+        <span className="text-lg font-black tracking-tight italic text-gray-900">
           LCHUCK <span className="text-red-600">STUDIO</span>
         </span>
       </motion.div>

@@ -36,22 +36,22 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
     
     // 创建和更新边界的函数
     const createWalls = () => {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
       // 计算可滚动内容区域的高度（基于实际内容高度）
       // 使用一个足够大的值来包含所有内容，防止物体飞出边界
       const contentHeight = Math.max(height, document.documentElement.scrollHeight || height);
       const extendedHeight = contentHeight + 2000; // 扩展高度，确保包含所有滚动内容
 
       // 边界（透明，防止物体飞出）- 基于可滚动内容区域
-      const wallOpts = { isStatic: true, friction: 0, restitution: 1 };
+    const wallOpts = { isStatic: true, friction: 0, restitution: 1 };
       return [
         Bodies.rectangle(width / 2, extendedHeight + 100, width * 3, 200, wallOpts), // 底部边界
         Bodies.rectangle(width / 2, -100, width * 3, 200, wallOpts), // 顶部边界
         Bodies.rectangle(-100, extendedHeight / 2, 200, extendedHeight * 3, wallOpts), // 左边界
         Bodies.rectangle(width + 100, extendedHeight / 2, 200, extendedHeight * 3, wallOpts) // 右边界
-      ];
+    ];
     };
     
     // 初始创建边界

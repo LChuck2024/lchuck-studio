@@ -7,6 +7,7 @@ import { NavigationTabs } from './components/NavigationTabs';
 import { Home } from './pages/Home';
 import { Apps } from './pages/Apps';
 import { Agents } from './pages/Agents';
+import { Chatbot } from './pages/Chatbot';
 import { Blog } from './pages/Blog';
 
 const AnimatedRoutes: React.FC = () => {
@@ -26,6 +27,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/apps" element={<Apps />} />
           <Route path="/agents" element={<Agents />} />
+          <Route path="/agents/chatbot" element={<Chatbot />} />
           <Route path="/blog" element={<Blog />} />
         </Routes>
       </motion.div>
@@ -36,15 +38,12 @@ const AnimatedRoutes: React.FC = () => {
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div className="w-screen min-h-screen bg-black overflow-x-hidden overflow-y-auto relative">
+      <div className="w-screen min-h-screen bg-white overflow-x-hidden overflow-y-auto relative">
         {/* Three.js 实时粒子背景 - 放在 Router 外，确保不重载 */}
         <ThreeBackground />
         
         {/* Logo - 支持动画效果 */}
         <Logo />
-
-        {/* 系统导航标签页 */}
-        <NavigationTabs />
 
         {/* 页面内容 - 带淡入淡出动画 */}
         <AnimatedRoutes />
@@ -53,7 +52,7 @@ const App: React.FC = () => {
         <div className="fixed top-4 sm:top-6 md:top-10 left-4 sm:left-6 md:left-10 z-[100] pointer-events-none">
           <div className="flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16">
             {/* 标题部分 */}
-            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-[1.5vw] sm:text-[1.2vw] md:text-[9px] mono text-white/20 font-bold tracking-[0.3em] uppercase">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 text-[1.5vw] sm:text-[1.2vw] md:text-[9px] mono text-gray-400 font-bold tracking-[0.3em] uppercase">
               <div className="w-6 sm:w-8 md:w-5 h-[1px] bg-red-600"></div>
               <span>LChuck Studio</span>
             </div>
@@ -65,19 +64,18 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="fixed bottom-4 sm:bottom-6 md:bottom-10 left-4 sm:left-6 md:left-10 z-[100] pointer-events-none mono text-[1.5vw] sm:text-[1.2vw] md:text-[9px] text-white/20 space-y-1 sm:space-y-1.5 uppercase tracking-widest">
-          <div>Operator: <span className="text-white/40">LCHUCK</span></div>
+        <div className="fixed bottom-4 sm:bottom-6 md:bottom-10 left-4 sm:left-6 md:left-10 z-[100] pointer-events-none mono text-[1.5vw] sm:text-[1.2vw] md:text-[9px] text-gray-400 space-y-1 sm:space-y-1.5 uppercase tracking-widest">
+          <div>Operator: <span className="text-gray-600">LCHUCK</span></div>
           <div>Physics_State: <span className="text-red-600 animate-pulse">Float_Active</span></div>
         </div>
 
-        <div className="fixed bottom-4 sm:bottom-6 md:bottom-10 right-4 sm:right-6 md:right-10 z-[100] pointer-events-none mono text-[1.5vw] sm:text-[1.2vw] md:text-[9px] text-white/20 text-right uppercase tracking-widest leading-relaxed">
+        <div className="fixed bottom-4 sm:bottom-6 md:bottom-10 right-4 sm:right-6 md:right-10 z-[100] pointer-events-none mono text-[1.5vw] sm:text-[1.2vw] md:text-[9px] text-gray-400 text-right uppercase tracking-widest leading-relaxed">
           <div>Spatial Interaction Enabled</div>
           <div>Intertia Damping: 0.07</div>
-          <div className="text-white/40">{typeof window !== 'undefined' ? `${window.innerWidth}PX x ${window.innerHeight}PX` : '1920PX x 1080PX'}</div>
+          <div className="text-gray-600">{typeof window !== 'undefined' ? `${window.innerWidth}PX x ${window.innerHeight}PX` : '1920PX x 1080PX'}</div>
         </div>
 
-        {/* 环境光效 */}
-        <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_20%,rgba(0,0,0,0.9)_100%)] z-40"></div>
+        {/* 环境光效 - 移除以提升清晰度 */}
       </div>
     </BrowserRouter>
   );
