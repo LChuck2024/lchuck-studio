@@ -92,13 +92,13 @@ export const Home: React.FC = () => {
   
   let heightRatio;
   if (cardWidth < 200) {
-    heightRatio = 1.0;
+    heightRatio = 0.85;
   } else if (cardWidth < 250) {
-    heightRatio = 0.9;
-  } else if (cardWidth < 350) {
     heightRatio = 0.75;
-  } else {
+  } else if (cardWidth < 350) {
     heightRatio = 0.65;
+  } else {
+    heightRatio = 0.55;
   }
   const cardHeight = Math.floor(cardWidth * heightRatio);
   
