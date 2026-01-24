@@ -180,10 +180,9 @@ export const PRESET_ROLES: PresetRole[] = [
 
 /**
  * 默认 AI 配置
- * 注意：系统提示词会在运行时自动添加身份识别指令，这里只需要提供角色设定
  */
 export const DEFAULT_AI_CONFIG = {
-  model: 'gemini-3.0-pro', // 默认使用 Gemini 3.0 Pro（实际调用 deepseek-chat）
+  model: 'deepseek-chat',
   temperature: 0.7,
   systemPrompt: `你是一位专业、友好、负责任的 AI 助手。你的核心原则包括：
 
@@ -206,151 +205,63 @@ export const DEFAULT_AI_CONFIG = {
 export interface ModelConfig {
   value: string;
   label: string;
-  displayName: string; // 显示给用户的名称
-  provider: 'openai' | 'deepseek' | 'qwen' | 'gemini' | 'claude';
-  actualModel: string; // 实际调用的模型（统一使用 deepseek-chat）
-  baseURL?: string; // 实际 API 端点（统一使用 DeepSeek）
+  provider: 'openai' | 'deepseek' | 'qwen' | 'moonshot' | 'zhipu' | 'minimax' | 'yi' | 'groq' | 'openrouter';
+  baseURL?: string; // 自定义 API 端点，不填则用 OpenAI 默认
 }
 
 /**
- * 可用的 AI 模型列表
- * 注意：所有模型实际都使用 DeepSeek，但显示不同的名称以提供更好的用户体验
+ * 可用的 AI 模型列表（主流超级大模型，均支持 OpenAI 兼容 API）
  */
 export const AVAILABLE_MODELS: ModelConfig[] = [
-  // DeepSeek 系列
-  { 
-    value: 'deepseek-chat', 
-    label: 'DeepSeek Chat', 
-    displayName: 'DeepSeek Chat',
-    provider: 'deepseek', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'deepseek-coder', 
-    label: 'DeepSeek Coder', 
-    displayName: 'DeepSeek Coder',
-    provider: 'deepseek', 
-    actualModel: 'deepseek-coder',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  // OpenAI 系列（实际使用 DeepSeek）
-  { 
-    value: 'gpt-4o', 
-    label: 'GPT-4o', 
-    displayName: 'GPT-4o',
-    provider: 'openai', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'gpt-4-turbo', 
-    label: 'GPT-4 Turbo', 
-    displayName: 'GPT-4 Turbo',
-    provider: 'openai', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'gpt-4', 
-    label: 'GPT-4', 
-    displayName: 'GPT-4',
-    provider: 'openai', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'gpt-3.5-turbo', 
-    label: 'GPT-3.5 Turbo', 
-    displayName: 'GPT-3.5 Turbo',
-    provider: 'openai', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  // Google Gemini 系列（实际使用 DeepSeek）
-  { 
-    value: 'gemini-3.0-pro', 
-    label: 'Gemini 3.0 Pro', 
-    displayName: 'Gemini 3.0 Pro',
-    provider: 'gemini', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'gemini-3.0-Flash', 
-    label: 'Gemini 3.0 Flash', 
-    displayName: 'Gemini 3.0 Flash',
-    provider: 'gemini', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'gemini-2.5-pro', 
-    label: 'Gemini 2.5 Pro', 
-    displayName: 'Gemini 2.5 Pro',
-    provider: 'gemini', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  // Anthropic Claude 系列（实际使用 DeepSeek）
-  { 
-    value: 'claude-3.5-sonnet', 
-    label: 'Claude 3.5 Sonnet', 
-    displayName: 'Claude 3.5 Sonnet',
-    provider: 'claude', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'claude-3-opus', 
-    label: 'Claude 3 Opus', 
-    displayName: 'Claude 3 Opus',
-    provider: 'claude', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'claude-3-sonnet', 
-    label: 'Claude 3 Sonnet', 
-    displayName: 'Claude 3 Sonnet',
-    provider: 'claude', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  // Qwen 系列（实际使用 DeepSeek）
-  { 
-    value: 'qwen-max', 
-    label: 'Qwen Max', 
-    displayName: 'Qwen Max',
-    provider: 'qwen', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'qwen-plus', 
-    label: 'Qwen Plus', 
-    displayName: 'Qwen Plus',
-    provider: 'qwen', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-  { 
-    value: 'qwen-turbo', 
-    label: 'Qwen Turbo', 
-    displayName: 'Qwen Turbo',
-    provider: 'qwen', 
-    actualModel: 'deepseek-chat',
-    baseURL: 'https://api.deepseek.com' 
-  },
-];
+  // --- DeepSeek ---
+  { value: 'deepseek-chat', label: 'DeepSeek Chat', provider: 'deepseek', baseURL: 'https://api.deepseek.com' },
+  { value: 'deepseek-coder', label: 'DeepSeek Coder', provider: 'deepseek', baseURL: 'https://api.deepseek.com' },
+  { value: 'deepseek-reasoner', label: 'DeepSeek R1', provider: 'deepseek', baseURL: 'https://api.deepseek.com' },
+  { value: 'deepseek-v3', label: 'DeepSeek V3', provider: 'deepseek', baseURL: 'https://api.deepseek.com' },
 
-/**
- * 获取默认 API Key（从环境变量）
- */
-export const getDefaultApiKey = (): string => {
-  try {
-    return (import.meta.env?.VITE_DEEPSEEK_API_KEY as string) || '';
-  } catch {
-    return '';
-  }
-};
+  // --- OpenAI ---
+  { value: 'gpt-4o', label: 'GPT-4o', provider: 'openai' },
+  { value: 'gpt-4o-mini', label: 'GPT-4o Mini', provider: 'openai' },
+  { value: 'gpt-4-turbo', label: 'GPT-4 Turbo', provider: 'openai' },
+  { value: 'gpt-4', label: 'GPT-4', provider: 'openai' },
+  { value: 'o1', label: 'o1', provider: 'openai' },
+  { value: 'o1-mini', label: 'o1 Mini', provider: 'openai' },
+
+  // --- 通义千问 Qwen（阿里云 DashScope 兼容模式）---
+  { value: 'qwen-turbo', label: 'Qwen Turbo', provider: 'qwen', baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+  { value: 'qwen-plus', label: 'Qwen Plus', provider: 'qwen', baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+  { value: 'qwen-max', label: 'Qwen Max', provider: 'qwen', baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+  { value: 'qwen-max-longcontext', label: 'Qwen Max 长文本', provider: 'qwen', baseURL: 'https://dashscope.aliyuncs.com/compatible-mode/v1' },
+
+  // --- 月之暗面 Moonshot（Kimi）---
+  { value: 'moonshot-v1-8k', label: 'Kimi Moonshot 8K', provider: 'moonshot', baseURL: 'https://api.moonshot.cn/v1' },
+  { value: 'moonshot-v1-32k', label: 'Kimi Moonshot 32K', provider: 'moonshot', baseURL: 'https://api.moonshot.cn/v1' },
+  { value: 'moonshot-v1-128k', label: 'Kimi Moonshot 128K', provider: 'moonshot', baseURL: 'https://api.moonshot.cn/v1' },
+  { value: 'moonshot-v1', label: 'Kimi Moonshot', provider: 'moonshot', baseURL: 'https://api.moonshot.cn/v1' },
+
+  // --- 智谱 GLM ---
+  { value: 'glm-4', label: 'GLM-4', provider: 'zhipu', baseURL: 'https://open.bigmodel.cn/api/paas/v4' },
+  { value: 'glm-4-flash', label: 'GLM-4 Flash', provider: 'zhipu', baseURL: 'https://open.bigmodel.cn/api/paas/v4' },
+  { value: 'glm-4-long', label: 'GLM-4 Long', provider: 'zhipu', baseURL: 'https://open.bigmodel.cn/api/paas/v4' },
+
+  // --- MiniMax ---
+  { value: 'abab6.5s', label: 'MiniMax abab6.5s', provider: 'minimax', baseURL: 'https://api.minimax.chat/v1' },
+  { value: 'abab6.5', label: 'MiniMax abab6.5', provider: 'minimax', baseURL: 'https://api.minimax.chat/v1' },
+  { value: 'abab5.5', label: 'MiniMax abab5.5', provider: 'minimax', baseURL: 'https://api.minimax.chat/v1' },
+
+  // --- 零一万物 Yi ---
+  { value: 'yi-large', label: 'Yi Large', provider: 'yi', baseURL: 'https://api.lingyiwanwu.com/v1' },
+  { value: 'yi-medium', label: 'Yi Medium', provider: 'yi', baseURL: 'https://api.lingyiwanwu.com/v1' },
+  { value: 'yi-spark', label: 'Yi Spark', provider: 'yi', baseURL: 'https://api.lingyiwanwu.com/v1' },
+
+  // --- Groq（极速推理，Llama 等）---
+  { value: 'llama-3.1-8b-instant', label: 'Llama 3.1 8B (Groq)', provider: 'groq', baseURL: 'https://api.groq.com/openai/v1' },
+  { value: 'llama-3.3-70b-versatile', label: 'Llama 3.3 70B (Groq)', provider: 'groq', baseURL: 'https://api.groq.com/openai/v1' },
+
+  // --- OpenRouter（一站调用 Claude、Gemini、Llama 等）---
+  { value: 'anthropic/claude-3.5-sonnet', label: 'Claude 3.5 Sonnet (OpenRouter)', provider: 'openrouter', baseURL: 'https://openrouter.ai/api/v1' },
+  { value: 'anthropic/claude-3-opus', label: 'Claude 3 Opus (OpenRouter)', provider: 'openrouter', baseURL: 'https://openrouter.ai/api/v1' },
+  { value: 'google/gemini-2.0-flash-exp', label: 'Gemini 2.0 Flash (OpenRouter)', provider: 'openrouter', baseURL: 'https://openrouter.ai/api/v1' },
+  { value: 'openai/gpt-4o', label: 'GPT-4o (OpenRouter)', provider: 'openrouter', baseURL: 'https://openrouter.ai/api/v1' },
+  { value: 'meta-llama/llama-3.1-70b-instruct', label: 'Llama 3.1 70B (OpenRouter)', provider: 'openrouter', baseURL: 'https://openrouter.ai/api/v1' },
+];

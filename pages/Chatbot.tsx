@@ -1,7 +1,37 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PRESET_ROLES, DEFAULT_AI_CONFIG, AVAILABLE_MODELS, getDefaultApiKey } from '../config/chatbot';
+import { PRESET_ROLES, DEFAULT_AI_CONFIG, AVAILABLE_MODELS } from '../config/chatbot';
 import { streamAIResponse, type AIConfig as ServiceAIConfig, type ChatMessage } from '../services/aiService';
+
+// 说明：
+// - 在 Vite 中，只有以 VITE_ 开头的环境变量才会注入到前端（import.meta.env）
+// - EdgeOne 平台配置的 VITE_DEEPSEEK_API_KEY 会在“构建时”被注入到产物里
+const DEEPSEEK_ENV_KEY = (import.meta.env.VITE_DEEPSEEK_API_KEY ?? '').trim();
+
+function getProviderByModel(model: string) {
+  return AVAILABLE_MODELS.find(m => m.value === model)?.provider;
+}
+
+/** 根据当前 systemPrompt 匹配的预设角色，返回对应的欢迎语 */
+function getRoleGreeting(systemPrompt: string): string {
+  const role = PRESET_ROLES.find(r => r.prompt === systemPrompt);
+  if (role) return `你好！我是你的${role.nameCn || role.name}，有什么可以帮你的？`;
+  return '你好！有什么可以帮助你的？';
+}
+
+/** 根据当前 systemPrompt 匹配的预设角色，返回输入框占位符 */
+function getRolePlaceholder(systemPrompt: string): string {
+  const role = PRESET_ROLES.find(r => r.prompt === systemPrompt);
+  const m: Record<string, string> = {
+    medical: '描述健康问题或症状…',
+    legal: '描述法律问题或需求…',
+    emotional: '分享你的感受或困扰…',
+    technical: '描述技术问题或粘贴相关代码…',
+    business: '描述商业问题或需求…',
+    education: '提问或描述学习上的问题…',
+  };
+  return (role && m[role.id]) ? m[role.id] : '输入消息…';
+}
 
 interface Message {
   id: string;
@@ -30,19 +60,32 @@ const STORAGE_KEY_CURRENT_SESSION = 'chatbot_current_session_id';
 export const Chatbot: React.FC = () => {
   const navigate = useNavigate();
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
-  const [messages, setMessages] = useState<Message[]>([
-    { id: '1', role: 'assistant', content: '你好！我是你的 AI 助手，有什么可以帮助你的吗？' }
+  const [messages, setMessages] = useState<Message[]>(() => [
+    { id: '1', role: 'assistant', content: getRoleGreeting(DEFAULT_AI_CONFIG.systemPrompt) }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessions, setSessions] = useState<ChatSession[]>([]);
-  const [config, setConfig] = useState<AIConfig>({
-    apiKey: getDefaultApiKey(), // 从环境变量读取默认 API Key
-    model: DEFAULT_AI_CONFIG.model,
-    temperature: DEFAULT_AI_CONFIG.temperature,
-    systemPrompt: DEFAULT_AI_CONFIG.systemPrompt
+  const [config, setConfig] = useState<AIConfig>(() => {
+    const defaultModel = DEFAULT_AI_CONFIG.model;
+    const defaultProvider = getProviderByModel(defaultModel);
+    return {
+      apiKey: defaultProvider === 'deepseek' ? DEEPSEEK_ENV_KEY : '',
+      model: defaultModel,
+      temperature: DEFAULT_AI_CONFIG.temperature,
+      systemPrompt: DEFAULT_AI_CONFIG.systemPrompt
+    };
   });
   const streamingMessageIdRef = useRef<string | null>(null);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  // 如果当前选择的是 DeepSeek 模型，且用户未手动输入 key，则自动从环境变量填充
+  useEffect(() => {
+    const provider = getProviderByModel(config.model);
+    if (provider === 'deepseek' && !config.apiKey.trim() && DEEPSEEK_ENV_KEY) {
+      setConfig(prev => (prev.apiKey.trim() ? prev : { ...prev, apiKey: DEEPSEEK_ENV_KEY }));
+    }
+  }, [config.model, config.apiKey]);
 
   // 从 localStorage 加载会话列表
   useEffect(() => {
@@ -78,6 +121,17 @@ export const Chatbot: React.FC = () => {
     }
   }, []);
 
+  // 保存前清理配置：
+  // - 如果当前是 DeepSeek 且 key 来自环境变量，则不写入 localStorage（避免重复保存）
+  const sanitizeConfigForStorage = React.useCallback((cfg: AIConfig): AIConfig => {
+    const provider = getProviderByModel(cfg.model);
+    const key = cfg.apiKey.trim();
+    if (provider === 'deepseek' && DEEPSEEK_ENV_KEY && key === DEEPSEEK_ENV_KEY) {
+      return { ...cfg, apiKey: '' };
+    }
+    return cfg;
+  }, []);
+
   // 保存会话到 localStorage
   const saveSession = React.useCallback((session: ChatSession, updateList: boolean = true) => {
     setSessions(prevSessions => {
@@ -111,7 +165,7 @@ export const Chatbot: React.FC = () => {
           title: generateSessionTitle(messages),
           date: formatDate(new Date()),
           messages: messages,
-          config: { ...config }
+          config: sanitizeConfigForStorage({ ...config })
         };
         saveSession(session, false); // 不更新列表顺序，只更新内容
       }, 1000);
@@ -122,7 +176,7 @@ export const Chatbot: React.FC = () => {
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [messages, config, currentSessionId, saveSession]);
+  }, [messages, config, currentSessionId, saveSession, sanitizeConfigForStorage]);
 
   // 生成会话标题（基于第一条用户消息）
   const generateSessionTitle = (messages: Message[]): string => {
@@ -143,13 +197,39 @@ export const Chatbot: React.FC = () => {
     });
   };
 
+  const handleModelChange = (nextModel: string) => {
+    const nextProvider = getProviderByModel(nextModel);
+    const currentKey = config.apiKey.trim();
+    const isUsingDeepseekEnvKey = !!DEEPSEEK_ENV_KEY && currentKey === DEEPSEEK_ENV_KEY;
+
+    // 切换模型本身
+    setConfig(prev => ({ ...prev, model: nextModel }));
+
+    // 如果选择了非 DeepSeek 模型，且没有可用的 key（或当前还是 DeepSeek 的 env key），则提示用户输入
+    if (nextProvider && nextProvider !== 'deepseek') {
+      if (!currentKey || isUsingDeepseekEnvKey) {
+        alert('你已选择非 DeepSeek 模型，请在右侧边栏输入该模型对应的 API Key。');
+      }
+    }
+  };
+
   const handleSendMessage = async () => {
     if (!input.trim() || isLoading) return;
     
-    // 检查 API Key（优先使用用户输入的，如果为空则使用环境变量中的默认值）
-    const apiKey = config.apiKey.trim() || getDefaultApiKey();
-    if (!apiKey) {
-      alert('请先在右侧边栏的 "API Key" 输入框中设置 API Key，或在 .env 文件中配置 VITE_DEEPSEEK_API_KEY');
+    // 当选择非 DeepSeek 模型时，如果 key 为空或仍然是 DeepSeek 的默认 env key，则要求用户手动输入
+    const provider = getProviderByModel(config.model);
+    const currentKey = config.apiKey.trim();
+    const isUsingDeepseekEnvKey = !!DEEPSEEK_ENV_KEY && currentKey === DEEPSEEK_ENV_KEY;
+    if (provider && provider !== 'deepseek') {
+      if (!currentKey || isUsingDeepseekEnvKey) {
+        alert('当前选择的是非 DeepSeek 模型，请先在右侧边栏输入对应的 API Key。');
+        return;
+      }
+    }
+
+    // 检查 API Key
+    if (!currentKey) {
+      alert('请先在右侧边栏的 "API Key" 输入框中设置 API Key');
       return;
     }
     
@@ -161,6 +241,9 @@ export const Chatbot: React.FC = () => {
     
     const assistantMessageId = (Date.now() + 1).toString();
     streamingMessageIdRef.current = assistantMessageId;
+    
+    // 创建新的 AbortController
+    abortControllerRef.current = new AbortController();
     
     // 添加用户消息和空的助手消息（用于流式更新）
     setMessages(prev => [...prev, userMessage, {
@@ -179,17 +262,15 @@ export const Chatbot: React.FC = () => {
       }));
       
       // 调用流式 AI 响应
-      // 优先使用用户输入的 API Key，如果为空则使用环境变量中的默认值
-      const apiKey = config.apiKey.trim() || getDefaultApiKey();
       const serviceConfig: ServiceAIConfig = {
-        apiKey: apiKey,
+        apiKey: currentKey,
         model: config.model,
         temperature: config.temperature,
         systemPrompt: config.systemPrompt
       };
       
       let fullContent = '';
-      for await (const chunk of streamAIResponse(serviceConfig, messageHistory)) {
+      for await (const chunk of streamAIResponse(serviceConfig, messageHistory, abortControllerRef.current.signal)) {
         fullContent += chunk;
         // 更新流式输出的消息
         setMessages(prev => prev.map(msg => 
@@ -215,42 +296,62 @@ export const Chatbot: React.FC = () => {
         title: generateSessionTitle(updatedMessages),
         date: formatDate(new Date()),
         messages: updatedMessages,
-        config: { ...config }
+        config: sanitizeConfigForStorage({ ...config })
       };
       
       setCurrentSessionId(sessionId);
       saveSession(session);
     } catch (error) {
       console.error('发送消息错误:', error);
-      const errorMessage = error instanceof Error ? error.message : '未知错误';
-      setMessages(prev => prev.map(msg => 
-        msg.id === assistantMessageId 
-          ? { ...msg, content: `错误: ${errorMessage}` }
-          : msg
-      ));
+      // 检查是否是用户主动取消
+      if (error instanceof Error && error.name === 'AbortError') {
+        setMessages(prev => prev.map(msg => 
+          msg.id === assistantMessageId && !msg.content
+            ? { ...msg, content: '[已停止生成]' }
+            : msg
+        ));
+      } else {
+        const errorMessage = error instanceof Error ? error.message : '未知错误';
+        setMessages(prev => prev.map(msg => 
+          msg.id === assistantMessageId 
+            ? { ...msg, content: msg.content || `错误: ${errorMessage}` }
+            : msg
+        ));
+      }
       setIsLoading(false);
       streamingMessageIdRef.current = null;
+      abortControllerRef.current = null;
     }
   };
 
+  // 停止生成
+  const handleStopGeneration = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setIsLoading(false);
+    streamingMessageIdRef.current = null;
+  };
+
   const handleCreateNewChat = () => {
-    // 保存当前会话（如果有消息）
-    if (messages.length > 1 || (messages.length === 1 && messages[0].content !== '你好！我是你的 AI 助手，有什么可以帮助你的吗？')) {
+    // 保存当前会话（仅当有过用户消息时）
+    if (messages.length > 1) {
       const sessionId = currentSessionId || Date.now().toString();
       const session: ChatSession = {
         id: sessionId,
         title: generateSessionTitle(messages),
         date: formatDate(new Date()),
         messages: messages,
-        config: { ...config }
+        config: sanitizeConfigForStorage({ ...config })
       };
       saveSession(session);
     }
-    
-    // 创建新会话
+
+    // 创建新会话，首条欢迎语按当前选定角色自动切换
     const newSessionId = Date.now().toString();
     const newMessages: Message[] = [
-      { id: Date.now().toString(), role: 'assistant', content: '你好！我是你的 AI 助手，有什么可以帮助你的吗？' }
+      { id: Date.now().toString(), role: 'assistant', content: getRoleGreeting(config.systemPrompt) }
     ];
     
     setCurrentSessionId(newSessionId);
@@ -355,17 +456,28 @@ export const Chatbot: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Type your message..."
-              className="flex-1 bg-white border border-gray-300 rounded-lg p-3 text-black font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all shadow-sm"
+              onKeyDown={(e) => e.key === 'Enter' && !isLoading && handleSendMessage()}
+              placeholder={getRolePlaceholder(config.systemPrompt)}
+              disabled={isLoading}
+              className="flex-1 bg-white border border-gray-300 rounded-lg p-3 text-black font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all shadow-sm disabled:bg-gray-100 disabled:cursor-not-allowed"
             />
-            <button 
-              onClick={handleSendMessage}
-              disabled={isLoading || !input.trim()}
-              className="px-6 py-2 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg transition-all font-bold shadow-md hover:shadow-lg"
-            >
-              {isLoading ? '发送中...' : 'Send'}
-            </button>
+            {isLoading ? (
+              <button 
+                onClick={handleStopGeneration}
+                className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-all font-bold shadow-md hover:shadow-lg flex items-center gap-2"
+              >
+                <span className="w-3 h-3 border-2 border-white rounded-sm"></span>
+                停止
+              </button>
+            ) : (
+              <button 
+                onClick={handleSendMessage}
+                disabled={!input.trim()}
+                className="px-6 py-2 bg-red-600 hover:bg-red-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg transition-all font-bold shadow-md hover:shadow-lg"
+              >
+                Send
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -379,24 +491,14 @@ export const Chatbot: React.FC = () => {
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
           {/* API 密钥 */}
           <div className="space-y-2">
-            <label className="text-sm text-black font-medium">
-              API Key
-              {config.apiKey && config.apiKey === getDefaultApiKey() && (
-                <span className="text-xs text-gray-500 ml-2">(使用环境变量)</span>
-              )}
-            </label>
+            <label className="text-sm text-black font-medium">API Key</label>
             <input 
               type="password" 
               value={config.apiKey}
               onChange={(e) => setConfig({...config, apiKey: e.target.value})}
-              placeholder={getDefaultApiKey() ? "使用环境变量或输入自定义 API Key" : "Enter your API Key"}
+              placeholder="Enter your API Key"
               className="w-full bg-white border border-gray-300 rounded-lg p-2 text-sm text-black font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all shadow-sm"
             />
-            {getDefaultApiKey() && (
-              <p className="text-xs text-gray-500">
-                已从 .env 文件加载默认 API Key，留空则使用默认值
-              </p>
-            )}
           </div>
 
           {/* 模型选择 */}
@@ -404,30 +506,25 @@ export const Chatbot: React.FC = () => {
             <label className="text-sm text-black font-medium">Model</label>
             <select 
               value={config.model}
-              onChange={(e) => setConfig({...config, model: e.target.value})}
+              onChange={(e) => handleModelChange(e.target.value)}
               className="w-full bg-white border border-gray-300 rounded-lg p-2 text-sm text-black font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all shadow-sm appearance-none"
             >
               {AVAILABLE_MODELS.map(model => (
                 <option key={model.value} value={model.value}>
-                  {model.displayName || model.label}
+                  {model.label} {model.provider !== 'openai' ? `(${model.provider})` : ''}
                 </option>
               ))}
             </select>
             <p className="text-xs text-gray-500 mt-1">
-              {(() => {
-                const modelConfig = AVAILABLE_MODELS.find(m => m.value === config.model);
-                if (modelConfig) {
-                  const providerNames: Record<string, string> = {
-                    'openai': 'OpenAI',
-                    'deepseek': 'DeepSeek',
-                    'qwen': 'Qwen',
-                    'gemini': 'Google Gemini',
-                    'claude': 'Anthropic Claude'
-                  };
-                  return `${providerNames[modelConfig.provider] || 'AI'} 模型`;
-                }
-                return 'AI 模型';
-              })()}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'deepseek' && 'DeepSeek: https://api.deepseek.com'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'openai' && 'OpenAI: https://api.openai.com'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'qwen' && 'Qwen: https://dashscope.aliyuncs.com'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'moonshot' && 'Moonshot: https://platform.moonshot.ai'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'zhipu' && '智谱: https://open.bigmodel.cn'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'minimax' && 'MiniMax: https://api.minimax.chat'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'yi' && '零一万物: https://platform.lingyiwanwu.com'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'groq' && 'Groq: https://console.groq.com'}
+              {AVAILABLE_MODELS.find(m => m.value === config.model)?.provider === 'openrouter' && 'OpenRouter: https://openrouter.ai'}
             </p>
           </div>
 
@@ -456,7 +553,14 @@ export const Chatbot: React.FC = () => {
               onChange={(e) => {
                 const selectedRole = PRESET_ROLES.find(role => role.id === e.target.value);
                 if (selectedRole) {
-                  setConfig({...config, systemPrompt: selectedRole.prompt});
+                  setConfig(prev => ({ ...prev, systemPrompt: selectedRole.prompt }));
+                  // 若当前仅为首条欢迎，则随角色自动切换欢迎语
+                  setMessages(prev => {
+                    if (prev.length === 1 && prev[0].role === 'assistant') {
+                      return [{ ...prev[0], content: getRoleGreeting(selectedRole.prompt) }];
+                    }
+                    return prev;
+                  });
                 }
               }}
               className="w-full bg-white border border-gray-300 rounded-lg p-2 text-sm text-black font-medium focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all shadow-sm appearance-none"
