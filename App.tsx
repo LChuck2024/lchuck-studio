@@ -6,6 +6,7 @@ import { Logo } from './components/Logo';
 import { NavigationTabs } from './components/NavigationTabs';
 import { Home } from './pages/Home';
 import { Apps } from './pages/Apps';
+import { Math } from './pages/Math';
 import { Agents } from './pages/Agents';
 import { Chatbot } from './pages/Chatbot';
 import { Blog } from './pages/Blog';
@@ -26,6 +27,7 @@ const AnimatedRoutes: React.FC = () => {
         <Routes location={location}>
           <Route path="/" element={<Home />} />
           <Route path="/apps" element={<Apps />} />
+          <Route path="/apps/math" element={<Math />} />
           <Route path="/agents" element={<Agents />} />
           <Route path="/agents/chatbot" element={<Chatbot />} />
           <Route path="/blog" element={<Blog />} />
