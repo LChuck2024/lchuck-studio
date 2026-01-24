@@ -435,9 +435,6 @@ export const Chatbot: React.FC = () => {
                     : 'bg-gray-50 border border-gray-200 text-black'
                 }`}
               >
-                <div className="text-xs text-gray-800 mb-1 capitalize font-semibold">
-                  {msg.role === 'user' ? '用户' : '助手'}
-                </div>
                 <div className="whitespace-pre-wrap leading-relaxed text-black">
                   {msg.content || (streamingMessageIdRef.current === msg.id ? '正在思考...' : '')}
                   {streamingMessageIdRef.current === msg.id && (
