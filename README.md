@@ -1,155 +1,183 @@
-# LChuck Studio - Personal Portfolio
+# LChuck Studio
 
 ![LChuck Studio Screenshot](./public/screenshot.JPG)
 
-个人作品集与创作空间，一个融合物理引擎交互与 3D 视觉效果的现代化个人网站。
+个人作品集与创作空间，融合物理引擎交互、3D 视觉与 AI 客服浮窗的现代化个人网站。
+
+**Slogan:** 数据架构 · 自动化 · 超级个体 | 拒绝低效内卷，用架构思维和代码，构建你的自动化资产。
+
+---
 
 ## ✨ 特性
 
-- **物理引擎交互** - 基于 Matter.js 实现的物理系统，元素随鼠标移动产生真实的排斥效果
-- **3D 粒子背景** - 使用 Three.js 构建的动态粒子系统，营造沉浸式视觉体验
-- **响应式设计** - 完美适配各种屏幕尺寸，从移动设备到桌面显示器
-- **打字机动画** - 优雅的文字逐字显示效果，增强视觉吸引力
-- **流畅滚动** - 支持页面滚动，物理元素随页面正确移动
-- **现代化 UI** - 黑色主题配合红色强调色，科技感十足
+- **物理引擎交互** - 基于 Matter.js，卡片随鼠标产生排斥效果，支持拖拽（桌面端）
+- **3D 粒子背景** - Three.js 动态粒子系统，营造沉浸式视觉
+- **AI 客服浮窗** - Intercom 风格浮窗，支持多角色切换（留学咨询 / 数据架构 / 副业搞钱）
+- **响应式设计** - 移动端垂直堆叠、桌面端横向布局，支持触摸滚动
+- **打字机动画** - 副标题与 Slogan 逐字显示
+- **博客系统** - Markdown 文章，支持 `src/posts/` 源文件与 `public/posts/` 图片
+
+---
 
 ## 🎯 主要内容
 
-网站包含三个主要分类：
+| 模块 | 说明 |
+|------|------|
+| **Digital Workforce** | 数字员工 / 智能代理：欧洲选课助手、RAG 知识库清洗专家 |
+| **Product Toolkit** | 产品与工具箱：Excel/PDF 自动化、数据清洗 SaaS |
+| **Engineering Log** | 工程日志：技术、增长与一人公司构建实录 |
 
-- **🤖 Agent Collection** - 智能代理集合：展示 AI Agent、工作流自动化、智能决策等创新应用
-- **📱 App Collection** - 应用项目集合：包括 Web 应用、移动应用、桌面工具等各类产品与解决方案
-- **📝 Blog Articles** - 博客文章：技术分享与思考，记录学习历程、项目经验、技术洞察与行业观察
+---
 
 ## 🛠️ 技术栈
 
-- **前端框架**: React 19.2.3
-- **构建工具**: Vite 6.2.0
-- **语言**: TypeScript 5.8.2
-- **物理引擎**: Matter.js 0.20.0
-- **3D 图形**: Three.js 0.173.0
-- **样式**: Tailwind CSS (CDN)
+| 类别 | 技术 |
+|------|------|
+| 前端框架 | React 19 + TypeScript 5.8 |
+| 构建工具 | Vite 6 |
+| 物理引擎 | Matter.js |
+| 3D 图形 | Three.js |
+| 动画 | Framer Motion |
+| 样式 | Tailwind CSS (CDN) |
+| AI 服务 | DeepSeek API (OpenAI 兼容) |
+
+---
 
 ## 📁 项目结构
 
 ```
 lchuck-studio/
-├── components/          # React 组件
-│   ├── PhysicsSystem.tsx    # 物理系统核心
-│   ├── PhysicsNode.tsx      # 物理节点组件
-│   └── ThreeBackground.tsx  # 3D 粒子背景
-├── constants.ts        # 配置和常量
-├── App.tsx             # 主应用组件
-├── index.tsx           # 应用入口
-├── index.html          # HTML 模板
-└── vite.config.ts      # Vite 配置
+├── components/
+│   ├── ChatbotWidget.tsx    # AI 客服浮窗（Intercom 风格）
+│   ├── Logo.tsx             # 品牌 Logo 与 System Online 状态
+│   ├── NavigationTabs.tsx   # 顶部导航
+│   ├── PhysicsSystem.tsx    # 物理引擎核心
+│   ├── ThreeBackground.tsx  # 3D 粒子背景
+│   └── ...
+├── config/
+│   └── chatbot.ts           # AI 预设角色、默认配置
+├── pages/
+│   ├── Home.tsx             # 首页（物理卡片 + 副标题）
+│   ├── Agents.tsx           # Digital Workforce
+│   ├── Apps.tsx             # Product Toolkit
+│   ├── Blog.tsx             # Engineering Log 列表
+│   └── BlogPost.tsx         # Markdown 文章详情
+├── services/
+│   └── aiService.ts         # DeepSeek 流式调用
+├── src/posts/               # Markdown 文章源文件
+├── public/posts/            # 文章配图
+├── constants.ts             # SECTIONS、PHYSICS_CONFIG
+├── App.tsx
+└── index.html
 ```
+
+---
 
 ## 🚀 快速开始
 
 ### 前置要求
 
-- Node.js (推荐 v18 或更高版本)
+- Node.js 18+
 - npm 或 yarn
 
-### 安装依赖
+### 安装与运行
 
 ```bash
 npm install
-```
-
-### 启动开发服务器
-
-```bash
 npm run dev
 ```
 
-开发服务器将在 http://localhost:3000 启动
+开发服务器默认在 `http://127.0.0.1:5173` 启动（`--host 127.0.0.1` 避免网络错误）。
 
-### 构建生产版本
+### AI 客服配置
+
+大模型 API Key 通过 `VITE_DEEPSEEK_API_KEY` 注入：
+
+| 环境 | 配置方式 |
+|------|----------|
+| **本地开发** | 在项目根目录创建 `.env` 文件，添加 `VITE_DEEPSEEK_API_KEY=sk-xxx` |
+| **EdgeOne 部署** | 在 EdgeOne 控制台配置环境变量 `VITE_DEEPSEEK_API_KEY` |
+
+未配置时，浮窗会提示「服务暂不可用」。
+
+### 构建与预览
 
 ```bash
 npm run build
-```
-
-构建产物将输出到 `dist/` 目录
-
-### 预览生产构建
-
-```bash
 npm run preview
 ```
 
-## 🎨 核心功能说明
+---
 
-### 物理引擎系统
+## 🎨 核心功能
 
-- 使用 Matter.js 创建物理世界
-- 元素初始悬浮，2.5 秒后受重力影响
-- 鼠标靠近时产生排斥力，营造交互感
-- 边界自动适配可滚动内容区域
+### 物理引擎
 
-### 3D 粒子背景
+- 卡片初始悬浮，2.5 秒后受重力影响
+- 桌面端：鼠标靠近产生排斥力，支持拖拽
+- 移动端：禁用 Mouse 监听，保证滚动与点击
 
-- 8000 个粒子组成的动态背景
-- 粒子随鼠标移动产生视差效果
-- 红色高亮粒子随机分布，增强视觉层次
+### AI 客服浮窗
 
-### 响应式布局
+- **默认角色**：🇪🇺 欧洲留学咨询
+- **可切换**：🐍 数据架构/Python 专家、💼 一人公司/副业搞钱
+- 点击右下角 FAB 打开/关闭浮窗
+- 角色切换时自动更新 System Prompt 并重置对话
 
-- 卡片大小根据屏幕宽度动态计算
-- 文字大小使用响应式单位（vw, rem）
-- 支持最小宽度保护，防止布局崩溃
+### 博客
 
-## 📝 开发说明
+- 文章存放在 `src/posts/*.md`
+- 图片存放在 `public/posts/`，Markdown 中引用 `/posts/xxx.png`
+- 路由：`/blog` 列表，`/blog/:slug` 详情
 
-### 修改内容
+---
 
-编辑 `constants.ts` 中的 `SECTIONS` 数组来修改分类内容：
+## 📝 配置说明
+
+### 修改首页卡片
+
+编辑 `constants.ts` 中的 `SECTIONS`：
 
 ```typescript
 export const SECTIONS: Section[] = [
-  {
-    id: 'agents',
-    title: 'Agent Collection',
-    titleCn: '智能代理集合',
-    type: 'AGENT',
-    description: '...',
-    icon: '🤖'
-  },
+  { id: 'agents', title: 'DIGITAL WORKFORCE', titleCn: '...', type: 'AGENT', ... },
   // ...
 ];
 ```
 
-### 调整物理参数
+### 修改物理参数
 
-在 `constants.ts` 中修改 `PHYSICS_CONFIG`：
+在 `constants.ts` 中调整 `PHYSICS_CONFIG`：
 
 ```typescript
 export const PHYSICS_CONFIG = {
-  GRAVITY: 0.08,           // 重力强度
-  AIR_FRICTION: 0.07,      // 空气阻力
-  REPELL_STRENGTH: 0.006,  // 排斥力强度
-  REPELL_RADIUS: 300,      // 排斥半径
-  COLLAPSE_DELAY: 2500,    // 初始悬浮时间（毫秒）
+  GRAVITY: 0.08,
+  AIR_FRICTION: 0.07,
+  REPELL_STRENGTH: 0.006,
+  REPELL_RADIUS: 300,
+  COLLAPSE_DELAY: 2500,
 };
 ```
 
-## 🌐 浏览器支持
+### 修改 AI 预设角色
 
-- Chrome (推荐)
-- Firefox
-- Safari
-- Edge
-
-## 📄 许可证
-
-本项目为个人作品集项目。
-
-## 👤 作者
-
-LChuck Studio
+编辑 `config/chatbot.ts` 中的 `PRESET_ROLES` 和 `DEFAULT_AI_CONFIG`。
 
 ---
 
-**Build 2026** | Personal Portfolio & Creative Workspace
+## 🌐 浏览器支持
+
+- Chrome（推荐）
+- Firefox
+- Safari（含 iOS）
+- Edge
+
+---
+
+## 📄 许可证
+
+个人作品集项目。
+
+---
+
+**LChuck Studio** | 数据架构 · 自动化 · 超级个体 | Build 2026
