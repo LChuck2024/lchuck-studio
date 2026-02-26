@@ -13,7 +13,6 @@ const tabs: Tab[] = [
   { id: 'agents', label: 'Digital Workforce', path: '/agents' },
   { id: 'apps', label: 'Product Toolkit', path: '/apps' },
   { id: 'blog', label: 'Engineering Log', path: '/blog' },
-  { id: 'chatbot', label: 'Chatbot', path: '/chatbot' },
 ];
 
 export const NavigationTabs: React.FC = () => {

@@ -118,9 +118,9 @@ export const Home: React.FC = () => {
   const logoBottom = logoTop + logoHeight;
   const subtitleY = logoBottom + (isMobile ? 60 : 100);
   
-  // 计算卡片位置
+  // 计算卡片位置 - 移动端加大间距，避免卡片覆盖副标题
   const subtitleHeight = isMobile ? 100 : (height < 800 ? 120 : 160);
-  const minSpacing = isMobile ? 80 : (height < 800 ? 120 : 180);
+  const minSpacing = isMobile ? 140 : (height < 800 ? 120 : 180); // 移动端 140px 确保卡片在副标题下方
   const firstCardY = subtitleY + subtitleHeight / 2 + minSpacing;
 
   const sectionDepths = useMemo(() => 
@@ -146,10 +146,10 @@ export const Home: React.FC = () => {
   const containerMinHeight = firstCardY + totalCardsHeight + 180;
 
   return (
-    <div className="w-full min-h-screen relative px-4 pb-20" style={{ minHeight: `${containerMinHeight}px` }}>
+    <div className="w-full min-h-screen relative px-4 pb-36 md:pb-24" style={{ minHeight: `${containerMinHeight}px` }}>
       <PhysicsSystem>
         {/* 副标题区域 - 在 Logo 下方 */}
-        <PhysicsNode id="subtitle" x={centerX} y={subtitleY} w={Math.min(width * 0.95, 1000)} h={subtitleHeight} depth={200}>
+        <PhysicsNode id="subtitle" x={centerX} y={subtitleY} w={Math.min(width * 0.95, 1000)} h={subtitleHeight} depth={200} className="z-20">
           <div className="text-center select-none w-full px-2 sm:px-4">
             <div className="mt-2 sm:mt-6 px-2">
               <Typewriter 

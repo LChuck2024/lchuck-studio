@@ -54,7 +54,7 @@ export const PRESET_ROLES: PresetRole[] = [
 export const DEFAULT_AI_CONFIG = {
   model: 'deepseek-chat',
   temperature: 0.7,
-  defaultRoleId: 'data-architect'
+  defaultRoleId: 'study-abroad' // 浮窗默认：欧洲留学咨询
 };
 
 /**

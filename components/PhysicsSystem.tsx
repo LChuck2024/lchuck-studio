@@ -61,9 +61,15 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
     // 存储墙体的引用，以便在窗口大小改变时更新
     const wallsRef = { current: walls };
 
-    const mouse = Mouse.create(containerRef.current!);
-    // 移动端禁用 MouseConstraint，否则会阻止触摸滚动
+    // 移动端使用离屏元素，避免 Matter.js Mouse 的 touch 监听阻止滚动和点击
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    let mouseElement: HTMLElement;
+    if (isTouchDevice) {
+      mouseElement = document.createElement('div');
+      mouseElement.style.cssText = 'position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;pointer-events:none';
+      document.body.appendChild(mouseElement);
+    }
+    const mouse = Mouse.create(isTouchDevice ? mouseElement! : containerRef.current!);
     let mouseConstraint: Matter.Constraint | null = null;
     if (!isTouchDevice) {
       mouseConstraint = MouseConstraint.create(engine, {
@@ -157,7 +163,9 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
       clearTimeout(timer);
       Runner.stop(runner);
       window.removeEventListener('resize', handleResize);
-      // 清理边界
+      if (isTouchDevice && mouseElement?.parentNode) {
+        mouseElement.remove();
+      }
       Composite.remove(engine.world, wallsRef.current);
       Engine.clear(engine);
       cancelAnimationFrame(animId);
@@ -166,7 +174,7 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <PhysicsContext.Provider value={{ registerBody, unregisterBody }}>
-      <div ref={containerRef} className="relative w-full min-h-screen z-10 cursor-default md:cursor-crosshair">
+      <div ref={containerRef} className="relative w-full min-h-screen z-10 cursor-default md:cursor-crosshair touch-pan-y">
         {children}
       </div>
     </PhysicsContext.Provider>

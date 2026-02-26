@@ -4,11 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ThreeBackground } from './components/ThreeBackground';
 import { Logo } from './components/Logo';
 import { NavigationTabs } from './components/NavigationTabs';
-import { FloatingChatButton } from './components/FloatingChatButton';
+import { ChatbotWidget } from './components/ChatbotWidget';
 import { Home } from './pages/Home';
 import { Apps } from './pages/Apps';
 import { Agents } from './pages/Agents';
-import { Chatbot } from './pages/Chatbot';
 import { Blog } from './pages/Blog';
 import { BlogPost } from './pages/BlogPost';
 
@@ -31,7 +30,6 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/agents" element={<Agents />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
-          <Route path="/chatbot" element={<Chatbot />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -41,10 +39,8 @@ const AnimatedRoutes: React.FC = () => {
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <div 
-        className="w-full h-screen min-h-0 bg-white overflow-x-hidden overflow-y-auto relative touch-pan-y overscroll-contain"
-        style={{ WebkitOverflowScrolling: 'touch' }}
-      >
+      {/* 使用 body 作为滚动容器，避免 iOS 上 div overflow 滚动失效 */}
+      <div className="w-full min-h-screen bg-white overflow-x-hidden relative">
         {/* Three.js 实时粒子背景 - 放在 Router 外，确保不重载 */}
         <ThreeBackground />
         
@@ -83,8 +79,8 @@ const App: React.FC = () => {
           <div className="text-gray-600">{typeof window !== 'undefined' ? `${window.innerWidth}PX x ${window.innerHeight}PX` : '1920PX x 1080PX'}</div>
         </div>
 
-        {/* 全局悬浮聊天按钮 - 快捷进入 AI 咨询 */}
-        <FloatingChatButton />
+        {/* 浮窗客服 Widget - Intercom 风格 */}
+        <ChatbotWidget />
       </div>
     </BrowserRouter>
   );
