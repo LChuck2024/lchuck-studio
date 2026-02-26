@@ -71,16 +71,20 @@ export const Home: React.FC = () => {
 
   const { width, height } = dimensions;
   const centerX = width / 2;
-  const centerY = height / 2;
+  const isMobile = width < 768;
   
   // 动态计算卡片尺寸
-  const minSideMargin = 10;
+  const minSideMargin = 16;
   const minCardGap = 8;
   const minCardWidth = 150;
   const availableWidth = width - minSideMargin * 2;
   
   let cardWidth, cardGap;
-  if (availableWidth < minCardWidth * 3 + minCardGap * 2) {
+  if (isMobile) {
+    // 移动端：单列，卡片占满宽度，间距加大
+    cardWidth = availableWidth;
+    cardGap = 32;
+  } else if (availableWidth < minCardWidth * 3 + minCardGap * 2) {
     cardWidth = Math.floor((availableWidth - minCardGap * 2) / 3);
     cardGap = minCardGap;
   } else {
@@ -92,7 +96,9 @@ export const Home: React.FC = () => {
   }
   
   let heightRatio;
-  if (cardWidth < 200) {
+  if (isMobile) {
+    heightRatio = 0.5; // 移动端卡片稍扁
+  } else if (cardWidth < 200) {
     heightRatio = 0.7;
   } else if (cardWidth < 250) {
     heightRatio = 0.6;
@@ -103,23 +109,19 @@ export const Home: React.FC = () => {
   }
   const cardHeight = Math.floor(cardWidth * heightRatio);
   
-  const actualTotalWidth = cardWidth * 3 + cardGap * 2;
+  const actualTotalWidth = isMobile ? cardWidth : cardWidth * 3 + cardGap * 2;
   const actualSideMargin = Math.max(minSideMargin, (width - actualTotalWidth) / 2);
   
   // 主页 Logo 在中心偏上，副标题在 Logo 下方
-  // Logo 使用 fixed 定位在 20vh，需要计算对应的像素位置
-  const logoTop = height * 0.2; // Logo 顶部位置（20vh）
-  const logoHeight = 180; // 估算 Logo 高度
-  const logoBottom = logoTop + logoHeight; // Logo 底部位置
-  const subtitleY = logoBottom + 100; // 副标题在 Logo 下方 100px，确保不被覆盖
+  const logoTop = height * 0.15;
+  const logoHeight = isMobile ? 120 : 180;
+  const logoBottom = logoTop + logoHeight;
+  const subtitleY = logoBottom + (isMobile ? 60 : 100);
   
-  // 计算卡片位置，在副标题下方
-  const subtitleHeight = height < 800 ? 120 : 160;
-  const minSpacing = height < 800 ? 120 : 180;
-  const cardY = subtitleY + subtitleHeight / 2 + minSpacing;
-  const finalCardY = height < 800 
-    ? Math.min(cardY, height - cardHeight - 100)
-    : cardY;
+  // 计算卡片位置
+  const subtitleHeight = isMobile ? 100 : (height < 800 ? 120 : 160);
+  const minSpacing = isMobile ? 80 : (height < 800 ? 120 : 180);
+  const firstCardY = subtitleY + subtitleHeight / 2 + minSpacing;
 
   const sectionDepths = useMemo(() => 
     SECTIONS.map(() => Math.random() * 100),
@@ -138,18 +140,23 @@ export const Home: React.FC = () => {
     }));
   }, []);
 
+  const totalCardsHeight = isMobile 
+    ? 3 * cardHeight + 2 * cardGap 
+    : cardHeight;
+  const containerMinHeight = firstCardY + totalCardsHeight + 180;
+
   return (
-    <div className="w-screen min-h-screen relative" style={{ minHeight: `${finalCardY + cardHeight + 200}px` }}>
+    <div className="w-full min-h-screen relative px-4 pb-20" style={{ minHeight: `${containerMinHeight}px` }}>
       <PhysicsSystem>
         {/* 副标题区域 - 在 Logo 下方 */}
         <PhysicsNode id="subtitle" x={centerX} y={subtitleY} w={Math.min(width * 0.95, 1000)} h={subtitleHeight} depth={200}>
           <div className="text-center select-none w-full px-2 sm:px-4">
-            <div className="mt-4 sm:mt-6 px-2">
+            <div className="mt-2 sm:mt-6 px-2">
               <Typewriter 
                 text="数据架构 · 自动化 · 超级个体" 
                 speed={60} 
                 delay={1800} 
-                className="mono text-[1.5vw] sm:text-[1vw] md:text-[10px] lg:text-[12px] xl:text-[14px] tracking-[0.5em] text-gray-400 font-bold whitespace-nowrap"
+                className="mono text-xs sm:text-[1vw] md:text-[10px] lg:text-[12px] xl:text-[14px] tracking-[0.3em] sm:tracking-[0.5em] text-gray-400 font-bold"
                 showCursor={false}
               />
             </div>
@@ -158,29 +165,29 @@ export const Home: React.FC = () => {
                 text="Turning messy data into profitable assets." 
                 speed={30} 
                 delay={3000} 
-                className="mono text-[1.2vw] sm:text-[1vw] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.1em] text-gray-400/80 italic font-light whitespace-nowrap"
+                className="mono text-[10px] sm:text-[1vw] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.1em] text-gray-400/80 italic font-light"
                 showCursor={false}
               />
                <Typewriter 
                 text="拒绝低效内卷，用架构思维和代码，构建你的自动化资产。" 
                 speed={50} 
                 delay={4200} 
-                className="text-[2vw] sm:text-[1.5vw] md:text-[14px] lg:text-[16px] xl:text-[18px] tracking-[0.1em] text-gray-800 font-bold whitespace-nowrap mt-1"
+                className="text-sm sm:text-[1.5vw] md:text-[14px] lg:text-[16px] xl:text-[18px] tracking-[0.1em] text-gray-800 font-bold mt-1 text-center max-w-md mx-auto"
                 showCursor={false}
               />
             </div>
           </div>
         </PhysicsNode>
 
-      {/* 主要分类展示 */}
+      {/* 主要分类展示 - 移动端垂直堆叠，桌面端横向 */}
       {SECTIONS.map((section, i) => {
         const cardSpacing = cardWidth + cardGap;
-        const startX = actualSideMargin + cardWidth / 2;
-        const x = startX + i * cardSpacing;
+        const x = isMobile ? centerX : actualSideMargin + cardWidth / 2 + i * cardSpacing;
         const clampedX = Math.max(cardWidth / 2 + 10, Math.min(width - cardWidth / 2 - 10, x));
+        const cardY = isMobile ? firstCardY + i * (cardHeight + cardGap) : firstCardY;
 
         return (
-          <PhysicsNode key={section.id} id={section.id} x={clampedX} y={finalCardY} w={cardWidth} h={cardHeight} depth={sectionDepths[i]}>
+          <PhysicsNode key={section.id} id={section.id} x={clampedX} y={cardY} w={cardWidth} h={cardHeight} depth={sectionDepths[i]}>
             <div 
               className="w-full h-full p-3 sm:p-4 md:p-5 lg:p-6 bg-gray-100/50 border border-gray-300/50 backdrop-blur-2xl rounded-sm group hover:border-red-600/60 transition-all duration-700 flex flex-col justify-between cursor-pointer overflow-hidden relative"
               onClick={() => {
@@ -197,13 +204,13 @@ export const Home: React.FC = () => {
               
               <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
                 <div className="flex justify-between items-start mb-1 flex-shrink-0">
-                  <span className="text-[1.6vw] sm:text-[1.2vw] md:text-[10px] lg:text-xs mono text-red-600 font-bold tracking-[0.1em]">{section.tag || section.type}</span>
+                  <span className="text-[10px] sm:text-[1.2vw] md:text-[10px] lg:text-xs mono text-red-600 font-bold tracking-[0.1em]">{section.tag || section.type}</span>
                 </div>
                 <div className="mb-2 sm:mb-3 flex-shrink-0 pr-12">
-                  <h3 className="text-[3vw] sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight text-gray-900 group-hover:text-red-600 transition-colors uppercase leading-tight break-words line-clamp-1">{section.title}</h3>
-                  <p className="text-[1.6vw] sm:text-[1.3vw] md:text-[12px] lg:text-[14px] font-bold text-gray-700 mt-1 break-words line-clamp-1 tracking-wide">{section.titleCn}</p>
+                  <h3 className="text-base sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight text-gray-900 group-hover:text-red-600 transition-colors uppercase leading-tight break-words line-clamp-2">{section.title}</h3>
+                  <p className="text-xs sm:text-[1.3vw] md:text-[12px] lg:text-[14px] font-bold text-gray-700 mt-1 break-words line-clamp-1 tracking-wide">{section.titleCn}</p>
                 </div>
-                <p className="text-[1.6vw] sm:text-[1.4vw] md:text-[11px] lg:text-[13px] text-gray-500 mt-1 sm:mt-2 font-normal leading-relaxed break-words overflow-y-auto flex-1 min-h-0">{section.description}</p>
+                <p className="text-xs sm:text-[1.4vw] md:text-[11px] lg:text-[13px] text-gray-500 mt-1 sm:mt-2 font-normal leading-relaxed break-words overflow-y-auto flex-1 min-h-0">{section.description}</p>
               </div>
               <div className="pt-3 sm:pt-4 border-t border-gray-300/30 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-opacity">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-red-600 rounded-full group-hover:animate-ping"></div>
@@ -232,9 +239,13 @@ export const Home: React.FC = () => {
       ))}
       </PhysicsSystem>
       
-      <div className="absolute bottom-4 sm:bottom-8 w-full text-center pointer-events-none opacity-50 z-0">
-        <p className="text-[10px] sm:text-xs text-gray-400 font-light tracking-widest mono">
-          Designed by LChuck | 前500强数据架构师 | 长期主义践行者
+      <div className="relative mt-12 w-full px-4 text-center pointer-events-none opacity-50 z-0">
+        <p className="text-[10px] sm:text-xs text-gray-400 font-light tracking-widest mono flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+          <span>Designed by LChuck</span>
+          <span className="hidden sm:inline">|</span>
+          <span>前500强数据架构师</span>
+          <span className="hidden sm:inline">|</span>
+          <span>长期主义践行者</span>
         </p>
       </div>
     </div>

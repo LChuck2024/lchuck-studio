@@ -18,15 +18,15 @@ const tabs: Tab[] = [
 
 export const NavigationTabs: React.FC = () => {
   return (
-    <div className="flex items-center gap-1 sm:gap-1.5 md:gap-2">
+    <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-1.5 md:gap-2 md:flex-nowrap md:justify-start">
       {tabs.map((tab, index) => (
         <React.Fragment key={tab.id}>
           <NavLink
             to={tab.path}
             className={({ isActive }) => {
               const baseClasses = `
-                mono text-[1.2vw] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px]
-                font-bold tracking-[0.2em] uppercase
+                mono text-[10px] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px]
+                font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase
                 relative
                 transition-all duration-500 ease-out
                 cursor-pointer
@@ -127,7 +127,7 @@ export const NavigationTabs: React.FC = () => {
           
           {/* 分隔符 */}
           {index < tabs.length - 1 && (
-            <span className="text-gray-300 mono text-[1.2vw] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px]">
+            <span className="text-gray-300 mono text-[10px] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px] hidden sm:inline">
               |
             </span>
           )}

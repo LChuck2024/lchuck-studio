@@ -13,7 +13,7 @@ const Typewriter: React.FC<{
   const [displayedText, setDisplayedText] = React.useState("");
   const [isFinished, setIsFinished] = React.useState(false);
 
-  React.  useEffect(() => {
+  React.useEffect(() => {
     setIsFinished(false);
     let timeout: number;
     let charIndex = 0;
@@ -83,7 +83,7 @@ export const Logo: React.FC = () => {
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></div>
             <span className="text-[10px] sm:text-xs tracking-[0.2em] text-green-500 font-mono uppercase font-bold">System Online</span>
           </motion.div>
-          <h2 className="text-[8vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-black tracking-tighter italic leading-none inline-flex items-center justify-center gap-2 sm:gap-3 md:gap-4 whitespace-nowrap">
+          <h2 className="text-4xl sm:text-5xl md:text-[6rem] lg:text-[8rem] xl:text-[10rem] font-black tracking-tighter italic leading-none flex flex-wrap items-center justify-center gap-1 sm:gap-2 md:gap-4">
             <Typewriter 
               text="LCHUCK" 
               speed={120} 

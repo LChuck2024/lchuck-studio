@@ -10,6 +10,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
   <style>
+    html {
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     body {
       background-color: #FFFFFF;
       color: #1a1a1a;
@@ -17,11 +22,12 @@
       padding: 0;
       overflow-x: hidden;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       font-family: 'Inter', sans-serif;
     }
     #root {
       min-height: 100vh;
-      width: 100vw;
+      width: 100%;
     }
     .mono { font-family: 'JetBrains Mono', monospace; }
     

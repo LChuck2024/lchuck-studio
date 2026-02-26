@@ -62,11 +62,16 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
     const wallsRef = { current: walls };
 
     const mouse = Mouse.create(containerRef.current!);
-    const mouseConstraint = MouseConstraint.create(engine, {
-      mouse,
-      constraint: { stiffness: 0.1, render: { visible: false } }
-    });
-    Composite.add(engine.world, mouseConstraint);
+    // 移动端禁用 MouseConstraint，否则会阻止触摸滚动
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    let mouseConstraint: Matter.Constraint | null = null;
+    if (!isTouchDevice) {
+      mouseConstraint = MouseConstraint.create(engine, {
+        mouse,
+        constraint: { stiffness: 0.1, render: { visible: false } }
+      });
+      Composite.add(engine.world, mouseConstraint);
+    }
 
     // 实时排斥逻辑
     Events.on(engine, 'beforeUpdate', () => {
@@ -161,7 +166,7 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <PhysicsContext.Provider value={{ registerBody, unregisterBody }}>
-      <div ref={containerRef} className="relative w-full min-h-screen z-10 cursor-crosshair">
+      <div ref={containerRef} className="relative w-full min-h-screen z-10 cursor-default md:cursor-crosshair">
         {children}
       </div>
     </PhysicsContext.Provider>
