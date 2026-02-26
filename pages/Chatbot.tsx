@@ -275,7 +275,7 @@ export const Chatbot: React.FC = () => {
       <div className="w-56 border-r border-gray-200 flex flex-col bg-gradient-to-b from-gray-50 to-white shadow-lg pt-16">
         <div className="p-4 border-b border-gray-200">
           <button 
-            onClick={() => navigate('/agents')}
+            onClick={() => navigate('/')}
             className="text-black hover:text-gray-700 mb-4 text-sm flex items-center gap-2 transition-colors font-medium"
           >
             ← Back

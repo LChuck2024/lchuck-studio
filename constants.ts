@@ -12,33 +12,41 @@ export interface Section {
   title: string; // 英文标题
   titleCn: string; // 中文副标题
   type: 'AGENT' | 'APP' | 'BLOG';
+  tag?: string; // 显示标签
   description: string;
+  badge?: string;
   icon?: string;
 }
 
 export const SECTIONS: Section[] = [
   {
     id: 'agents',
-    title: 'Agent Collection',
-    titleCn: '智能代理集合',
+    title: 'DIGITAL WORKFORCE',
+    titleCn: '数字员工 / 智能代理',
     type: 'AGENT',
-    description: '探索智能代理与自动化系统，涵盖 AI Agent、工作流自动化、智能决策等创新应用。',
+    tag: 'DIGITAL WORKFORCE',
+    description: '包含 欧洲选课助手、RAG知识库清洗专家。让 AI 替你完成繁琐的决策与执行。',
+    badge: '🟢 在线运行',
     icon: '🤖'
   },
   {
     id: 'apps',
-    title: 'App Collection',
-    titleCn: '应用项目集合',
+    title: 'PRODUCT TOOLKIT',
+    titleCn: '产品与工具箱',
     type: 'APP',
-    description: '精选应用项目展示，包括 Web 应用、移动应用、桌面工具等各类产品与解决方案。',
-    icon: '📱'
+    tag: 'PRODUCT TOOLKIT',
+    description: '开箱即用的提效工具。包含 Excel/PDF 自动化脚本、数据清洗 SaaS。',
+    badge: '🛠️ 持续更新',
+    icon: '🛠️'
   },
   {
     id: 'blog',
-    title: 'Blog Articles',
-    titleCn: '博客文章',
+    title: 'ENGINEERING LOG',
+    titleCn: '工程日志 / 博客',
     type: 'BLOG',
-    description: '技术分享与思考，记录学习历程、项目经验、技术洞察与行业观察。',
-    icon: '📝'
+    tag: 'ENGINEERING LOG',
+    description: '记录从 0 到 1 的一人公司构建实录。技术、增长与生存策略。',
+    badge: '📝 深度复盘',
+    icon: '📓'
   }
 ];

@@ -9,6 +9,7 @@ import { Apps } from './pages/Apps';
 import { Agents } from './pages/Agents';
 import { Chatbot } from './pages/Chatbot';
 import { Blog } from './pages/Blog';
+import { BlogPost } from './pages/BlogPost';
 
 const AnimatedRoutes: React.FC = () => {
   const location = useLocation();
@@ -27,8 +28,9 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/apps" element={<Apps />} />
           <Route path="/agents" element={<Agents />} />
-          <Route path="/agents/chatbot" element={<Chatbot />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/chatbot" element={<Chatbot />} />
         </Routes>
       </motion.div>
     </AnimatePresence>

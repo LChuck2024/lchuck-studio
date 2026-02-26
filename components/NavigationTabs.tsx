@@ -9,10 +9,11 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { id: 'home', label: '01_HOME', path: '/' },
-  { id: 'agents', label: '02_AGENTS', path: '/agents' },
-  { id: 'apps', label: '03_APPS', path: '/apps' },
-  { id: 'blog', label: '04_BLOG', path: '/blog' },
+  { id: 'home', label: 'Home', path: '/' },
+  { id: 'agents', label: 'Digital Workforce', path: '/agents' },
+  { id: 'apps', label: 'Product Toolkit', path: '/apps' },
+  { id: 'blog', label: 'Engineering Log', path: '/blog' },
+  { id: 'chatbot', label: 'Chatbot', path: '/chatbot' },
 ];
 
 export const NavigationTabs: React.FC = () => {

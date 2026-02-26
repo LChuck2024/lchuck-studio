@@ -13,7 +13,8 @@ const Typewriter: React.FC<{
   const [displayedText, setDisplayedText] = React.useState("");
   const [isFinished, setIsFinished] = React.useState(false);
 
-  React.useEffect(() => {
+  React.  useEffect(() => {
+    setIsFinished(false);
     let timeout: number;
     let charIndex = 0;
 
@@ -60,7 +61,7 @@ export const Logo: React.FC = () => {
       <motion.div
         initial={false}
         animate={{
-          top: '30vh',
+          top: '15vh',
           scale: 1,
         }}
         transition={{
@@ -72,7 +73,16 @@ export const Logo: React.FC = () => {
           transform: 'translateY(-50%)',
         }}
       >
-        <div className="w-full max-w-full px-4 sm:px-6 md:px-8 text-center select-none overflow-hidden">
+        <div className="w-full max-w-full px-4 sm:px-6 md:px-8 text-center select-none overflow-hidden flex flex-col items-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2.5, duration: 0.8 }}
+            className="flex items-center gap-2 mb-2 sm:mb-4"
+          >
+            <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full shadow-[0_0_8px_rgba(34,197,94,0.8)] animate-pulse"></div>
+            <span className="text-[10px] sm:text-xs tracking-[0.2em] text-green-500 font-mono uppercase font-bold">System Online</span>
+          </motion.div>
           <h2 className="text-[8vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-black tracking-tighter italic leading-none inline-flex items-center justify-center gap-2 sm:gap-3 md:gap-4 whitespace-nowrap">
             <Typewriter 
               text="LCHUCK" 
