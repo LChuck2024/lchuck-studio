@@ -38,10 +38,15 @@ export const Agents: React.FC = () => {
                   Python / Pandas / WPS AI
                 </span>
               </div>
-              <button className="w-full py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2">
+              <a
+                href="https://web.wps.cn/wo/sl/v31rzbsD?app_id=1PKY0UiCwcIPzRKjh3CoI6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2 bg-gray-900 text-white rounded-md text-sm font-medium hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
+              >
                 <span>免费查询</span>
                 <span className="text-xs opacity-50">↗</span>
-              </button>
+              </a>
             </div>
           </div>
 

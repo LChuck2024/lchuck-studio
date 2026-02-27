@@ -97,15 +97,15 @@ export const Home: React.FC = () => {
   
   let heightRatio;
   if (isMobile) {
-    heightRatio = 0.5; // 移动端卡片稍扁
+    heightRatio = 0.82; // 移动端足够高度，确保描述完整显示
   } else if (cardWidth < 200) {
-    heightRatio = 0.7;
+    heightRatio = 0.85;
   } else if (cardWidth < 250) {
-    heightRatio = 0.6;
+    heightRatio = 0.72;
   } else if (cardWidth < 350) {
-    heightRatio = 0.55;
+    heightRatio = 0.65;
   } else {
-    heightRatio = 0.45;
+    heightRatio = 0.58;
   }
   const cardHeight = Math.floor(cardWidth * heightRatio);
   
@@ -210,7 +210,7 @@ export const Home: React.FC = () => {
                   <h3 className="text-base sm:text-[2.5vw] md:text-lg lg:text-xl xl:text-2xl font-black tracking-tight text-gray-900 group-hover:text-red-600 transition-colors uppercase leading-tight break-words line-clamp-2">{section.title}</h3>
                   <p className="text-xs sm:text-[1.3vw] md:text-[12px] lg:text-[14px] font-bold text-gray-700 mt-1 break-words line-clamp-1 tracking-wide">{section.titleCn}</p>
                 </div>
-                <p className="text-xs sm:text-[1.4vw] md:text-[11px] lg:text-[13px] text-gray-500 mt-1 sm:mt-2 font-normal leading-relaxed break-words overflow-y-auto flex-1 min-h-0">{section.description}</p>
+                <p className="text-xs sm:text-[1.4vw] md:text-[11px] lg:text-[13px] text-gray-500 mt-1 sm:mt-2 font-normal leading-relaxed break-words flex-1 min-h-[3em]">{section.description}</p>
               </div>
               <div className="pt-3 sm:pt-4 border-t border-gray-300/30 flex justify-between items-center opacity-40 group-hover:opacity-100 transition-opacity">
                 <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 md:w-2.5 md:h-2.5 bg-red-600 rounded-full group-hover:animate-ping"></div>
