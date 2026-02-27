@@ -40,8 +40,8 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       {/* 使用 body 作为滚动容器，避免 iOS 上 div overflow 滚动失效 */}
-      <div className="w-full min-h-screen bg-white overflow-x-hidden relative">
-        {/* Three.js 实时粒子背景 - 放在 Router 外，确保不重载 */}
+      <div className="w-full min-h-screen overflow-x-hidden relative">
+        {/* Three.js 粒子背景 - 需在 bg 之上，故不用负 z-index */}
         <ThreeBackground />
         
         {/* Logo - 支持动画效果 */}
