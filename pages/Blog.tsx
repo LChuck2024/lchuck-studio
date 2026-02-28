@@ -5,8 +5,8 @@ export const Blog: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start px-4 py-20 relative z-10 overflow-y-auto">
-      <div className="max-w-4xl w-full mt-10 md:mt-20">
+    <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
+      <div className="max-w-[1400px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-center md:text-left">
           <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">ENGINEERING LOG</h1>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
@@ -14,12 +14,12 @@ export const Blog: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Card 1: Tech Deep Dive */}
-          <div className="bg-white/80 border border-gray-200 backdrop-blur-xl rounded-lg p-6 hover:shadow-xl hover:border-blue-600/30 transition-all duration-300 group flex flex-col h-full">
+          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">🏗️</span>
-              <span className="bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded-full border border-blue-200">
+              <span className="bg-blue-100 text-blue-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-blue-200">
                 🔵 Architecture
               </span>
             </div>
@@ -35,7 +35,7 @@ export const Blog: React.FC = () => {
             <div className="mt-auto pt-4 border-t border-gray-100">
               <button
                 onClick={() => navigate('/blog/etl-architecture')}
-                className="w-full py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:border-blue-500 hover:text-blue-600 transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2"
               >
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
@@ -44,10 +44,10 @@ export const Blog: React.FC = () => {
           </div>
 
           {/* Card 2: Indie Hacker Journey */}
-          <div className="bg-white/80 border border-gray-200 backdrop-blur-xl rounded-lg p-6 hover:shadow-xl hover:border-green-600/30 transition-all duration-300 group flex flex-col h-full">
+          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">🚀</span>
-              <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full border border-green-200">
+              <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
                 🟢 Growth
               </span>
             </div>
@@ -61,7 +61,7 @@ export const Blog: React.FC = () => {
               </p>
             </div>
             <div className="mt-auto pt-4 border-t border-gray-100">
-              <button className="w-full py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:border-green-500 hover:text-green-600 transition-colors flex items-center justify-center gap-2">
+              <button className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2">
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>
@@ -69,10 +69,10 @@ export const Blog: React.FC = () => {
           </div>
 
           {/* Card 3: The Mindset */}
-          <div className="bg-white/80 border border-gray-200 backdrop-blur-xl rounded-lg p-6 hover:shadow-xl hover:border-purple-600/30 transition-all duration-300 group flex flex-col h-full">
+          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">🧠</span>
-              <span className="bg-purple-100 text-purple-700 text-xs font-bold px-2 py-1 rounded-full border border-purple-200">
+              <span className="bg-purple-100 text-purple-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-purple-200">
                 🟣 Methodology
               </span>
             </div>
@@ -86,7 +86,7 @@ export const Blog: React.FC = () => {
               </p>
             </div>
             <div className="mt-auto pt-4 border-t border-gray-100">
-              <button className="w-full py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:border-purple-500 hover:text-purple-600 transition-colors flex items-center justify-center gap-2">
+              <button className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2">
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>

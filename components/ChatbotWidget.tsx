@@ -35,6 +35,23 @@ export const ChatbotWidget: React.FC = () => {
     }
   }, [isOpen]);
 
+  // 外部触发：打开 Widget 并切换到指定角色（如 Agents 页的「试用教练」）
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const detail = (e as CustomEvent<{ roleId?: string }>).detail;
+      const roleId = detail?.roleId;
+      if (roleId && PRESET_ROLES.some(r => r.id === roleId)) {
+        setSelectedRoleId(roleId);
+        const role = PRESET_ROLES.find(r => r.id === roleId);
+        const greeting = roleId === 'study-abroad' ? DEFAULT_GREETING : `你好！已切换至 ${role?.nameCn || role?.name}，有什么可以帮助你的？`;
+        setMessages([{ id: Date.now().toString(), role: 'assistant', content: greeting }]);
+      }
+      setIsOpen(true);
+    };
+    window.addEventListener('lchuck:open-chatbot', handler);
+    return () => window.removeEventListener('lchuck:open-chatbot', handler);
+  }, []);
+
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   useEffect(() => { scrollToBottom(); }, [messages]);
 

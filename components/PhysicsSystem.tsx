@@ -1,7 +1,10 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import Matter from 'matter-js';
-import { PHYSICS_CONFIG } from '../constants';
+import { PHYSICS_CONFIG, SECTIONS } from '../constants';
+
+const MOBILE_BREAKPOINT = 768;
+const CARD_IDS = new Set(SECTIONS.map((s) => s.id));
 
 const { Engine, Bodies, Composite, Runner, Mouse, MouseConstraint, Events, Body } = Matter;
 
@@ -12,7 +15,7 @@ interface PhysicsContextType {
 
 export const PhysicsContext = createContext<PhysicsContextType | null>(null);
 
-export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const PhysicsSystem: React.FC<{ children: React.ReactNode; containerHeight?: number }> = ({ children, containerHeight }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef(Engine.create({ gravity: { x: 0, y: 0, scale: 0.001 } }));
   const bodiesMap = useRef<Map<string, Matter.Body>>(new Map());
@@ -77,6 +80,8 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
         constraint: { stiffness: 0.1, render: { visible: false } }
       });
       Composite.add(engine.world, mouseConstraint);
+      // 移除 wheel 监听，允许桌面端页面滚动（Matter.js 默认 preventDefault 会阻止滚动）
+      mouse.element.removeEventListener('wheel', mouse.mousewheel);
     }
 
     // 实时排斥逻辑
@@ -119,12 +124,12 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
     const sync = () => {
       // 获取容器位置，用于将物理世界坐标转换为相对于容器的坐标
       const containerRect = containerRef.current?.getBoundingClientRect();
-      // containerRect.top 已经是相对于视口的坐标，不需要再加 scrollY
-      // 物理引擎的世界坐标是相对于文档的，需要转换为相对于容器的坐标
-      // 容器在文档中的位置 = containerRect.top + scrollY
+      // 使用 window.scrollY（body 滚动）
       const scrollY = window.scrollY || window.pageYOffset || 0;
       const containerTop = containerRect ? containerRect.top + scrollY : 0;
       
+      const isMobile = containerRect ? containerRect.width < MOBILE_BREAKPOINT : false;
+
       bodiesMap.current.forEach((body, id) => {
         const el = document.querySelector(`[data-physics-id="${id}"]`) as HTMLElement;
         if (el) {
@@ -136,7 +141,12 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
           // 容器在文档中的位置 = containerRect.top（视口坐标）+ scrollY（滚动偏移）
           // 元素相对于容器的 y = 物理世界 y - 容器在文档中的顶部位置
           const relativeY = body.position.y - containerTop;
-          el.style.transform = `translate3d(${body.position.x - width / 2}px, ${relativeY - height / 2}px, ${depth}px) rotate(${body.angle}rad)`;
+          // 移动端卡片：基于容器中心居中，避免 body.position 与容器坐标系不一致导致偏移
+          const transformX =
+            isMobile && CARD_IDS.has(id)
+              ? (containerRect?.width ?? 0) / 2 - width / 2
+              : body.position.x - width / 2;
+          el.style.transform = `translate3d(${transformX}px, ${relativeY - height / 2}px, ${depth}px) rotate(${body.angle}rad)`;
           el.style.visibility = 'visible';
           el.style.opacity = '1';
         }
@@ -174,7 +184,11 @@ export const PhysicsSystem: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <PhysicsContext.Provider value={{ registerBody, unregisterBody }}>
-      <div ref={containerRef} className="relative w-full min-h-screen z-10 cursor-default md:cursor-crosshair touch-pan-y">
+      <div
+        ref={containerRef}
+        className="relative w-full z-10 cursor-default md:cursor-crosshair touch-pan-y"
+        style={containerHeight ? { height: containerHeight, minHeight: containerHeight } : { minHeight: '100vh' }}
+      >
         {children}
       </div>
     </PhysicsContext.Provider>

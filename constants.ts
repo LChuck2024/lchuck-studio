@@ -25,7 +25,7 @@ export const SECTIONS: Section[] = [
     titleCn: '数字员工 / 智能代理',
     type: 'AGENT',
     tag: 'DIGITAL WORKFORCE',
-    description: '包含 欧洲选课助手、RAG知识库清洗专家。让 AI 替你完成繁琐的决策与执行。',
+    description: '包含 欧洲开放大学选课助手、MBA 写作提分教练。24/7 待命的自动化专家与智能代理。',
     badge: '🟢 在线运行',
     icon: '🤖'
   },
@@ -35,7 +35,7 @@ export const SECTIONS: Section[] = [
     titleCn: '产品与工具箱',
     type: 'APP',
     tag: 'PRODUCT TOOLKIT',
-    description: '开箱即用的提效工具。包含 Excel/PDF 自动化脚本、数据清洗 SaaS。',
+    description: '开箱即用的提效工具。包含 RAG 清洗 GUI、OpenClaw 部署包、小红书笔记工厂与数据清洗脚本。',
     badge: '🛠️ 持续更新',
     icon: '🛠️'
   },
@@ -45,7 +45,7 @@ export const SECTIONS: Section[] = [
     titleCn: '工程日志 / 博客',
     type: 'BLOG',
     tag: 'ENGINEERING LOG',
-    description: '记录从 0 到 1 的一人公司构建实录。技术、增长与生存策略。',
+    description: '技术复盘与一人公司构建实录。涵盖 ETL 架构演进、Next.js 实战与精力管理心法。',
     badge: '📝 深度复盘',
     icon: '📓'
   }

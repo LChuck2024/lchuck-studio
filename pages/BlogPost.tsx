@@ -60,7 +60,7 @@ export const BlogPost: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center px-4 py-20 relative z-10 overflow-y-auto">
       <article className="max-w-3xl w-full mt-10 md:mt-20">
-        <div className="bg-white/90 backdrop-blur-xl border border-gray-200 rounded-lg p-8 md:p-12 shadow-lg">
+        <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-8 md:p-12">
           <div className="blog-content text-gray-800 leading-relaxed [&_h1]:text-3xl [&_h1]:md:text-4xl [&_h1]:font-black [&_h1]:mb-6 [&_h1]:tracking-tight
             [&_h2]:text-xl [&_h2]:md:text-2xl [&_h2]:font-bold [&_h2]:mt-8 [&_h2]:mb-4 [&_h2]:pb-2 [&_h2]:border-b [&_h2]:border-gray-200
             [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mt-6 [&_h3]:mb-3

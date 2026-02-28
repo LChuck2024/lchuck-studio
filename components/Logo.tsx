@@ -56,22 +56,13 @@ export const Logo: React.FC = () => {
   const isHome = location.pathname === '/';
 
   if (isHome) {
-    // 主页：大 Logo 居中显示
+    // 主页：大 Logo 居中显示，跟随页面滚动
     return (
       <motion.div
         initial={false}
-        animate={{
-          top: '15vh',
-          scale: 1,
-        }}
-        transition={{
-          duration: 0.5,
-          ease: 'easeInOut',
-        }}
-        className="fixed left-0 right-0 pointer-events-none z-[200]"
-        style={{
-          transform: 'translateY(-50%)',
-        }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+        className="absolute top-0 left-0 right-0 pointer-events-none z-[200] pt-[15vh] pb-8"
       >
         <div className="w-full max-w-full px-4 sm:px-6 md:px-8 text-center select-none overflow-hidden flex flex-col items-center">
           <motion.div 
