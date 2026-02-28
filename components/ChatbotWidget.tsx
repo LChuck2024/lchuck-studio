@@ -10,6 +10,14 @@ interface Message {
 
 const DEFAULT_GREETING = '你好！我是 LChuck Studio 的留学顾问，专注欧洲开放大学选课咨询。有什么可以帮助你的？';
 
+/** 催更类消息的固定回复 */
+const CUI_GENG_REPLY = '收到！已记录你的催更需求，主理人会尽快安排～';
+
+const isCuiGengMessage = (text: string): boolean => {
+  const t = text.trim();
+  return /催更|催更一下|求更新|快点更新|什么时候更新/i.test(t) || (t.length <= 20 && /催|更新/i.test(t));
+};
+
 const ChatBubbleIcon: React.FC<{ className?: string }> = ({ className = 'w-6 h-6' }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
@@ -38,19 +46,96 @@ export const ChatbotWidget: React.FC = () => {
   // 外部触发：打开 Widget 并切换到指定角色（如 Agents 页的「试用教练」）
   useEffect(() => {
     const handler = (e: Event) => {
-      const detail = (e as CustomEvent<{ roleId?: string }>).detail;
+      const detail = (e as CustomEvent<{ roleId?: string; message?: string }>).detail;
       const roleId = detail?.roleId;
+      const initialMessage = detail?.message;
+
+      // 如果提供了 roleId，切换角色
       if (roleId && PRESET_ROLES.some(r => r.id === roleId)) {
         setSelectedRoleId(roleId);
         const role = PRESET_ROLES.find(r => r.id === roleId);
         const greeting = roleId === 'study-abroad' ? DEFAULT_GREETING : `你好！已切换至 ${role?.nameCn || role?.name}，有什么可以帮助你的？`;
-        setMessages([{ id: Date.now().toString(), role: 'assistant', content: greeting }]);
+        
+        // 如果有初始消息，将其作为用户消息发送，并触发 AI 响应（催更类消息用固定回复）
+        if (initialMessage) {
+          const userMsg: Message = { id: Date.now().toString(), role: 'user', content: initialMessage };
+          const assistantId = (Date.now() + 1).toString();
+          if (isCuiGengMessage(initialMessage)) {
+            setMessages([
+              { id: (Date.now() - 1000).toString(), role: 'assistant', content: greeting },
+              userMsg,
+              { id: assistantId, role: 'assistant', content: CUI_GENG_REPLY }
+            ]);
+          } else {
+            setMessages([
+              { id: (Date.now() - 1000).toString(), role: 'assistant', content: greeting },
+              userMsg,
+              { id: assistantId, role: 'assistant', content: '' }
+            ]);
+            streamingMessageIdRef.current = assistantId;
+            setIsLoading(true);
+            (async () => {
+              try {
+                const messageHistory: ChatMessage[] = [
+                  { role: 'assistant', content: greeting },
+                  { role: 'user', content: initialMessage }
+                ];
+                const serviceConfig: ServiceAIConfig = { systemPrompt: role?.prompt };
+                let fullContent = '';
+                for await (const chunk of streamAIResponse(serviceConfig, messageHistory)) {
+                  fullContent += chunk;
+                  setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: fullContent } : m));
+                }
+                setIsLoading(false);
+                streamingMessageIdRef.current = null;
+              } catch (err) {
+                const msg = err instanceof Error ? err.message : '未知错误';
+                setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: `错误: ${msg}` } : m));
+                setIsLoading(false);
+                streamingMessageIdRef.current = null;
+              }
+            })();
+          }
+        } else {
+          setMessages([{ id: Date.now().toString(), role: 'assistant', content: greeting }]);
+        }
+      } 
+      // 如果没有 roleId 但有 message (通用唤起)，保留当前角色
+      else if (initialMessage) {
+        const userMsg: Message = { id: Date.now().toString(), role: 'user', content: initialMessage };
+        const assistantId = (Date.now() + 1).toString();
+        if (isCuiGengMessage(initialMessage)) {
+          setMessages(prev => [...prev, userMsg, { id: assistantId, role: 'assistant', content: CUI_GENG_REPLY }]);
+        } else {
+          setMessages(prev => [...prev, userMsg, { id: assistantId, role: 'assistant', content: '' }]);
+          streamingMessageIdRef.current = assistantId;
+          setIsLoading(true);
+          (async () => {
+            try {
+              const messageHistory: ChatMessage[] = [...messages, userMsg].map(m => ({ role: m.role, content: m.content }));
+              const serviceConfig: ServiceAIConfig = { systemPrompt: selectedRole.prompt };
+              let fullContent = '';
+              for await (const chunk of streamAIResponse(serviceConfig, messageHistory)) {
+                fullContent += chunk;
+                setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: fullContent } : m));
+              }
+              setIsLoading(false);
+              streamingMessageIdRef.current = null;
+            } catch (err) {
+              const msg = err instanceof Error ? err.message : '未知错误';
+              setMessages(prev => prev.map(m => m.id === assistantId ? { ...m, content: `错误: ${msg}` } : m));
+              setIsLoading(false);
+              streamingMessageIdRef.current = null;
+            }
+          })();
+        }
       }
+      
       setIsOpen(true);
     };
     window.addEventListener('lchuck:open-chatbot', handler);
     return () => window.removeEventListener('lchuck:open-chatbot', handler);
-  }, []);
+  }, [messages, selectedRole, selectedRoleId]);
 
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   useEffect(() => { scrollToBottom(); }, [messages]);
@@ -59,9 +144,13 @@ export const ChatbotWidget: React.FC = () => {
     if (!input.trim() || isLoading) return;
     const userMessage: Message = { id: Date.now().toString(), role: 'user', content: input };
     const assistantId = (Date.now() + 1).toString();
+    setInput('');
+    if (isCuiGengMessage(input)) {
+      setMessages(prev => [...prev, userMessage, { id: assistantId, role: 'assistant', content: CUI_GENG_REPLY }]);
+      return;
+    }
     streamingMessageIdRef.current = assistantId;
     setMessages(prev => [...prev, userMessage, { id: assistantId, role: 'assistant', content: '' }]);
-    setInput('');
     setIsLoading(true);
     try {
       const messageHistory: ChatMessage[] = [...messages, userMessage].map(m => ({ role: m.role, content: m.content }));

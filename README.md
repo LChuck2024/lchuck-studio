@@ -1,6 +1,6 @@
 # LChuck Studio
 
-![LChuck Studio Screenshot](./public/screenshot.JPG)
+![LChuck Studio Screenshot](./public/web_screenshot.JPG)
 
 个人作品集与创作空间，融合物理引擎交互、3D 视觉与 AI 客服浮窗的现代化个人网站。
 
@@ -11,11 +11,11 @@
 ## ✨ 特性
 
 - **物理引擎交互** - 基于 Matter.js，卡片随鼠标产生排斥效果，支持拖拽（桌面端）
-- **3D 粒子背景** - Three.js 动态粒子系统，营造沉浸式视觉
-- **AI 客服浮窗** - Intercom 风格浮窗，支持多角色切换（留学咨询 / 数据架构 / 副业搞钱）
+- **网格背景** - 工程风格网格背景（GridBackground），可选 Three.js 粒子（ThreeBackground）
+- **AI 客服浮窗** - Intercom 风格浮窗，支持多角色切换（欧洲留学咨询 / 数据架构 / 一人公司 / MBA 教练），支持通过事件自动触发对话
 - **响应式设计** - 移动端垂直堆叠、桌面端横向布局，支持触摸滚动
 - **打字机动画** - 副标题与 Slogan 逐字显示
-- **博客系统** - Markdown 文章，支持 `src/posts/` 源文件与 `public/posts/` 图片
+- **博客系统** - Markdown 文章，支持 `src/posts/` 源文件与 `public/posts/` 图片，支持 Frontmatter 元数据
 
 ---
 
@@ -23,9 +23,9 @@
 
 | 模块 | 说明 |
 |------|------|
-| **Digital Workforce** | 数字员工 / 智能代理：欧洲选课助手、RAG 知识库清洗专家 |
-| **Product Toolkit** | 产品与工具箱：Excel/PDF 自动化、数据清洗 SaaS |
-| **Engineering Log** | 工程日志：技术、增长与一人公司构建实录 |
+| **Digital Workforce** | 数字员工 / 智能代理：欧洲开放大学选课助手、MBA 写作提分教练 |
+| **Product Toolkit** | 产品与工具箱：RAG 清洗 GUI、OpenClaw 部署包、小红书笔记工厂 |
+| **Engineering Log** | 工程日志：ETL 架构演进、Next.js 实战与 P0 精力管理 |
 
 ---
 
@@ -52,7 +52,8 @@ lchuck-studio/
 │   ├── Logo.tsx             # 品牌 Logo 与 System Online 状态
 │   ├── NavigationTabs.tsx   # 顶部导航
 │   ├── PhysicsSystem.tsx    # 物理引擎核心
-│   ├── ThreeBackground.tsx  # 3D 粒子背景
+│   ├── GridBackground.tsx   # 网格背景（当前使用）
+│   ├── ThreeBackground.tsx  # 3D 粒子背景（可选）
 │   └── ...
 ├── config/
 │   └── chatbot.ts           # AI 预设角色、默认配置
@@ -89,9 +90,33 @@ npm run dev
 
 开发服务器默认在 `http://127.0.0.1:5173` 启动（`--host 127.0.0.1` 避免网络错误）。
 
-### AI 客服配置
+### AI 客服交互
 
-大模型 API Key 通过 `VITE_DEEPSEEK_API_KEY` 注入：
+可以通过 `window.dispatchEvent` 触发自定义事件来控制 AI 客服：
+
+```javascript
+// 示例 1: 切换角色
+window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { 
+  detail: { roleId: 'mba-coach' } 
+}));
+
+// 示例 2: 发送预设消息（如催更）
+window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { 
+  detail: { message: '我想催更这个功能！' } 
+}));
+
+// 示例 3: 切换角色并发送消息
+window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { 
+  detail: { 
+    roleId: 'data-architect',
+    message: '如何设计一个高可用的 ETL 系统？' 
+  } 
+}));
+```
+
+**可用角色 ID**：`study-abroad`（欧洲留学咨询）、`data-architect`（数据架构）、`solo-preneur`（一人公司）、`mba-coach`（MBA 教练）
+
+#### AI 客服配置
 
 | 环境 | 配置方式 |
 |------|----------|
@@ -119,8 +144,8 @@ npm run preview
 
 ### AI 客服浮窗
 
-- **默认角色**：🇪🇺 欧洲留学咨询
-- **可切换**：🐍 数据架构/Python 专家、💼 一人公司/副业搞钱
+- **默认角色**：🇪🇺 欧洲留学咨询（`study-abroad`）
+- **可切换**：🐍 数据架构（`data-architect`）、💼 一人公司（`solo-preneur`）、🎓 MBA 教练（`mba-coach`）
 - 点击右下角 FAB 打开/关闭浮窗
 - 角色切换时自动更新 System Prompt 并重置对话
 
