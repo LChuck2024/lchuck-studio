@@ -61,7 +61,10 @@ export const Blog: React.FC = () => {
               </p>
             </div>
             <div className="mt-auto pt-4 border-t border-gray-100">
-              <button className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2">
+              <button
+                onClick={() => navigate('/blog/opc')}
+                className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2"
+              >
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>
@@ -86,7 +89,10 @@ export const Blog: React.FC = () => {
               </p>
             </div>
             <div className="mt-auto pt-4 border-t border-gray-100">
-              <button className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2">
+              <button
+                onClick={() => navigate('/blog/p0_manager')}
+                className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2"
+              >
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>
