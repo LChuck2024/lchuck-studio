@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+const ARCH_IMAGE = '/public/Unified_Processing_Engine.JPG';
 
 export const Agents: React.FC = () => {
   const navigate = useNavigate();
+  const [archModalOpen, setArchModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!archModalOpen) return;
+    const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && setArchModalOpen(false);
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [archModalOpen]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
@@ -106,7 +116,10 @@ export const Agents: React.FC = () => {
                   Spark / Delta Lake / Python
                 </span>
               </div>
-              <button className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2">
+              <button
+                onClick={() => setArchModalOpen(true)}
+                className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+              >
                 <span>查看架构图</span>
                 <span className="text-xs opacity-50">👁️</span>
               </button>
@@ -123,6 +136,30 @@ export const Agents: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* 架构图弹窗 */}
+      {archModalOpen && (
+        <div
+          className="fixed inset-0 z-[300] flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setArchModalOpen(false)}
+        >
+          <button
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white hover:bg-white/20 rounded-full transition-colors"
+            onClick={() => setArchModalOpen(false)}
+            aria-label="关闭"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <img
+            src={ARCH_IMAGE}
+            alt="CDC Engine Architecture"
+            className="max-w-full max-h-[90vh] object-contain rounded-sm shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };
