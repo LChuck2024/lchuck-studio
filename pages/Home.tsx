@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PhysicsSystem, PhysicsNode } from '../components/PhysicsSystem';
 import { SECTIONS } from '../constants';
+import { CONTACT } from '../config/contact';
 
 const Typewriter: React.FC<{ 
   text: string; 
@@ -258,6 +259,10 @@ export const Home: React.FC = () => {
           <span>500强数据架构师</span>
           <span className="hidden sm:inline">|</span>
           <span>长期主义践行者</span>
+          <span className="hidden sm:inline">|</span>
+          <span>微信 {CONTACT.weixin}</span>
+          <span className="hidden sm:inline">|</span>
+          <a href={`mailto:${CONTACT.email}`} className="pointer-events-auto hover:underline" target="_blank" rel="noopener noreferrer">{CONTACT.email}</a>
         </p>
       </div>
     </div>

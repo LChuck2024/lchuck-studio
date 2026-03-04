@@ -12,7 +12,7 @@
 
 - **物理引擎交互** - 基于 Matter.js，卡片随鼠标产生排斥效果，支持拖拽（桌面端）
 - **网格背景** - 工程风格网格背景（GridBackground），可选 Three.js 粒子（ThreeBackground）
-- **AI 客服浮窗** - Intercom 风格浮窗，支持多角色切换（欧洲留学咨询 / 数据架构 / 一人公司 / MBA 教练），支持通过事件自动触发对话
+- **AI 客服浮窗** - Intercom 风格浮窗，支持多角色切换（欧洲留学顾问 / MBA 写作提分教练 / 数据架构师 / 一人公司顾问），支持通过事件自动触发对话
 - **响应式设计** - 移动端垂直堆叠、桌面端横向布局，支持触摸滚动
 - **打字机动画** - 副标题与 Slogan 逐字显示
 - **博客系统** - Markdown 文章，支持 `src/posts/` 源文件与 `public/posts/` 图片，支持 Frontmatter 元数据
@@ -23,9 +23,9 @@
 
 | 模块 | 说明 |
 |------|------|
-| **Digital Workforce** | 数字员工 / 智能代理：欧洲开放大学选课助手、MBA 写作提分教练 |
-| **Product Toolkit** | 产品与工具箱：RAG 清洗 GUI、OpenClaw 部署包、小红书笔记工厂 |
-| **Engineering Log** | 工程日志：ETL 架构演进、Next.js 实战与 P0 精力管理 |
+| **Digital Workforce** | 数字员工 / 智能代理：留学顾问、MBA 写作提分教练、数据架构师、一人公司顾问 |
+| **Product Hub** | 产品与服务：工具、脚本、代办、CDC 架构咨询、主数据咨询、代码优化 |
+| **Engineering Log** | 工程日志：ETL 架构演进、一人公司实录、P0 精力管理、主数据治理 |
 
 ---
 
@@ -56,13 +56,15 @@ lchuck-studio/
 │   ├── ThreeBackground.tsx  # 3D 粒子背景（可选）
 │   └── ...
 ├── config/
-│   └── chatbot.ts           # AI 预设角色、默认配置
+│   ├── chatbot.ts           # AI 预设角色、默认配置
+│   └── contact.ts            # 主理人联系方式（微信/邮箱）
 ├── pages/
 │   ├── Home.tsx             # 首页（物理卡片 + 副标题）
 │   ├── Agents.tsx           # Digital Workforce
-│   ├── Apps.tsx             # Product Toolkit
+│   ├── Apps.tsx             # Product Hub
 │   ├── Blog.tsx             # Engineering Log 列表
-│   └── BlogPost.tsx         # Markdown 文章详情
+│   ├── BlogPost.tsx         # Markdown 文章详情
+│   └── NotFound.tsx         # 404 页面
 ├── services/
 │   └── aiService.ts         # DeepSeek 流式调用
 ├── src/posts/               # Markdown 文章源文件
@@ -114,7 +116,7 @@ window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', {
 }));
 ```
 
-**可用角色 ID**：`study-abroad`（欧洲留学咨询）、`data-architect`（数据架构）、`solo-preneur`（一人公司）、`mba-coach`（MBA 教练）
+**可用角色 ID**：`study-abroad`（欧洲留学顾问）、`mba-coach`（MBA 写作提分教练）、`data-architect`（数据架构师）、`solo-preneur`（一人公司顾问）
 
 #### AI 客服配置
 
@@ -144,8 +146,8 @@ npm run preview
 
 ### AI 客服浮窗
 
-- **默认角色**：🇪🇺 欧洲留学咨询（`study-abroad`）
-- **可切换**：🐍 数据架构（`data-architect`）、💼 一人公司（`solo-preneur`）、🎓 MBA 教练（`mba-coach`）
+- **默认角色**：🇪🇺 欧洲留学顾问（`study-abroad`）
+- **可切换**：🎓 MBA 写作提分教练（`mba-coach`）、🐍 数据架构师（`data-architect`）、💼 一人公司顾问（`solo-preneur`）
 - 点击右下角 FAB 打开/关闭浮窗
 - 角色切换时自动更新 System Prompt 并重置对话
 
@@ -187,6 +189,14 @@ export const PHYSICS_CONFIG = {
 ### 修改 AI 预设角色
 
 编辑 `config/chatbot.ts` 中的 `PRESET_ROLES` 和 `DEFAULT_AI_CONFIG`。
+
+### 修改主理人联系方式
+
+编辑 `config/contact.ts` 中的 `CONTACT`（微信、邮箱等）。修改后 chatbot 提示词与页脚会自动更新。
+
+### 社交分享预览图 (og:image)
+
+将 1200×630 的预览图放入 `public/og-image.png`，并在 `index.html` 中添加 `<meta property="og:image" content="https://你的域名/og-image.png">`。
 
 ---
 

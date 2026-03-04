@@ -25,17 +25,17 @@ export const SECTIONS: Section[] = [
     titleCn: '数字员工 / 智能代理',
     type: 'AGENT',
     tag: 'DIGITAL WORKFORCE',
-    description: '包含 欧洲开放大学选课助手、MBA 写作提分教练。24/7 待命的自动化专家与智能代理。',
+    description: '拒绝信息差与人工堆砌。留学顾问、MBA 写作提分教练、数据架构师、一人公司顾问。24/7 待命的 AI 数字员工。',
     badge: '🟢 在线运行',
     icon: '🤖'
   },
   {
     id: 'apps',
-    title: 'PRODUCT TOOLKIT',
-    titleCn: '产品与工具箱',
+    title: 'PRODUCT HUB',
+    titleCn: '产品与服务',
     type: 'APP',
-    tag: 'PRODUCT TOOLKIT',
-    description: '开箱即用的提效工具。包含 RAG 清洗 GUI、OpenClaw 部署包、小红书笔记工厂与数据清洗脚本。',
+    tag: 'PRODUCT HUB',
+    description: '拒绝重复造轮。RAG 清洗 GUI、选课查询器、小红书笔记工厂、万能脚本、数据清洗代办、CDC 架构咨询、主数据咨询、代码优化。开箱即用。',
     badge: '🛠️ 持续更新',
     icon: '🛠️'
   },
@@ -45,7 +45,7 @@ export const SECTIONS: Section[] = [
     titleCn: '工程日志 / 博客',
     type: 'BLOG',
     tag: 'ENGINEERING LOG',
-    description: '技术复盘与一人公司构建实录。涵盖 ETL 架构演进、Next.js 实战与精力管理心法。',
+    description: '拒绝伪勤奋。ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。技术复盘与深度思考。',
     badge: '📝 深度复盘',
     icon: '📓'
   }

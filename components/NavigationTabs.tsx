@@ -11,7 +11,7 @@ interface Tab {
 const tabs: Tab[] = [
   { id: 'home', label: 'Home', path: '/' },
   { id: 'agents', label: 'Digital Workforce', path: '/agents' },
-  { id: 'apps', label: 'Product Toolkit', path: '/apps' },
+  { id: 'apps', label: 'Product Hub', path: '/apps' },
   { id: 'blog', label: 'Engineering Log', path: '/blog' },
 ];
 

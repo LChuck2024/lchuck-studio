@@ -3,6 +3,7 @@
  */
 import OpenAI from 'openai';
 import { getDefaultApiKey, DEFAULT_AI_CONFIG } from '../config/chatbot';
+import { CONTACT_INSTRUCTION } from '../config/contact';
 
 /** 调用方只需传入 systemPrompt，其余由服务内部处理 */
 export interface AIConfig {
@@ -63,6 +64,8 @@ export async function* streamAIResponse(
     if (config.systemPrompt && config.systemPrompt.trim()) {
       fullSystemPrompt += `【角色设定】\n${config.systemPrompt.trim()}\n\n`;
     }
+    // 注入联系方式与对话限制说明（所有角色统一）
+    fullSystemPrompt += `${CONTACT_INSTRUCTION}\n\n`;
     
     // 添加系统提示词
     if (fullSystemPrompt.trim()) {

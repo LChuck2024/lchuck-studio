@@ -6,21 +6,21 @@ export const Blog: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
-      <div className="max-w-[1400px] w-full mx-auto mt-10 md:mt-20">
-        <div className="mb-12 text-center md:text-left">
+      <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
+        <div className="mb-12 text-left">
           <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">ENGINEERING LOG</h1>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            构建数字资产的实战笔记与深度复盘。
+            拒绝伪勤奋。构建数字资产的实战笔记与深度复盘。
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* Card 1: Tech Deep Dive */}
           <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">🏗️</span>
               <span className="bg-blue-100 text-blue-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-blue-200">
-                🔵 Architecture
+                架构
               </span>
             </div>
             <div className="flex-grow">
@@ -35,7 +35,7 @@ export const Blog: React.FC = () => {
             <div className="mt-auto pt-4 border-t border-gray-100">
               <button
                 onClick={() => navigate('/blog/etl-architecture')}
-                className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
               >
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
@@ -48,7 +48,7 @@ export const Blog: React.FC = () => {
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">🚀</span>
               <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                🟢 Growth
+                一人公司
               </span>
             </div>
             <div className="flex-grow">
@@ -63,7 +63,7 @@ export const Blog: React.FC = () => {
             <div className="mt-auto pt-4 border-t border-gray-100">
               <button
                 onClick={() => navigate('/blog/opc')}
-                className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
               >
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>
@@ -76,7 +76,7 @@ export const Blog: React.FC = () => {
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">🧠</span>
               <span className="bg-purple-100 text-purple-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-purple-200">
-                🟣 Methodology
+                P0 管理法
               </span>
             </div>
             <div className="flex-grow">
@@ -91,7 +91,35 @@ export const Blog: React.FC = () => {
             <div className="mt-auto pt-4 border-t border-gray-100">
               <button
                 onClick={() => navigate('/blog/p0_manager')}
-                className="w-full py-2 bg-white border border-neutral-200 text-gray-700 rounded-sm text-sm font-medium font-mono hover:border-black transition-colors flex items-center justify-center gap-2"
+                className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
+              >
+                <span>阅读文章</span>
+                <span className="text-xs opacity-50">↗</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Card 4: 主数据治理 */}
+          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+            <div className="flex justify-between items-start mb-4">
+              <span className="text-2xl">🗄️</span>
+              <span className="bg-indigo-100 text-indigo-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-indigo-200">
+                主数据
+              </span>
+            </div>
+            <div className="flex-grow">
+              <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                主数据治理实战：从同义词混乱到 SSOT 的映射表设计
+              </h2>
+              <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · Tech Design</div>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                品类「洗发水」和「洗发液」被拆成两个统计？用配置驱动映射表替代硬编码 CASE WHEN，把主数据治理沉淀为 ETL 原子能力。
+              </p>
+            </div>
+            <div className="mt-auto pt-4 border-t border-gray-100">
+              <button
+                onClick={() => navigate('/blog/mdm-mapping-design')}
+                className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
               >
                 <span>阅读文章</span>
                 <span className="text-xs opacity-50">↗</span>

@@ -49,9 +49,9 @@ export const BlogPost: React.FC = () => {
         <p className="text-red-600 mb-4">{error}</p>
         <button
           onClick={() => navigate('/blog')}
-          className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm"
+          className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
         >
-          ← 返回日志
+          ← Return to Engineering Log
         </button>
       </div>
     );
@@ -78,12 +78,12 @@ export const BlogPost: React.FC = () => {
             </ReactMarkdown>
           </div>
         </div>
-        <div className="mt-12 text-center">
+        <div className="mt-16 text-center">
           <button
             onClick={() => navigate('/blog')}
             className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
           >
-            ← 返回日志
+            ← Return to Engineering Log
           </button>
         </div>
       </article>

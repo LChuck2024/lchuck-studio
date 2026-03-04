@@ -183,6 +183,7 @@ export const ChatbotWidget: React.FC = () => {
     return (
       <button
         onClick={() => setIsOpen(true)}
+        aria-label="打开 AI 助手"
         className="fixed right-6 z-[150] w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:scale-110 animate-pulse pointer-events-auto"
         style={{
           bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))',
