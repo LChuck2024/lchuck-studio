@@ -1,8 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+/** 万能数据清洗脚本包清单 */
+const SCRIPT_LIST = [
+  { name: '多表合并', desc: '多个 Excel/CSV 文件按行或列合并', tech: 'Pandas' },
+  { name: '多 Sheet 合并', desc: '单文件内多 Sheet 合并为一张表', tech: 'OpenPyXL' },
+  { name: '字段提取 / 列筛选', desc: '按列名或索引保留/剔除列', tech: 'Pandas' },
+  { name: '去重', desc: '按指定列或全行去重', tech: 'Pandas' },
+  { name: '空值处理', desc: '填充、删除或标记空值', tech: 'Pandas' },
+  { name: '日期标准化', desc: '统一日期格式与时区', tech: 'Pandas' },
+  { name: '文本清洗', desc: '去空格、大小写、特殊字符', tech: 'Pandas' },
+  { name: '列拆分', desc: '按分隔符或正则拆分单列', tech: 'Pandas' },
+  { name: '列合并', desc: '多列拼接为新列', tech: 'Pandas' },
+  { name: 'Excel 转 CSV', desc: '批量 xlsx/xls 转 csv', tech: 'OpenPyXL' },
+  { name: 'CSV 合并', desc: '多 CSV 文件合并', tech: 'Pandas' },
+  { name: '编码转换', desc: 'GBK/UTF-8/BOM 等编码转换', tech: 'Python' },
+  { name: '数据校验', desc: '格式校验、范围校验、必填校验', tech: 'Pandas' },
+  { name: '重复值标记', desc: '标记重复行并导出', tech: 'Pandas' },
+  { name: '条件筛选导出', desc: '按条件筛选后导出子集', tech: 'Pandas' },
+  { name: '行列转置', desc: '行转列、列转行', tech: 'Pandas' },
+  { name: '按列拆分到多文件', desc: '按某列取值拆分到多个文件', tech: 'Pandas' },
+  { name: '正则提取', desc: '从文本列中提取匹配内容', tech: 'Pandas' },
+];
 
 export const Apps: React.FC = () => {
   const navigate = useNavigate();
+  const [scriptListOpen, setScriptListOpen] = useState(false);
+
+  useEffect(() => {
+    if (!scriptListOpen) return;
+    const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && setScriptListOpen(false);
+    window.addEventListener('keydown', onEsc);
+    return () => window.removeEventListener('keydown', onEsc);
+  }, [scriptListOpen]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
@@ -10,7 +40,7 @@ export const Apps: React.FC = () => {
         <div className="mb-12 text-left">
           <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">Product Hub</h1>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            拒绝重复造轮。工具、服务与实验性产品。
+            拒绝重复造轮子。工具、服务与实验性产品。
           </p>
         </div>
 
@@ -44,7 +74,10 @@ export const Apps: React.FC = () => {
                     Python / Streamlit
                   </span>
                 </div>
-                <button className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2">
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想获取 RAG 数据清洗 GUI 软件！' } }))}
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2"
+                >
                   <span>获取软件</span>
                   <span className="text-xs opacity-50">⬇</span>
                 </button>
@@ -91,7 +124,7 @@ export const Apps: React.FC = () => {
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">📱</span>
                 <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  文案
+                  付费
                 </span>
               </div>
               <div className="flex-grow">
@@ -109,14 +142,50 @@ export const Apps: React.FC = () => {
                     Gemini API / Regex
                   </span>
                 </div>
-                <button className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2">
-                  <span>获取工具</span>
-                  <span className="text-xs opacity-50">⚡</span>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想了解小红书笔记整形工厂，如何购买？' } }))}
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span>咨询购买</span>
+                  <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
             </div>
 
-            {/* Card 4: 万能数据清洗脚本包 */}
+            {/* Card 4: 提示词模板包 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-2xl">📝</span>
+                <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
+                  付费
+                </span>
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
+                  提示词模板包
+                </h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  主理人自用精选。人生战略审计师、CTO、主数据治理、情感顾问等，可直接用于 ChatGPT / DeepSeek / Copilot。
+                </p>
+              </div>
+              <div className="mt-auto">
+                <div className="mb-4 pt-4 border-t border-gray-100">
+                  <span className="text-xs font-mono text-gray-400 block mb-1">CAPABILITIES</span>
+                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
+                    人生 / 技术 / 情感
+                  </span>
+                </div>
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想了解提示词模板包，如何购买？' } }))}
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span>咨询购买</span>
+                  <span className="text-xs opacity-50">↗</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Card 5: 万能数据清洗脚本包 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">📊</span>
@@ -129,7 +198,7 @@ export const Apps: React.FC = () => {
                   万能数据清洗脚本包
                 </h2>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  拒绝手动复制粘贴。包含表格合并、字段提取等 10+ 个常用 Python 脚本。
+                  拒绝手动复制粘贴。包含表格合并、字段提取等 18 个常用 Python 脚本。
                 </p>
               </div>
               <div className="mt-auto">
@@ -139,7 +208,10 @@ export const Apps: React.FC = () => {
                     Pandas / OpenPyXL
                   </span>
                 </div>
-                <button className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2">
+                <button
+                  onClick={() => setScriptListOpen(true)}
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+                >
                   <span>查看清单</span>
                   <span className="text-xs opacity-50">📋</span>
                 </button>
@@ -341,7 +413,10 @@ export const Apps: React.FC = () => {
                 </p>
               </div>
               <div className="mt-auto">
-                <button className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2">
+                <button
+                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想获取 RAG 知识库构建生成器的源码！' } }))}
+                  className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2"
+                >
                   <span>获取源码</span>
                   <span className="text-xs opacity-70">⬇</span>
                 </button>
@@ -440,6 +515,59 @@ export const Apps: React.FC = () => {
           </button>
         </div>
       </div>
+
+      {/* 万能数据清洗脚本包清单弹窗 */}
+      {scriptListOpen && (
+        <div
+          className="fixed inset-0 z-[300] flex items-center justify-center bg-black/70 p-4"
+          onClick={() => setScriptListOpen(false)}
+        >
+          <div
+            className="bg-white rounded-sm shadow-xl border border-neutral-200 max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 shrink-0">
+              <h3 className="text-lg font-bold text-gray-900 font-mono">万能数据清洗脚本包</h3>
+              <button
+                onClick={() => setScriptListOpen(false)}
+                className="p-2 text-gray-500 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label="关闭"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="overflow-y-auto p-6">
+              <p className="text-gray-500 text-sm mb-4">Pandas / OpenPyXL · 共 {SCRIPT_LIST.length} 个脚本</p>
+              <ul className="space-y-3">
+                {SCRIPT_LIST.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 py-2 border-b border-gray-100 last:border-0">
+                    <span className="text-blue-600 font-mono text-sm shrink-0 w-6">{i + 1}.</span>
+                    <div>
+                      <span className="font-medium text-gray-900">{item.name}</span>
+                      <p className="text-gray-500 text-sm mt-0.5">{item.desc}</p>
+                      <span className="text-xs text-gray-400 font-mono">{item.tech}</span>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-gray-500 text-sm mt-6">
+                需要脚本或定制？可点击下方按钮咨询数据架构师。
+              </p>
+              <button
+                onClick={() => {
+                  setScriptListOpen(false);
+                  window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想了解万能数据清洗脚本包，如何获取？' } }));
+                }}
+                className="mt-4 w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors"
+              >
+                咨询获取
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

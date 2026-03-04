@@ -35,7 +35,7 @@ export const SECTIONS: Section[] = [
     titleCn: '产品与服务',
     type: 'APP',
     tag: 'PRODUCT HUB',
-    description: '拒绝重复造轮。RAG 清洗 GUI、选课查询器、小红书笔记工厂、万能脚本、数据清洗代办、CDC 架构咨询、主数据咨询、代码优化。开箱即用。',
+    description: '拒绝重复造轮。RAG 清洗 GUI、选课查询器、小红书笔记工厂、提示词模板包、万能脚本、数据清洗代办、CDC 架构咨询、主数据咨询、代码优化。开箱即用。',
     badge: '🛠️ 持续更新',
     icon: '🛠️'
   },
