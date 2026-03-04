@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PhysicsSystem, PhysicsNode } from '../components/PhysicsSystem';
+import { CTASection } from '../components/CTASection';
 import { SECTIONS } from '../constants';
 import { CONTACT } from '../config/contact';
 
@@ -199,7 +200,7 @@ export const Home: React.FC = () => {
         return (
           <PhysicsNode key={section.id} id={section.id} x={clampedX} y={cardY} w={cardWidth} h={cardHeight} depth={sectionDepths[i]}>
             <div 
-              className="w-full h-full p-3 sm:p-4 md:p-5 lg:p-6 pb-16 bg-white shadow-none border border-neutral-200 border-t-4 border-t-red-600 rounded-sm group hover:-translate-y-1 hover:shadow-xl hover:border-neutral-300 transition-all duration-300 flex flex-col gap-4 cursor-pointer overflow-hidden relative"
+              className="w-full h-full p-3 sm:p-4 md:p-5 lg:p-6 pb-16 bg-white shadow-none border border-neutral-200 border-t-4 border-t-red-600 rounded-sm group hover:-translate-y-1 hover:shadow-xl hover:border-neutral-300 transition-all duration-300 flex flex-col gap-4 cursor-pointer overflow-hidden relative touch-manipulation select-none active:bg-gray-50"
               onClick={() => {
                 if (section.type === 'AGENT') navigate('/agents');
                 else if (section.type === 'APP') navigate('/apps');
@@ -251,6 +252,8 @@ export const Home: React.FC = () => {
         </PhysicsNode>
       ))}
       </PhysicsSystem>
+
+      <CTASection />
       
       <div className="relative mt-8 w-full px-4 text-center pointer-events-none opacity-50 z-0 pb-8">
         <p className="text-[10px] sm:text-xs text-gray-500 font-light font-mono tracking-widest flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">

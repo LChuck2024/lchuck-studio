@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CTASection } from '../components/CTASection';
 
 export const Blog: React.FC = () => {
   const navigate = useNavigate();
@@ -134,6 +135,8 @@ export const Blog: React.FC = () => {
           </div>
         </div>
         </div>
+
+        <CTASection />
         
         <div className="mt-16 text-center">
           <button 

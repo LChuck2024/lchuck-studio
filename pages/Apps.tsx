@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CTASection } from '../components/CTASection';
 
 /** 万能数据清洗脚本包清单 */
 const SCRIPT_LIST = [
@@ -505,6 +506,8 @@ export const Apps: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <CTASection />
 
         <div className="mt-16 text-center">
           <button

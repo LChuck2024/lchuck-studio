@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CTASection } from '../components/CTASection';
 
 const ARCH_IMAGE = '/Unified_Processing_Engine.JPG';
 
@@ -177,6 +178,8 @@ export const Agents: React.FC = () => {
             </div>
           </div>
         </div>
+
+        <CTASection />
         
         <div className="mt-16 text-center">
           <button 

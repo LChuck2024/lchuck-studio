@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { CTASection } from '../components/CTASection';
 
 // 从 src/posts/ 加载，编辑后 HMR 会立即生效
 const postModules = import.meta.glob<string>('../src/posts/*.md', { query: '?raw', import: 'default' });
@@ -78,6 +79,7 @@ export const BlogPost: React.FC = () => {
             </ReactMarkdown>
           </div>
         </div>
+        <CTASection />
         <div className="mt-16 text-center">
           <button
             onClick={() => navigate('/blog')}

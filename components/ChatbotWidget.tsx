@@ -178,21 +178,40 @@ export const ChatbotWidget: React.FC = () => {
     setMessages([{ id: Date.now().toString(), role: 'assistant', content: greeting }]);
   };
 
-  // 关闭时显示 FAB
+  // 关闭时显示 FAB（带 Pulse 动画 + 悬浮提示）- 全局展示，避免贴边掉出屏幕
   if (!isOpen) {
     return (
-      <button
-        onClick={() => setIsOpen(true)}
-        aria-label="打开 AI 助手"
-        className="fixed right-6 z-[150] w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:scale-110 animate-pulse pointer-events-auto"
-        style={{
-          bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))',
-          background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
-          boxShadow: '0 10px 40px -10px rgba(220, 38, 38, 0.5)',
-        }}
+      <div
+        className="fixed right-4 sm:right-6 z-[150] flex items-center justify-end gap-2 sm:gap-3 group"
+        style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))' }}
       >
-        <ChatBubbleIcon className="w-6 h-6 sm:w-7 sm:h-7" />
-      </button>
+        {/* 常驻标签：桌面端显示，更醒目 */}
+        <span className="hidden sm:inline-flex items-center font-mono text-xs font-bold text-gray-700 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-sm border border-gray-200 shadow-sm group-hover:text-red-600 group-hover:border-red-200 transition-colors pointer-events-none">
+          AI 客服
+        </span>
+        {/* Tooltip: 仅移动端悬浮显示（桌面端已有常驻标签） */}
+        <span className="sm:hidden absolute right-full mr-3 px-2 py-1.5 bg-gray-900 text-white font-mono text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+          AI 客服 · 在线咨询
+        </span>
+        {/* Pulse 背景层：雷达式扩散，不阻挡点击 */}
+        <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">
+          <span
+            className="absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75 animate-ping pointer-events-none"
+            aria-hidden="true"
+          />
+          <button
+            onClick={() => setIsOpen(true)}
+            aria-label="打开 AI 助手"
+            className="relative z-10 w-full h-full rounded-full flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:scale-110"
+            style={{
+              background: 'linear-gradient(135deg, #DC2626 0%, #B91C1C 100%)',
+              boxShadow: '0 10px 40px -10px rgba(220, 38, 38, 0.5)',
+            }}
+          >
+            <ChatBubbleIcon className="w-6 h-6 sm:w-7 sm:h-7" />
+          </button>
+        </div>
+      </div>
     );
   }
 
@@ -201,8 +220,8 @@ export const ChatbotWidget: React.FC = () => {
     <div
       className="fixed z-[200] w-[350px] sm:w-[380px] max-w-[calc(100vw-2rem)] flex flex-col bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden"
       style={{
-        bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))',
-        right: '1.5rem',
+        bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
+        right: '1rem',
         height: '600px',
         maxHeight: 'calc(100vh - 6rem)',
       }}
