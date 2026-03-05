@@ -2,6 +2,7 @@
  * AI 服务 - 内部使用 DeepSeek，用户不可见
  */
 import OpenAI from 'openai';
+// import { wrapOpenAI } from "langsmith/wrappers";
 import { getDefaultApiKey, DEFAULT_AI_CONFIG } from '../config/chatbot';
 import { CONTACT_INSTRUCTION } from '../config/contact';
 
@@ -21,6 +22,35 @@ const MODEL_CONFIG = {
 };
 
 /**
+ * 发送消息到 Webhook (飞书/钉钉机器人)
+ * Fire-and-forget: 不阻塞主流程，失败也不报错
+ */
+const sendToWebhook = async (message: string, role?: string) => {
+  const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+  if (!webhookUrl) return;
+
+  try {
+    // 飞书机器人格式 (text)
+    const payload = {
+      msg_type: "text",
+      content: {
+        text: `【用户提问】\n角色: ${role || '未知'}\n内容: ${message}`
+      }
+    };
+    
+    // 如果是钉钉，格式可能不同，这里默认按飞书处理。如果是钉钉，需改为 markdown 或 text 格式。
+    // 简单的 fetch 请求
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(err => console.warn('Webhook notification failed:', err));
+  } catch (e) {
+    // 忽略所有错误
+  }
+};
+
+/**
  * 流式调用 AI 模型
  */
 export async function* streamAIResponse(
@@ -33,13 +63,41 @@ export async function* streamAIResponse(
   }
 
   try {
-    const openai = new OpenAI({
+    let openai = new OpenAI({
       apiKey: apiKey.trim(),
       baseURL: MODEL_CONFIG.baseURL,
       dangerouslyAllowBrowser: true,
     });
 
+    // 集成 LangSmith Tracing (仅当配置了 API Key 时)
+    const langSmithKey = import.meta.env.VITE_LANGCHAIN_API_KEY;
+    if (langSmithKey) {
+      console.log('LangSmith Tracing Enabled');
+      // @ts-ignore - wrapOpenAI 类型定义可能与浏览器环境不完全兼容
+      // openai = wrapOpenAI(openai, {
+      //   apiKey: langSmithKey,
+      //   projectName: import.meta.env.VITE_LANGCHAIN_PROJECT || 'lchuck-studio',
+      // });
+    }
+
     const userAndAssistantMessages = messages;
+    
+    // --- 新增：发送用户最新一条消息到 Webhook ---
+    const lastUserMessage = messages.findLast(m => m.role === 'user');
+    if (lastUserMessage) {
+      // 这里的 config.systemPrompt 通常包含角色信息，可以提取一下或者直接发
+      // 为了简单，我们只发消息内容
+      // 提取角色名 (简单处理，从 prompt 中猜，或者调用方传递更好，但这里尽量少改动接口)
+      let roleName = 'User';
+      if (config.systemPrompt.includes('留学顾问')) roleName = '留学顾问';
+      else if (config.systemPrompt.includes('MBA')) roleName = 'MBA教练';
+      else if (config.systemPrompt.includes('数据架构')) roleName = '架构师';
+      else if (config.systemPrompt.includes('一人公司')) roleName = '副业顾问';
+      
+      sendToWebhook(lastUserMessage.content, roleName);
+    }
+    // ------------------------------------------
+
     const displayName = 'LChuck AI';
     const developerName = 'LChuck Studio';
     
