@@ -39,473 +39,306 @@ export const Apps: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">Product Hub</h1>
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">Solutions & Prototypes</h1>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            拒绝重复造轮子。工具、服务与实验性产品。
+            基于垂直行业痛点，利用 RAG 架构与 Agent 编排构建的生产力工具实验场。
           </p>
         </div>
 
-        {/* Section 1: 工具与脚本 (TOOLS & SCRIPTS) */}
-        <div>
-          <h2 className="text-xl font-bold text-gray-900 mb-6 font-mono tracking-widest flex items-center gap-2">
-            <span>🛠️</span> 工具与脚本 (TOOLS & SCRIPTS)
+        {/* 分类锚点导航 */}
+        <nav className="flex flex-wrap gap-2 mb-12 border-b border-neutral-200 pb-4">
+          <a href="#enterprise-data" className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 hover:text-red-600 transition-colors px-2 py-1 border border-transparent hover:border-neutral-300 rounded-sm">
+            01 Enterprise Data
+          </a>
+          <a href="#personal-growth" className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 hover:text-red-600 transition-colors px-2 py-1 border border-transparent hover:border-neutral-300 rounded-sm">
+            02 Personal Growth
+          </a>
+          <a href="#developer-tools" className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 hover:text-red-600 transition-colors px-2 py-1 border border-transparent hover:border-neutral-300 rounded-sm">
+            03 Developer Tools
+          </a>
+        </nav>
+
+        {/* Section 1: Enterprise Data (企业数据) */}
+        <section id="enterprise-data" className="scroll-mt-24">
+          <h2 className="text-xl font-bold text-gray-900 mb-2 font-mono tracking-widest flex items-center gap-2">
+            <span className="text-neutral-400">01</span> Enterprise Data (企业数据)
           </h2>
-          <p className="text-gray-500 text-sm font-mono mb-6">开箱即用的软件与脚本。</p>
+          <p className="text-gray-500 text-sm font-mono mb-6">主数据治理、数据清洗、ETL 架构与咨询原型。</p>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             {/* Card 1: RAG 数据清洗 GUI */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">🧹</span>
-                <span className="bg-yellow-100 text-yellow-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-yellow-200">
-                  软件
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">
+                  Enterprise Data
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
                   RAG 数据清洗 GUI
                 </h2>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  带界面的本地清洗工具。拖入 PDF/Word，自动输出 DeepSeek 可用的 JSONL 训练集。
+                  针对非结构化文档难以直接用于 LLM 微调的痛点，采用本地 Pipeline 进行 PDF/Word 解析与 Chunk 切分，输出 DeepSeek 可用的 JSONL 训练集，实现私有语料的高效 RAG 化。
                 </p>
               </div>
               <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    Python / Streamlit
-                  </span>
-                </div>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Python · Streamlit · PDF Parser · JSONL</p>
                 <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想获取 RAG 数据清洗 GUI 软件！' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2"
+                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想申请访问 RAG 数据清洗 GUI。为了维持实验室算力成本，本原型采用 License 授权模式，赞助算力即可获得无限次访问权限。' } }))}
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors"
                 >
-                  <span>获取软件</span>
-                  <span className="text-xs opacity-50">⬇</span>
+                  申请访问
                 </button>
               </div>
             </div>
 
-            {/* Card 2: 欧洲开放大学选课查询器 */}
+            {/* Card 2: 万能数据清洗脚本包 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">🇪🇺</span>
-                <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  免费
+                <span className="text-2xl">📊</span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">
+                  Enterprise Data
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                  欧洲开放大学选课查询器
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
+                  万能数据清洗脚本包
                 </h2>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  拒绝中介信息差。270+ 门课程已清洗分级，一键筛选学科/学费/学分。官网申请免费。
+                  针对重复性 Excel/CSV 手工操作效率低下的痛点，采用配置驱动型 Python Pipeline，覆盖多表合并、字段提取、去重、编码转换等 18 个原子算子，实现数据清洗的标准化与可复用。
                 </p>
               </div>
               <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    WPS AI / 主数据
-                  </span>
-                </div>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Pandas · OpenPyXL · Config-Driven ETL</p>
+                <button
+                  onClick={() => setScriptListOpen(true)}
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors"
+                >
+                  架构详情
+                </button>
+              </div>
+            </div>
+
+            {/* 数据清洗代办 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-2xl">📦</span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Enterprise Data</span>
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">数据清洗代办</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对业务侧缺乏数据工程能力、重复性清洗需求外包难的痛点，采用标准化 Pipeline 与交付 SOP，实现 Excel 合并、字段提取、格式转换的快速交付。</p>
+              </div>
+              <div className="mt-auto">
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Pandas · OpenPyXL · SOP</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想了解数据清洗代办的架构与交付流程。为了维持实验室算力成本，本原型采用 License 授权模式。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">申请访问</button>
+              </div>
+            </div>
+
+            {/* CDC 架构咨询 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-2xl">🏗️</span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Enterprise Data</span>
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">CDC 架构咨询</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对企业级数据中台增量同步与历史追溯的痛点，采用 CDC + SCD 拉链 + 配置驱动 ETL 架构，实现 10 年架构师经验的方法论输出与 1V1 深度咨询。</p>
+              </div>
+              <div className="mt-auto">
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">CDC · SCD · Config-Driven ETL</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想了解 CDC 架构咨询的流程与架构详情。为了维持实验室算力成本，本原型采用 License 授权模式。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">架构详情</button>
+              </div>
+            </div>
+
+            {/* 主数据咨询 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-2xl">🗄️</span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Enterprise Data</span>
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">主数据咨询</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对产品/客户/组织主数据分散、同义词未归一化的痛点，采用 SSOT 与映射表设计，结合配置驱动 ETL，实现主数据治理的落地与可持续运维。</p>
+              </div>
+              <div className="mt-auto">
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">SSOT · Mapping Table · MDM</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想了解主数据治理与 MDM 落地的架构详情。为了维持实验室算力成本，本原型采用 License 授权模式。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">架构详情</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: Personal Growth (个人成长) */}
+        <section id="personal-growth" className="mt-20 pt-12 border-t border-neutral-100 scroll-mt-24">
+          <h2 className="text-xl font-bold text-gray-900 mb-2 font-mono tracking-widest flex items-center gap-2">
+            <span className="text-neutral-400">02</span> Personal Growth (个人成长)
+          </h2>
+          <p className="text-gray-500 text-sm font-mono mb-6">内容生产、留学规划、精力管理、方法论沉淀相关原型。</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {/* 欧洲开放大学选课查询器 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-2xl">🇪🇺</span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">
+                  Personal Growth
+                </span>
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
+                  欧洲开放大学选课查询器
+                </h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  针对留学信息不对称与中介溢价痛点，采用主数据清洗与分级建模，将 270+ 门课程结构化，实现学科/学费/学分的多维度筛选，消除信息差，支持官网自助申请。
+                </p>
+              </div>
+              <div className="mt-auto">
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">WPS AI · 主数据 · 多维筛选</p>
                 <a
                   href="https://web.wps.cn/wo/sl/v31rzbsD?app_id=1PKY0UiCwcIPzRKjh3CoI6"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+                  className="block w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors text-center"
                 >
-                  <span>免费查询</span>
-                  <span className="text-xs opacity-50">↗</span>
+                  启动原型
                 </a>
               </div>
             </div>
-
-            {/* Card 3: 小红书笔记整形工厂 */}
+            {/* 小红书笔记整形工厂 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">📱</span>
-                <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  付费
-                </span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Personal Growth</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                  小红书笔记整形工厂
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  专为技术博主设计。输入粗糙想法，一键生成「情绪对立+硬核干货」风格爆款文案。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">小红书笔记整形工厂</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对技术博主内容转化率低、爆款结构难复制的痛点，采用 LLM + 结构化 Prompt 编排，将粗糙想法转化为「情绪对立+硬核干货」双轨输出，实现高互动率的内容生产。</p>
               </div>
               <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    Gemini API / Regex
-                  </span>
-                </div>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想了解小红书笔记整形工厂，如何购买？' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>咨询购买</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Gemini API · Regex · Prompt Engineering</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想申请访问小红书笔记整形工厂。为了维持实验室算力成本，本原型采用 License 授权模式，赞助算力即可获得无限次访问权限。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">申请访问</button>
               </div>
             </div>
-
-            {/* Card 4: 提示词模板包 */}
+            {/* 提示词模板包 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">📝</span>
-                <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  付费
-                </span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Personal Growth</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                  提示词模板包
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  主理人自用精选。人生战略审计师、CTO、主数据治理、情感顾问等，可直接用于 ChatGPT / DeepSeek / Copilot。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">提示词模板包</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对通用 LLM 难以直接产出结构化、可复现输出的痛点，采用领域 Prompt 工程与角色设定编排，覆盖人生战略、CTO 决策、主数据治理等场景，实现 ChatGPT / DeepSeek / Copilot 的即插即用。</p>
               </div>
               <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">CAPABILITIES</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    人生 / 技术 / 情感
-                  </span>
-                </div>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想了解提示词模板包，如何购买？' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>咨询购买</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Prompt Engineering · Multi-LLM · Role Design</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想申请访问提示词模板包。为了维持实验室算力成本，本原型采用 License 授权模式，赞助算力即可获得无限次访问权限。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">申请访问</button>
               </div>
             </div>
-
-            {/* Card 5: 万能数据清洗脚本包 */}
+            {/* 飞书 P0 管理法模板 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">📊</span>
-                <span className="bg-blue-100 text-blue-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-blue-200">
-                  脚本
-                </span>
+                <span className="text-2xl">🧠</span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Personal Growth</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                  万能数据清洗脚本包
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  拒绝手动复制粘贴。包含表格合并、字段提取等 18 个常用 Python 脚本。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">飞书 P0 管理法模板</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对职场/副业/家庭精力分散、优先级难以量化的痛点，采用飞书多维表格的「战略指挥部」架构，实现 P0 任务的动态排序与精力分配的可视化管理。</p>
               </div>
               <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    Pandas / OpenPyXL
-                  </span>
-                </div>
-                <button
-                  onClick={() => setScriptListOpen(true)}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>查看清单</span>
-                  <span className="text-xs opacity-50">📋</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Feishu · Multi-Dimensional Table · P0</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想申请访问飞书 P0 管理法模板。为了维持实验室算力成本，本原型采用 License 授权模式。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">申请访问</button>
               </div>
             </div>
-
           </div>
-        </div>
+        </section>
 
-        {/* Section 2: 服务与咨询 (SERVICES & CONSULTING) */}
-        <div className="mt-20">
-          <h2 className="text-xl font-bold text-gray-900 mb-6 font-mono tracking-widest flex items-center gap-2">
-            <span>💼</span> 服务与咨询 (SERVICES & CONSULTING)
+        {/* Section 3: Developer Tools (开发者工具) */}
+        <section id="developer-tools" className="mt-20 pt-12 border-t border-neutral-100 scroll-mt-24">
+          <h2 className="text-xl font-bold text-gray-900 mb-2 font-mono tracking-widest flex items-center gap-2">
+            <span className="text-neutral-400">03</span> Developer Tools (开发者工具)
           </h2>
-          <p className="text-gray-500 text-sm font-mono mb-6">代办接单与 1V1 咨询。</p>
+          <p className="text-gray-500 text-sm font-mono mb-6">RAG、Agent、本地部署与代码工程相关原型。</p>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {/* Card 1: 数据清洗代办服务 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">📦</span>
-                <span className="bg-orange-100 text-orange-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-orange-200">
-                  代办
-                </span>
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
-                  数据清洗代办服务
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  拒绝手动复制粘贴。Excel 合并、字段提取、格式转换。闲鱼/微信接单，立等可取。
-                </p>
-              </div>
-              <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">交付方式</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    闲鱼 / 微信
-                  </span>
-                </div>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想咨询数据清洗代办服务！' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>咨询接单</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Card 2: 代码优化服务 */}
+            {/* 代码优化服务 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">⚡</span>
-                <span className="bg-teal-100 text-teal-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-teal-200">
-                  代码
-                </span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Developer Tools</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
-                  代码优化服务
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  Python / Spark / SQL 性能调优、重构、代码审查。提升可读性与可维护性，与数据清洗代办区分——改代码而非代跑数据。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">代码优化服务</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对 Python / Spark / SQL 性能瓶颈与可维护性债务的痛点，采用静态分析 + 重构模式，实现性能调优、代码审查与架构升级的方法论输出。</p>
               </div>
               <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">交付方式</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    微信 / 邮箱
-                  </span>
-                </div>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想咨询代码优化与性能调优！' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-teal-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>预约咨询</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Python · Spark · SQL · Refactoring</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想了解代码优化与性能调优的架构详情。为了维持实验室算力成本，本原型采用 License 授权模式。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">架构详情</button>
               </div>
             </div>
-
-            {/* Card 3: CDC 架构咨询服务 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">🏗️</span>
-                <span className="bg-indigo-100 text-indigo-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-indigo-200">
-                  架构
-                </span>
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                  CDC 架构咨询服务
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  企业级数据中台落地。CDC 增量、SCD 拉链、配置驱动 ETL。10 年架构师 1V1 咨询。
-                </p>
-              </div>
-              <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">交付方式</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    ¥498/小时
-                  </span>
-                </div>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想预约 CDC 架构咨询服务！' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>预约咨询</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Card 4: 主数据咨询服务 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">🗄️</span>
-                <span className="bg-indigo-100 text-indigo-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-indigo-200">
-                  主数据
-                </span>
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                  主数据咨询服务
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  主数据治理、维度建模、标准化、映射表设计。产品/客户/组织主数据 SSOT 落地，配置驱动 ETL。
-                </p>
-              </div>
-              <div className="mt-auto">
-                <div className="mb-4 pt-4 border-t border-gray-100">
-                  <span className="text-xs font-mono text-gray-400 block mb-1">交付方式</span>
-                  <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                    微信 / 邮箱
-                  </span>
-                </div>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想咨询主数据治理与 MDM 落地！' } }))}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>预约咨询</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Section 3: 实验室 / 路线图 (THE LAB) */}
-        <div className="mt-20">
-          <h2 className="text-xl font-bold text-gray-900 mb-6 font-mono tracking-widest flex items-center gap-2">
-            <span>🚧</span> 实验室 / 路线图 (THE LAB)
-          </h2>
-          <p className="text-gray-500 text-sm font-mono mb-6">实验性或在规划中。</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {/* Card 1: OpenClaw 智能体部署包 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 opacity-80 hover:opacity-90 transition-all duration-200 group flex flex-col h-full">
+            {/* OpenClaw 智能体部署包 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full opacity-90 hover:opacity-100">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">🦞</span>
-                <span className="bg-neutral-100 text-neutral-500 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200">
-                  开发中
-                </span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Developer Tools</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                  OpenClaw 智能体部署包
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  你的 24/7 私人 AI 助理。基于 OpenClaw 开源架构，自动执行文件操作与代码任务。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">OpenClaw 智能体部署包</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对 24/7 自动化任务执行与代码编排的痛点，采用 OpenClaw 开源架构，实现文件操作、代码任务与 Agent 编排的本地部署，打造私人 AI 助理原型。</p>
               </div>
               <div className="mt-auto">
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { message: '我想了解 OpenClaw 智能体部署包的演示！' } }))}
-                  className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>查看演示</span>
-                  <span className="text-xs opacity-70">▷</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">OpenClaw · Agent · Local Deploy</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { message: '我想了解 OpenClaw 智能体部署包的架构与演示。' } }))} className="w-full py-2 border-2 border-neutral-300 text-gray-800 rounded-sm text-sm font-medium font-mono hover:border-neutral-400 hover:bg-neutral-50 transition-colors">架构详情</button>
               </div>
             </div>
 
-            {/* Card 2: RAG 知识库构建生成器 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 opacity-80 hover:opacity-90 transition-all duration-200 group flex flex-col h-full">
+            {/* RAG 知识库构建生成器 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">📄</span>
-                <span className="bg-neutral-100 text-neutral-500 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200">
-                  命令行
-                </span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Developer Tools</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                  RAG 知识库构建生成器
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  基于 Python 的命令行工具。将非结构化文档转化为标准化的 QA 问答对。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">RAG 知识库构建生成器</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对非结构化文档难以直接用于 RAG 检索的痛点，采用 Python CLI + 分块策略，将文档转化为标准化 QA 问答对，实现知识库的快速构建与向量化。</p>
               </div>
               <div className="mt-auto">
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想获取 RAG 知识库构建生成器的源码！' } }))}
-                  className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>获取源码</span>
-                  <span className="text-xs opacity-70">⬇</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">Python · CLI · Chunking · QA Pair</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想申请访问 RAG 知识库构建生成器。为了维持实验室算力成本，本原型采用 License 授权模式。' } }))} className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors">申请访问</button>
               </div>
             </div>
 
-            {/* Card 3: DeepSeek 本地部署懒人包 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 opacity-80 hover:opacity-90 transition-all duration-200 group flex flex-col h-full">
+            {/* DeepSeek 本地部署懒人包 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full opacity-90 hover:opacity-100">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">🤖</span>
-                <span className="bg-neutral-100 text-neutral-500 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200">
-                  开发中
-                </span>
+                <span className="bg-neutral-100 text-neutral-600 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Developer Tools</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                  DeepSeek 本地部署懒人包
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  一键检测硬件、部署模型、启动 UI。打造隐私安全的离线 AI 环境。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">DeepSeek 本地部署懒人包</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对隐私敏感场景与离线 AI 需求的痛点，采用硬件检测 + 模型部署 + UI 启动的一体化脚本，实现本地大模型的快速部署与隐私安全环境构建。</p>
               </div>
               <div className="mt-auto">
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { message: '我想预约 DeepSeek 本地部署懒人包内测！' } }))}
-                  className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>预约内测</span>
-                  <span className="text-xs opacity-70">🔔</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">DeepSeek · Local LLM · Ollama</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { message: '我想了解 DeepSeek 本地部署懒人包的架构与内测安排。' } }))} className="w-full py-2 border-2 border-neutral-300 text-gray-800 rounded-sm text-sm font-medium font-mono hover:border-neutral-400 hover:bg-neutral-50 transition-colors">架构详情</button>
               </div>
             </div>
 
-            {/* Card 4: 万能发票重命名工具 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 opacity-80 hover:opacity-90 transition-all duration-200 group flex flex-col h-full">
+            {/* 万能发票重命名工具 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full opacity-90 hover:opacity-100">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">📑</span>
-                <span className="bg-neutral-100 text-neutral-500 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200">
-                  规划中
-                </span>
+                <span className="bg-neutral-100 text-neutral-500 text-[10px] font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200 uppercase tracking-wider">Roadmap</span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                  万能发票重命名工具
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  自动提取 PDF 发票金额/日期并重命名。财务报销效率神器。
-                </p>
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">万能发票重命名工具</h2>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">针对财务报销场景下 PDF 发票命名混乱的痛点，采用 PDF 解析 + 正则提取，实现金额/日期的自动提取与批量重命名，提升报销流程效率。</p>
               </div>
               <div className="mt-auto">
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { message: '我想催更发票重命名工具！' } }))}
-                  className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>点击催更</span>
-                  <span className="text-xs opacity-70">👍</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Card 5: 飞书 P0 管理法模板 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 opacity-80 hover:opacity-90 transition-all duration-200 group flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">🧠</span>
-                <span className="bg-neutral-100 text-neutral-500 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-neutral-200">
-                  模板
-                </span>
-              </div>
-              <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-gray-600 transition-colors">
-                  飞书 P0 管理法模板
-                </h2>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  拒绝伪勤奋。多维表格「战略指挥部」模板，职场/副业/家庭精力管理。
-                </p>
-              </div>
-              <div className="mt-auto">
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur', message: '我想获取飞书 P0 管理法模板！' } }))}
-                  className="w-full py-2 bg-neutral-100 text-neutral-600 rounded-sm text-sm font-medium font-mono hover:bg-neutral-200 border-none transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>咨询获取</span>
-                  <span className="text-xs opacity-70">📋</span>
-                </button>
+                <p className="text-[10px] font-mono text-gray-400 mb-3 tracking-wider">PDF Parser · Regex · Batch Rename</p>
+                <button onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { message: '我想了解发票重命名工具的研发进度。' } }))} className="w-full py-2 border-2 border-neutral-300 text-gray-800 rounded-sm text-sm font-medium font-mono hover:border-neutral-400 hover:bg-neutral-50 transition-colors">架构详情</button>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <CTASection />
 
@@ -514,7 +347,7 @@ export const Apps: React.FC = () => {
             onClick={() => navigate('/')}
             className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
           >
-            ← Return to Command Center
+            ← 返回指挥中心
           </button>
         </div>
       </div>
@@ -556,16 +389,16 @@ export const Apps: React.FC = () => {
                 ))}
               </ul>
               <p className="text-gray-500 text-sm mt-6">
-                需要脚本或定制？可点击下方按钮咨询数据架构师。
+                为了维持实验室算力成本，本原型采用 License 授权模式。赞助算力即可获得无限次访问权限。
               </p>
               <button
                 onClick={() => {
                   setScriptListOpen(false);
-                  window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想了解万能数据清洗脚本包，如何获取？' } }));
+                  window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect', message: '我想申请访问万能数据清洗脚本包。为了维持实验室算力成本，本原型采用 License 授权模式，赞助算力即可获得无限次访问权限。' } }));
                 }}
-                className="mt-4 w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors"
+                className="mt-4 w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors"
               >
-                咨询获取
+                申请访问
               </button>
             </div>
           </div>

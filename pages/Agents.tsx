@@ -19,9 +19,10 @@ export const Agents: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">Digital Workforce</h1>
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic">Digital Workforce</h1>
+          <p className="text-gray-400 font-mono text-sm mb-4">数字员工 · 智能代理</p>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            拒绝信息差与人工堆砌。24/7 待命的自动化专家与智能代理。
+            24/7 待命的 AI 数字员工。欧洲留学顾问、MBA 写作教练、数据架构师、一人公司顾问。免费查询、技术点拨、深度咨询。
           </p>
         </div>
         
@@ -44,7 +45,7 @@ export const Agents: React.FC = () => {
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
-                <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
+                <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
                   主数据清洗 / 智能匹配
                 </span>
@@ -88,16 +89,16 @@ export const Agents: React.FC = () => {
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
-                <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
+                <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                  Logic Framework / Anti-Template
+                  逻辑框架 / 反模板
                 </span>
               </div>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'mba-coach' } }))}
                 className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
               >
-                <span>试用教练 (Try Coach)</span>
+                <span>试用教练</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>
             </div>
@@ -121,7 +122,7 @@ export const Agents: React.FC = () => {
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
-                <span className="text-xs font-mono text-gray-400 block mb-1">TECH STACK</span>
+                <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
                   Python / Spark / SQL
                 </span>
@@ -163,7 +164,7 @@ export const Agents: React.FC = () => {
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
-                <span className="text-xs font-mono text-gray-400 block mb-1">CAPABILITIES</span>
+                <span className="text-xs font-mono text-gray-400 block mb-1">能力</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
                   P0 管理法 / 技术变现
                 </span>
@@ -186,7 +187,7 @@ export const Agents: React.FC = () => {
             onClick={() => navigate('/')}
             className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
           >
-            ← Return to Command Center
+            ← 返回指挥中心
           </button>
         </div>
       </div>
@@ -208,7 +209,7 @@ export const Agents: React.FC = () => {
           </button>
           <img
             src={ARCH_IMAGE}
-            alt="CDC Engine Architecture"
+            alt="CDC 统一处理引擎架构图"
             className="max-w-full max-h-[90vh] object-contain rounded-sm shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />

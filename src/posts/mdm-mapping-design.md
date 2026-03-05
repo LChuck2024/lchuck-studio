@@ -81,4 +81,4 @@ ETL 时只需 `LEFT JOIN dim_category_mapping`，用 `COALESCE(m.standard_value,
 
 ---
 
-*如需主数据咨询或映射表落地支持，可前往 [Product Hub](/apps) 预约主数据咨询服务。*
+*如需主数据咨询或映射表落地支持，可前往 [Solutions & Prototypes](/apps) 申请主数据咨询服务访问。*

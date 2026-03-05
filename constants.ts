@@ -25,17 +25,17 @@ export const SECTIONS: Section[] = [
     titleCn: '数字员工 / 智能代理',
     type: 'AGENT',
     tag: 'DIGITAL WORKFORCE',
-    description: '拒绝信息差与人工堆砌。留学顾问、MBA 写作提分教练、数据架构师、一人公司顾问。24/7 待命的 AI 数字员工。',
+    description: '24/7 待命的 AI 数字员工。欧洲留学顾问、MBA 写作教练、数据架构师、一人公司顾问。免费查询、技术点拨、深度咨询。',
     badge: '🟢 在线运行',
     icon: '🤖'
   },
   {
     id: 'apps',
-    title: 'PRODUCT HUB',
-    titleCn: '产品与服务',
+    title: 'SOLUTIONS & PROTOTYPES',
+    titleCn: '解决方案与原型',
     type: 'APP',
-    tag: 'PRODUCT HUB',
-    description: '拒绝重复造轮。RAG 清洗 GUI、选课查询器、小红书笔记工厂、提示词模板包、万能脚本、数据清洗代办、CDC 架构咨询、主数据咨询、代码优化。开箱即用。',
+    tag: 'SOLUTIONS & PROTOTYPES',
+    description: '基于垂直行业痛点，RAG 与 Agent 编排构建的生产力工具实验场。企业数据、个人成长、开发者工具。',
     badge: '🛠️ 持续更新',
     icon: '🛠️'
   },

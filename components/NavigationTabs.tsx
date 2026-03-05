@@ -4,15 +4,16 @@ import { motion } from 'framer-motion';
 
 interface Tab {
   id: string;
-  label: string;
+  labelEn: string;
+  labelCn: string;
   path: string;
 }
 
 const tabs: Tab[] = [
-  { id: 'home', label: 'Home', path: '/' },
-  { id: 'agents', label: 'Digital Workforce', path: '/agents' },
-  { id: 'apps', label: 'Product Hub', path: '/apps' },
-  { id: 'blog', label: 'Engineering Log', path: '/blog' },
+  { id: 'home', labelEn: 'Home', labelCn: '首页', path: '/' },
+  { id: 'agents', labelEn: 'Digital Workforce', labelCn: '数字员工', path: '/agents' },
+  { id: 'apps', labelEn: 'Solutions & Prototypes', labelCn: '解决方案与原型', path: '/apps' },
+  { id: 'blog', labelEn: 'Engineering Log', labelCn: '工程日志', path: '/blog' },
 ];
 
 export const NavigationTabs: React.FC = () => {
@@ -25,7 +26,7 @@ export const NavigationTabs: React.FC = () => {
             className={({ isActive }) => {
               const baseClasses = `
                 mono text-[10px] sm:text-[1vw] md:text-[8px] lg:text-[9px] xl:text-[10px]
-                font-bold tracking-[0.15em] sm:tracking-[0.2em] uppercase
+                font-bold tracking-[0.1em] sm:tracking-[0.15em]
                 relative
                 transition-all duration-500 ease-out
                 cursor-pointer
@@ -70,15 +71,16 @@ export const NavigationTabs: React.FC = () => {
                   />
                 )}
                 
-                {/* 文字内容 */}
-                <span className="relative z-10">
-                  {tab.label}
+                {/* 文字内容 - 上下两行 */}
+                <span className="relative z-10 flex flex-col items-center leading-tight gap-0.5">
+                  <span className="uppercase tracking-wider">{tab.labelEn}</span>
+                  <span className="text-[8px] sm:text-[0.7em] md:text-[7px] lg:text-[8px] font-medium opacity-90">{tab.labelCn}</span>
                 </span>
                 
                 {/* 激活状态的发光效果 */}
                 {isActive && (
                   <motion.span
-                    className="absolute inset-0 text-red-600 blur-sm opacity-50"
+                    className="absolute inset-0 text-red-600 blur-sm opacity-50 pointer-events-none"
                     animate={{
                       opacity: [0.3, 0.6, 0.3],
                     }}
@@ -88,7 +90,7 @@ export const NavigationTabs: React.FC = () => {
                       ease: 'easeInOut',
                     }}
                   >
-                    {tab.label}
+                    <span className="invisible">{tab.labelEn}</span>
                   </motion.span>
                 )}
                 

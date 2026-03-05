@@ -52,7 +52,7 @@ export const BlogPost: React.FC = () => {
           onClick={() => navigate('/blog')}
           className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
         >
-          ← Return to Engineering Log
+          ← 返回工程日志
         </button>
       </div>
     );
@@ -85,7 +85,7 @@ export const BlogPost: React.FC = () => {
             onClick={() => navigate('/blog')}
             className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
           >
-            ← Return to Engineering Log
+            ← 返回工程日志
           </button>
         </div>
       </article>

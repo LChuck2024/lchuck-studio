@@ -257,7 +257,7 @@ export const Home: React.FC = () => {
       
       <div className="relative mt-8 w-full px-4 text-center pointer-events-none opacity-50 z-0 pb-8">
         <p className="text-[10px] sm:text-xs text-gray-500 font-light font-mono tracking-widest flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-          <span>Designed by LChuck</span>
+          <span>LChuck 设计</span>
           <span className="hidden sm:inline">|</span>
           <span>500强数据架构师</span>
           <span className="hidden sm:inline">|</span>

@@ -24,7 +24,7 @@
 | 模块 | 说明 |
 |------|------|
 | **Digital Workforce** | 数字员工 / 智能代理：留学顾问、MBA 写作提分教练、数据架构师、一人公司顾问 |
-| **Product Hub** | 产品与服务：工具、脚本、代办、CDC 架构咨询、主数据咨询、代码优化 |
+| **Solutions & Prototypes** | AI 落地原型展示墙：企业数据、个人成长、开发者工具 |
 | **Engineering Log** | 工程日志：ETL 架构演进、一人公司实录、P0 精力管理、主数据治理 |
 
 ---
@@ -61,7 +61,7 @@ lchuck-studio/
 ├── pages/
 │   ├── Home.tsx             # 首页（物理卡片 + 副标题）
 │   ├── Agents.tsx           # Digital Workforce
-│   ├── Apps.tsx             # Product Hub
+│   ├── Apps.tsx             # Solutions & Prototypes
 │   ├── Blog.tsx             # Engineering Log 列表
 │   ├── BlogPost.tsx         # Markdown 文章详情
 │   └── NotFound.tsx         # 404 页面
