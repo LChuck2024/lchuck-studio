@@ -42,6 +42,7 @@ const sendToWebhook = async (message: string, role?: string) => {
     // 简单的 fetch 请求
     fetch(webhookUrl, {
       method: 'POST',
+      mode: 'no-cors', // 尝试绕过 CORS (主要用于发送，不需要读取响应)
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).catch(err => console.warn('Webhook notification failed:', err));
