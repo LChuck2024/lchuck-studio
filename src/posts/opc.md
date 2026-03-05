@@ -1,8 +1,11 @@
 
-# 一人公司实录：从 0 到 1 构建 LCHUCK STUDIO
-
-**作者**：Chuck Li 
-**首发**：[LChuck Studio](https://lchuckstudio.com/)
+---
+title: "一人公司实录：从 0 到 1 构建 LCHUCK STUDIO"
+description: "这不是一个博客，这是我的数字领土。关于技术栈选型、产品矩阵设计与流量冷启动的真实复盘。"
+date: "2026-02-26"
+category: "一人公司"
+author: "Chuck Li"
+---
 
 这不是一个博客，这是我的数字领土。关于技术栈选型、产品矩阵设计与流量冷启动的真实复盘。
 

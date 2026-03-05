@@ -25,7 +25,7 @@ export const SECTIONS: Section[] = [
     titleCn: '数字员工 / 智能代理',
     type: 'AGENT',
     tag: 'DIGITAL WORKFORCE',
-    description: '24/7 待命的 AI 数字员工。欧洲留学顾问、MBA 写作教练、数据架构师、一人公司顾问。免费查询、技术点拨、深度咨询。',
+    description: '24/7 待命的 AI 数字员工。方案匹配、逻辑诊断、运行助手、架构透视、深度咨询。',
     badge: '🟢 在线运行',
     icon: '🤖'
   },
@@ -45,7 +45,7 @@ export const SECTIONS: Section[] = [
     titleCn: '工程日志 / 博客',
     type: 'BLOG',
     tag: 'ENGINEERING LOG',
-    description: '拒绝伪勤奋。ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。技术复盘与深度思考。',
+    description: 'ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋。',
     badge: '📝 深度复盘',
     icon: '📓'
   }

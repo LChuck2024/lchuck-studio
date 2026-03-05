@@ -23,9 +23,9 @@
 
 | 模块 | 说明 |
 |------|------|
-| **Digital Workforce** | 数字员工 / 智能代理：留学顾问、MBA 写作提分教练、数据架构师、一人公司顾问 |
-| **Solutions & Prototypes** | AI 落地原型展示墙：企业数据、个人成长、开发者工具 |
-| **Engineering Log** | 工程日志：ETL 架构演进、一人公司实录、P0 精力管理、主数据治理 |
+| **Digital Workforce** | 数字员工 / 智能代理：方案匹配、逻辑诊断、运行助手、架构透视、深度咨询 |
+| **Solutions & Prototypes** | AI 落地原型展示墙：企业数据、个人成长、开发者工具，申请访问 / 架构详情 |
+| **Engineering Log** | 工程日志：ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋 |
 
 ---
 
@@ -196,7 +196,13 @@ export const PHYSICS_CONFIG = {
 
 ### 社交分享预览图 (og:image)
 
-将 1200×630 的预览图放入 `public/og-image.png`，并在 `index.html` 中添加 `<meta property="og:image" content="https://你的域名/og-image.png">`。
+项目已包含 `public/og-image.png`（1200×630），用于微信/微博/LinkedIn 等分享预览。若需自定义，替换该文件即可。部署时确保 `index.html` 中的 `og:image` URL 与你的域名一致（默认 `https://lchuckstudio.com`）。
+
+### SEO 配置
+
+- **域名**：若部署域名非 `lchuckstudio.com`，需全局替换 `index.html`、`public/robots.txt`、`public/sitemap.xml` 中的 `https://lchuckstudio.com`
+- **sitemap**：新增博客文章后，在 `public/sitemap.xml` 中补充对应 `/blog/:slug` 条目
+- **robots.txt**：已配置允许所有爬虫，并指向 sitemap
 
 ---
 

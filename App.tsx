@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AnimatePresence, motion } from 'framer-motion';
 import { GridBackground } from './components/GridBackground';
 import { Logo } from './components/Logo';
 import { NavigationTabs } from './components/NavigationTabs';
+import { MobileNav } from './components/MobileNav';
 import { ChatbotWidget } from './components/ChatbotWidget';
 import { Home } from './pages/Home';
 import { Apps } from './pages/Apps';
@@ -40,9 +42,10 @@ const AnimatedRoutes: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      {/* 使用 body 作为滚动容器，避免 iOS 上 div overflow 滚动失效 */}
-      <div className="w-full min-h-screen overflow-x-hidden relative">
+    <HelmetProvider>
+      <BrowserRouter>
+        {/* 使用 body 作为滚动容器，避免 iOS 上 div overflow 滚动失效 */}
+        <div className="w-full min-h-screen overflow-x-hidden relative">
         {/* Engineering Brutalism: 网格背景 */}
         <GridBackground />
         
@@ -81,10 +84,17 @@ const App: React.FC = () => {
           <div className="text-gray-600">{typeof window !== 'undefined' ? `${window.innerWidth}PX x ${window.innerHeight}PX` : '1920PX x 1080PX'}</div>
         </div>
 
+        {/* 移动端底部导航 - 仅在 md 以下显示 */}
+        <MobileNav />
+
         {/* 浮窗客服 Widget - Intercom 风格 */}
         <ChatbotWidget />
       </div>
-    </BrowserRouter>
+
+      {/* 移动端底部留白，避免内容被底部导航遮挡 */}
+      <div className="md:hidden h-16" aria-hidden="true" />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 

@@ -43,7 +43,7 @@ export const ChatbotWidget: React.FC = () => {
     }
   }, [isOpen]);
 
-  // 外部触发：打开 Widget 并切换到指定角色（如 Agents 页的「试用教练」）
+  // 外部触发：打开 Widget 并切换到指定角色（如 Agents 页的「逻辑诊断」「运行助手」等）
   useEffect(() => {
     const handler = (e: Event) => {
       const detail = (e as CustomEvent<{ roleId?: string; message?: string }>).detail;

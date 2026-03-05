@@ -1,18 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { CTASection } from '../components/CTASection';
+import { BackButton } from '../components/BackButton';
 
 export const Blog: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
+      <Helmet>
+        <title>Engineering Log | LChuck Studio</title>
+        <meta name="description" content="ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋。" />
+      </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
           <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic">ENGINEERING LOG</h1>
           <p className="text-gray-400 font-mono text-sm mb-4">工程日志 · 博客</p>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            拒绝伪勤奋。ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。技术复盘与深度思考。
+            ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋。
           </p>
         </div>
 
@@ -138,15 +144,7 @@ export const Blog: React.FC = () => {
         </div>
 
         <CTASection />
-        
-        <div className="mt-16 text-center">
-          <button 
-            onClick={() => navigate('/')}
-            className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
-          >
-            ← 返回指挥中心
-          </button>
-        </div>
+        <BackButton />
       </div>
     </div>
   );

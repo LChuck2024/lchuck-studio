@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { CTASection } from '../components/CTASection';
+import { BackButton } from '../components/BackButton';
 
 const ARCH_IMAGE = '/Unified_Processing_Engine.JPG';
 
 export const Agents: React.FC = () => {
-  const navigate = useNavigate();
   const [archModalOpen, setArchModalOpen] = useState(false);
 
   useEffect(() => {
@@ -17,12 +17,16 @@ export const Agents: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
+      <Helmet>
+        <title>Digital Workforce | LChuck Studio</title>
+        <meta name="description" content="24/7 待命的 AI 数字员工。欧洲留学顾问、MBA 写作提分教练、数据架构师 AI 助手、一人公司顾问。" />
+      </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
           <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic">Digital Workforce</h1>
           <p className="text-gray-400 font-mono text-sm mb-4">数字员工 · 智能代理</p>
           <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            24/7 待命的 AI 数字员工。欧洲留学顾问、MBA 写作教练、数据架构师、一人公司顾问。免费查询、技术点拨、深度咨询。
+            24/7 待命的 AI 数字员工。方案匹配、逻辑诊断、运行助手、架构透视、深度咨询。
           </p>
         </div>
         
@@ -64,7 +68,7 @@ export const Agents: React.FC = () => {
                   onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'study-abroad' } }))}
                   className="flex-1 py-2 border border-gray-900 text-gray-900 rounded-sm text-sm font-medium font-mono hover:bg-green-50 transition-colors flex items-center justify-center gap-1"
                 >
-                  <span>咨询顾问</span>
+                  <span>方案匹配</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
@@ -98,7 +102,7 @@ export const Agents: React.FC = () => {
                 onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'mba-coach' } }))}
                 className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
               >
-                <span>试用教练</span>
+                <span>逻辑诊断</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>
             </div>
@@ -132,14 +136,15 @@ export const Agents: React.FC = () => {
                   onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect' } }))}
                   className="flex-1 py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-1"
                 >
-                  <span>试用 AI</span>
+                  <span>运行助手</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
                 <button
                   onClick={() => setArchModalOpen(true)}
                   className="flex-1 py-2 border border-gray-900 text-gray-900 rounded-sm text-sm font-medium font-mono hover:bg-gray-50 transition-colors flex items-center justify-center gap-1"
+                  aria-label="查看 CDC 架构透视"
                 >
-                  <span>架构图</span>
+                  <span>架构透视</span>
                   <span className="text-xs opacity-50">👁️</span>
                 </button>
               </div>
@@ -173,7 +178,7 @@ export const Agents: React.FC = () => {
                 onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur' } }))}
                 className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-amber-600 transition-colors flex items-center justify-center gap-2"
               >
-                <span>试用顾问</span>
+                <span>深度咨询</span>
                 <span className="text-xs opacity-50">↗</span>
               </button>
             </div>
@@ -181,18 +186,10 @@ export const Agents: React.FC = () => {
         </div>
 
         <CTASection />
-        
-        <div className="mt-16 text-center">
-          <button 
-            onClick={() => navigate('/')}
-            className="text-gray-500 hover:text-red-600 transition-colors font-mono text-sm tracking-widest uppercase"
-          >
-            ← 返回指挥中心
-          </button>
-        </div>
+        <BackButton />
       </div>
 
-      {/* 架构图弹窗 */}
+      {/* 架构透视弹窗 */}
       {archModalOpen && (
         <div
           className="fixed inset-0 z-[300] flex items-center justify-center bg-black/70 p-4"

@@ -1,8 +1,11 @@
 
-# 从 SQL 到 Python：配置驱动型 ETL 架构演进
-
-**作者**：Chuck Li 
-**首发**：[LChuck Studio](https://lchuckstudio.com/)
+---
+title: "从 SQL 到 Python：配置驱动型 ETL 架构演进"
+description: "复盘如何将 95+ 个硬编码脚本重构为自动化流水线。重点探讨实体级 CDC（变更数据捕获）的设计与 Spark 懒求值陷阱的避坑实践。"
+date: "2026-02-13"
+category: "架构设计"
+author: "Chuck Li"
+---
 
 在大型企业级主数据管理（MDM）项目中，数据管道的健壮性和可扩展性决定了下游业务的运转效率。随着业务对数据实时性要求的提高，数据交付频率往往需要从“T+1 日级快照”升级为“分钟级微批次（Micro-batch）”。
 
