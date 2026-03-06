@@ -10,7 +10,11 @@ const postModules = import.meta.glob<string>('../src/posts/*.md', { query: '?raw
 
 /** Simple frontmatter parser to avoid nodejs polyfills */
 const parseFrontmatter = (text: string) => {
-  const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+  // Remove leading whitespace/newlines to ensure regex matches
+  text = text.trimStart();
+  
+  // Regex that supports both LF and CRLF
+  const frontmatterRegex = /^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*[\r\n]+([\s\S]*)$/;
   const match = text.match(frontmatterRegex);
   if (!match) return { data: {}, content: text };
   
@@ -18,15 +22,19 @@ const parseFrontmatter = (text: string) => {
   const content = match[2];
   
   const data: Record<string, string> = {};
-  frontmatterBlock.split('\n').forEach(line => {
-    const [key, ...valueParts] = line.split(':');
-    if (key && valueParts.length) {
-      let value = valueParts.join(':').trim();
+  // Split by newline (handle both \n and \r\n)
+  frontmatterBlock.split(/[\r\n]+/).forEach(line => {
+    const colonIndex = line.indexOf(':');
+    if (colonIndex !== -1) {
+      const key = line.slice(0, colonIndex).trim();
+      let value = line.slice(colonIndex + 1).trim();
       // Remove quotes if present
-      if (value.startsWith('"') && value.endsWith('"')) {
+      if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
         value = value.slice(1, -1);
       }
-      data[key.trim()] = value;
+      if (key) {
+        data[key] = value;
+      }
     }
   });
   

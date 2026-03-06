@@ -18,7 +18,7 @@ author: "Chuck Li"
 2. **编码体系割裂**：ERP 用 8 位数字，CRM 用 6 位+字母，数仓要建一张「编码对照表」才能 JOIN。
 3. **映射逻辑散落**：每个报表、每个 ETL 脚本里都有一大坨 `CASE WHEN` 或 `IF`，改一处漏十处。
 
-**后果**：数据口径不一致 → 业务不信任报表 → 人工对账 → 效率崩塌。
+**后果**：数据口径不一致 → 业务不信任报表 → 人工对账 → 效率崩塌。这不仅仅是技术问题，更是**数据资产流失**。
 
 ---
 
@@ -39,13 +39,18 @@ author: "Chuck Li"
 CREATE TABLE dim_category_mapping (
   source_value    VARCHAR(100),   -- 原始值（如「洗发液」）
   standard_value  VARCHAR(100),   -- 标准值（如「洗发水」）
-  valid_from      DATE,
-  valid_to        DATE,
-  created_by      VARCHAR(50)
+  valid_from      DATE,           -- 生效开始时间
+  valid_to        DATE,           -- 生效结束时间
+  is_active       BOOLEAN,        -- 是否启用
+  created_by      VARCHAR(50),    -- 维护人
+  audit_ts        TIMESTAMP       -- 审计时间戳
 );
 ```
 
 ETL 时只需 `LEFT JOIN dim_category_mapping`，用 `COALESCE(m.standard_value, raw.category)` 兜底未配置的脏数据。
+
+**深度思考：**
+为什么要加 `valid_from` 和 `valid_to`？因为业务规则是会变的。今天是 A 映射到 B，明年可能 A 就要独立统计了。**SCD Type 2（缓慢变化维）** 的思想不仅适用于数据，也适用于配置。
 
 ---
 
@@ -57,7 +62,7 @@ ETL 时只需 `LEFT JOIN dim_category_mapping`，用 `COALESCE(m.standard_value,
 2. **引擎层**：通用 ETL 引擎读取配置，在 `SELECT` 阶段自动注入 `JOIN mapping` 逻辑。
 3. **监控层**：对 `source_value` 在映射表中无匹配的记录打标，进入「待治理队列」，避免静默丢失。
 
-这样，**新增一个同义词 = 插一行配置**，无需改任何 ETL 代码。
+这样，**新增一个同义词 = 插一行配置**，无需改任何 ETL 代码。这极大地释放了数据工程师的精力，让我们能专注于架构而非“修修补补”。
 
 ---
 

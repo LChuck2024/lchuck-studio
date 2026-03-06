@@ -29,6 +29,34 @@ export const Blog: React.FC = () => {
           </h2>
           <p className="text-gray-500 text-sm font-mono mb-6">技术复盘与深度思考。</p>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          {/* Card: AI 职业资产防御 (NEW) */}
+          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+            <div className="flex justify-between items-start mb-4">
+              <span className="text-2xl">🛡️</span>
+              <span className="bg-red-100 text-red-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-red-200">
+                职业护城河
+              </span>
+            </div>
+            <div className="flex-grow">
+              <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
+                AI 时代职业资产防御指南：从打工思维到资产思维
+              </h2>
+              <div className="text-xs text-gray-400 font-mono mb-3">2026.03.06 · 深度思考</div>
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                AI 不是来替代你的，是来放大资产的。如何构建可复用的代码、沉淀方法论与个人品牌，打造穿越周期的职业护城河。
+              </p>
+            </div>
+            <div className="mt-auto pt-4 border-t border-gray-100">
+              <button
+                onClick={() => navigate('/blog/ai-asset-defense')}
+                className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
+              >
+                <span>阅读文章</span>
+                <span className="text-xs opacity-50">↗</span>
+              </button>
+            </div>
+          </div>
+
           {/* Card 1: 一人公司实录 - 最新 */}
           <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
