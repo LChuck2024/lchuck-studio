@@ -45,8 +45,8 @@ export const SECTIONS: Section[] = [
     titleCn: '工程日志 / 博客',
     type: 'BLOG',
     tag: 'ENGINEERING LOG',
-    description: 'ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋。',
-    badge: '📝 深度复盘',
+    description: '个人成长与商业复盘、数据架构与技术设计。6 篇深度文章，从职业护城河到 ETL 架构的实战记录。',
+    badge: '📝 6 篇文章',
     icon: '📓'
   }
 ];

@@ -161,7 +161,7 @@ export const Home: React.FC = () => {
     <div className="w-full relative px-4 pb-16 md:pb-24" style={{ minHeight: `${containerMinHeight}px` }}>
       <Helmet>
         <title>LChuck Studio | 数据架构 · 自动化 · 超级个体</title>
-        <meta name="description" content="LChuck Studio 个人作品集与创作空间。数据架构、AI 落地原型、欧洲留学顾问、MBA 写作教练、主数据咨询。拒绝低效内卷，用架构思维和代码构建自动化资产。" />
+        <meta name="description" content="LChuck Studio 个人作品集与创作空间。数据架构、AI 落地原型、欧洲留学顾问、MBA 写作教练、主数据咨询。6 篇深度工程日志，从职业护城河到 ETL 架构的实战复盘。拒绝低效内卷，用架构思维和代码构建自动化资产。" />
       </Helmet>
       <PhysicsSystem containerHeight={physicsContainerHeight}>
         {/* 副标题区域 - 在 Logo 下方 */}
