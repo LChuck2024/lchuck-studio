@@ -33,7 +33,7 @@ export const Blog: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
       <Helmet>
         <title>Engineering Log | LChuck Studio</title>
-        <meta name="description" content="数据架构与技术设计、个人成长与商业复盘。6 篇深度文章，从 ETL 架构到职业护城河的实战记录。深度复盘，拒绝伪勤奋。" />
+        <meta name="description" content="数据架构与技术设计、个人成长与商业复盘。7 篇深度文章，从 ETL 架构到 RAG 精度工程的实战记录。深度复盘，拒绝伪勤奋。" />
       </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
@@ -89,6 +89,7 @@ export const Blog: React.FC = () => {
                 </p>
               </div>
               <div className="mt-auto pt-4 border-t border-gray-100">
+                <p className="text-xs text-gray-500 font-mono mb-2 italic">相关架构已集成至 Solutions 模块，可查看 100:1 压缩实战详情</p>
                 <button
                   onClick={() => navigate('/blog/mdm-mapping-design')}
                   className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
@@ -117,6 +118,7 @@ export const Blog: React.FC = () => {
                 </p>
               </div>
               <div className="mt-auto pt-4 border-t border-gray-100">
+                <p className="text-xs text-gray-500 font-mono mb-2 italic">相关架构已集成至 Solutions 模块，可查看 100:1 压缩实战详情</p>
                 <button
                   onClick={() => navigate('/blog/etl-architecture')}
                   className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
@@ -124,6 +126,36 @@ export const Blog: React.FC = () => {
                   <span>阅读文章</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
+              </div>
+            </div>
+
+            {/* Card: RAG 精度工程 */}
+            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+              <div className="flex justify-between items-start mb-4">
+                <span className="text-2xl">🤖</span>
+                <span className="bg-purple-100 text-purple-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-purple-200">
+                  RAG
+                </span>
+              </div>
+              <div className="flex-grow">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  RAG 精度工程：三层知识空间的解耦与闭环实现
+                </h2>
+                <div className="text-xs text-gray-400 font-mono mb-3">2026.03.06 · 技术设计</div>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                  深度拆解如何通过「知识层、意图层、反馈层」解决垂直领域 LLM 落地的幻觉难题。结合 Streamlit 原型的实战性能数据分析。
+                </p>
+              </div>
+              <div className="mt-auto pt-4 border-t border-gray-100">
+                <a
+                  href="https://blog.csdn.net/Chuck0415/article/details/152335828?spm=1001.2014.3001.5501"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span>阅读文章</span>
+                  <span className="text-xs opacity-50">↗</span>
+                </a>
               </div>
             </div>
           </div>
@@ -146,7 +178,7 @@ export const Blog: React.FC = () => {
               </div>
               <div className="flex-grow">
                 <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
-                  AI 时代职业资产防御指南：从打工思维到资产思维
+                  职业资产审计：AI 冲击下的技术复利与防御性构建
                 </h2>
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.03.06 · 深度思考</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
@@ -169,7 +201,7 @@ export const Blog: React.FC = () => {
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">💰</span>
                 <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  一人公司
+                  ROI 审计
                 </span>
               </div>
               <div className="flex-grow">
@@ -192,17 +224,17 @@ export const Blog: React.FC = () => {
               </div>
             </div>
 
-            {/* Card: 一人公司实录 */}
+            {/* Card: 一人公司架构设计 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">🚀</span>
                 <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  一人公司
+                  架构设计
                 </span>
               </div>
               <div className="flex-grow">
                 <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                  一人公司实录：从 0 到 1 构建 LCHUCK STUDIO
+                  一人公司架构设计：从零构建自动化数字资产系统
                 </h2>
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · 复盘</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">

@@ -110,8 +110,8 @@ export const Apps: React.FC = () => {
         <BackButton />
       </div>
 
-      {/* 万能数据清洗脚本包清单弹窗 */}
-      <Modal open={scriptListOpen} onClose={() => setScriptListOpen(false)} title="万能数据清洗脚本包">
+      {/* 数据清洗原子算子清单弹窗 */}
+      <Modal open={scriptListOpen} onClose={() => setScriptListOpen(false)} title="数据清洗原子算子清单">
         <p className="text-gray-500 text-sm mb-4">Pandas / OpenPyXL · 共 {SCRIPT_LIST.length} 个脚本</p>
         <ul className="space-y-3">
           {SCRIPT_LIST.map((item, i) => (
@@ -135,15 +135,15 @@ export const Apps: React.FC = () => {
               new CustomEvent('lchuck:open-chatbot', {
                 detail: {
                   roleId: 'data-architect',
-                  message:
-                    '我想申请访问万能数据清洗脚本包。为了维持实验室算力成本，本原型采用 License 授权模式，赞助算力即可获得无限次访问权限。',
+                  message: '我想申请访问数据清洗原子算子清单。',
                 },
               })
             );
           }}
-          className="mt-4 w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors"
+          className="mt-4 w-full py-2 bg-orange-600 text-white rounded-sm text-sm font-medium font-mono hover:bg-orange-700 transition-colors flex items-center justify-center gap-1.5"
         >
-          申请访问
+          <span className="text-xs">🔑</span>
+          <span>Request Access</span>
         </button>
       </Modal>
     </div>

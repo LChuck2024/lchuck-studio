@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { CTASection } from '../components/CTASection';
 import { BackButton } from '../components/BackButton';
 
-const ARCH_IMAGE = '/Unified_Processing_Engine.JPG';
+const ARCH_IMAGE = '/enterprise-data-architecture.png';
 
 export const Agents: React.FC = () => {
   const [archModalOpen, setArchModalOpen] = useState(false);
@@ -44,7 +44,7 @@ export const Agents: React.FC = () => {
                 欧洲留学顾问
               </h2>
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                拒绝中介信息差，官网申请免费。<strong>270+ 门</strong>欧洲公立大学课程已清洗分级，一键匹配转码/润学方案。
+                拒绝中介信息差，官网申请零成本。<strong>270+ 门</strong>欧洲公立大学课程已清洗分级，一键匹配转码/润学方案。
               </p>
             </div>
             <div className="mt-auto">
@@ -61,7 +61,7 @@ export const Agents: React.FC = () => {
                   rel="noopener noreferrer"
                   className="flex-1 py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-1"
                 >
-                  <span>免费查询</span>
+                  <span>数据检索</span>
                   <span className="text-xs opacity-50">↗</span>
                 </a>
                 <button
@@ -121,31 +121,31 @@ export const Agents: React.FC = () => {
                 数据架构师 AI 助手
               </h2>
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                10+ 年数据治理经验。CDC/SCD/主数据/代码优化，技术点拨免费，深度咨询可预约。配置驱动三链路中台。
+                企业级三层架构：管理控制层（配置中心、元数据资产目录、AIOps 可观测性）、数据价值管道（三链路中台 Base/SCD/CDC、统一处理引擎）、基础安全层（密钥管理、Delta Lake、CI/CD）。
               </p>
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
                 <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                  Python / Spark / SQL
+                  Azure Databricks · Delta Lake · AKS · Entra ID
                 </span>
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect' } }))}
-                  className="flex-1 py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-1"
+                  className="flex-1 py-2 bg-[#1a1a1a] text-white rounded-sm text-sm font-medium font-mono hover:bg-gray-800 transition-colors flex items-center justify-center gap-1.5"
                 >
+                  <span className="text-xs">📋</span>
                   <span>运行助手</span>
-                  <span className="text-xs opacity-50">↗</span>
                 </button>
                 <button
                   onClick={() => setArchModalOpen(true)}
-                  className="flex-1 py-2 border border-gray-900 text-gray-900 rounded-sm text-sm font-medium font-mono hover:bg-gray-50 transition-colors flex items-center justify-center gap-1"
-                  aria-label="查看 CDC 架构透视"
+                  className="flex-1 py-2 bg-blue-600 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5"
+                  aria-label="查看企业级数据架构图"
                 >
                   <span>架构透视</span>
-                  <span className="text-xs opacity-50">👁️</span>
+                  <span className="text-xs">→</span>
                 </button>
               </div>
             </div>
@@ -156,7 +156,7 @@ export const Agents: React.FC = () => {
             <div className="flex justify-between items-start mb-4">
               <span className="text-2xl">💼</span>
               <span className="bg-amber-100 text-amber-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-amber-200">
-                副业
+                策略
               </span>
             </div>
             <div className="flex-grow">
@@ -164,7 +164,7 @@ export const Agents: React.FC = () => {
                 一人公司顾问
               </h2>
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                拒绝焦虑，只谈交付。P0 管理法、独立站建设、技术变现、小红书引流。从 0 到 1 的实战派。
+                拒绝焦虑，只谈交付。P0 管理法、独立站建设、技术变现、小红书引流。从零构建自动化数字资产系统的实战派。
               </p>
             </div>
             <div className="mt-auto">
@@ -206,7 +206,7 @@ export const Agents: React.FC = () => {
           </button>
           <img
             src={ARCH_IMAGE}
-            alt="CDC 统一处理引擎架构图"
+            alt="企业级数据架构图 - Management & Control Plane, Data Value Pipeline, Foundation & Security"
             className="max-w-full max-h-[90vh] object-contain rounded-sm shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
