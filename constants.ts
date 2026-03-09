@@ -45,7 +45,7 @@ export const SECTIONS: Section[] = [
     titleCn: '工程日志 / 博客',
     type: 'BLOG',
     tag: 'ENGINEERING LOG',
-    description: '个人成长与商业复盘、数据架构与技术设计。6 篇深度文章，从职业护城河到 ETL 架构的实战记录。',
+    description: '数据架构与技术设计、个人成长与商业复盘。6 篇深度文章，从 ETL 架构到职业护城河的实战记录。',
     badge: '📝 6 篇文章',
     icon: '📓'
   }
