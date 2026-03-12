@@ -52,7 +52,10 @@ export const Apps: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
       <Helmet>
         <title>Solutions & Prototypes | LChuck Studio</title>
-        <meta name="description" content="基于垂直行业痛点，利用 RAG 架构与 Agent 编排构建的生产力工具实验场。企业数据、个人成长、开发者工具原型。" />
+        <meta
+          name="description"
+          content="基于垂直行业痛点，利用 RAG 架构与 Agent 编排构建的生产力工具实验场。涵盖 Enterprise Data（企业数据中台资产闭环）、Strategic Methodology（战略方法论实验场）与 Developer Tools（开发者工具原型）。"
+        />
       </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">

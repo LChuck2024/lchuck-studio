@@ -30,7 +30,7 @@ export const APP_SECTIONS: AppSection[] = [
     id: 'enterprise-data',
     labelEn: 'Enterprise Data',
     labelCn: '企业数据',
-    desc: '数据中台全家桶：消费层、采集层、治理层、质量层。',
+    desc: '数据中台资产闭环：消费层、采集层、治理层、质量层。',
     cards: [
       {
         icon: '🤖',
@@ -72,9 +72,9 @@ export const APP_SECTIONS: AppSection[] = [
   },
   {
     id: 'personal-growth',
-    labelEn: 'Personal Growth',
-    labelCn: '个人成长',
-    desc: '数据治理实战、AI 增长引擎、战略执行系统。',
+    labelEn: 'STRATEGIC METHODOLOGY',
+    labelCn: '战略方法论',
+    desc: '围绕数据治理、AI 增长引擎与战略执行系统的方法论实验场，用工程视角固化可复用的决策模型与执行框架。',
     cards: [
       {
         icon: '🇪🇺',
@@ -133,7 +133,7 @@ export const APP_SECTIONS: AppSection[] = [
         icon: '🦞',
         index: '03',
         title: 'OpenClaw Agent Deployment Package (OpenClaw 智能体部署包)',
-        subtitle: 'OpenClaw 智能体部署包',
+        subtitle: '本地智能体部署标准化方案',
         desc: '基于 OpenClaw 开源架构，实现文件操作、代码任务与 Agent 编排的本地部署标准化流程。打造 24/7 自动化任务执行的私人 AI 助理原型，确保部署架构的可扩展性。',
         tech: 'OpenClaw · Agent · Local Deploy',
         cta: { type: 'outline', label: 'Architecture Details (架构详情)', message: '我想了解 OpenClaw 智能体部署包的架构与演示。', action: 'chatbot' },

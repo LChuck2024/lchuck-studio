@@ -46,120 +46,136 @@ export const Agents: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
       <Helmet>
-        <title>Digital Workforce | LChuck Studio</title>
-        <meta name="description" content="24/7 待命的 AI 数字员工。欧洲留学顾问、MBA 写作提分教练、数据架构师 AI 助手、一人公司顾问。" />
+        <title>Strategic Consulting | LChuck Studio</title>
+        <meta name="description" content="企业级数据架构解决方案：DataOps 存储优化、RAG 知识引擎、自动化数据工程、技术 ROI 审计。基于 CDC/SCD、RAGAS、Delta Lake 的端到端架构重构方案。" />
       </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic flex items-baseline gap-3 flex-wrap">
-            <span>DIGITAL WORKFORCE</span>
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase flex items-baseline gap-3 flex-wrap">
+            <span>STRATEGIC CONSULTING</span>
           </h1>
-          <p className="text-sm font-mono text-[#999999] tracking-widest uppercase">
-            数字员工 · 智能代理
+          <p className="text-sm font-mono text-[#999999] tracking-widest">
+            企业级数据架构与 AI 集成战略咨询服务
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {/* Card 1: 欧洲留学顾问 */}
+          {/* Card 1: DataOps & Storage Optimization */}
           <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
-              <span className="text-2xl">🇪🇺</span>
+              <span className="text-2xl">⚡</span>
               <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                留学
+                CDC/SCD
               </span>
             </div>
             <div className="flex-grow">
-              {renderCardTitle('Global Education Strategy (欧洲留学顾问)', 'group-hover:text-green-600')}
+              {renderCardTitle('DataOps & Storage Optimization (数据架构审计)', 'group-hover:text-green-600')}
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                拒绝中介信息差，官网申请零成本。<strong>270+ 门</strong>欧洲公立大学课程已清洗分级，一键匹配转码/润学方案。
+                提供基于 CDC/SCD 变更数据捕获与缓慢变化维建模的存储层架构审计与成本优化咨询。通过 Delta Lake 时间旅行与 Z-Order 索引，实现查询性能提升 <strong>40%+</strong>，存储成本降低 <strong>30%+</strong> 的全栈方案。
               </p>
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
                 <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                  主数据清洗 / 智能匹配
-                </span>
-              </div>
-              <div className="flex flex-col gap-2">
-                <a
-                  href="https://web.wps.cn/wo/sl/v31rzbsD?app_id=1PKY0UiCwcIPzRKjh3CoI6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={btnClass}
-                >
-                  {renderLabel('Data Retrieval (数据检索)')}
-                  <span className="text-xs shrink-0">↗</span>
-                </a>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'study-abroad' } }))}
-                  className={btnClass}
-                >
-                  {renderLabel('Plan Matching (方案匹配)')}
-                  <span className="text-xs shrink-0">📋</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: MBA 写作教练 */}
-          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
-            <div className="flex justify-between items-start mb-4">
-              <span className="text-2xl">🎓</span>
-              <span className="bg-purple-100 text-purple-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-purple-200">
-                MBA
-              </span>
-            </div>
-            <div className="flex-grow">
-              {renderCardTitle('MBA Logic & Writing Coach (MBA 写作教练)', 'group-hover:text-purple-600')}
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                拒绝文采，只讲逻辑。基于主理人 <strong>214分 (专业第5)</strong> 实战经验。提供理工科专属的 <strong>「填空式」</strong> 写作模板与毒舌批改。
-              </p>
-            </div>
-            <div className="mt-auto">
-              <div className="mb-4 pt-4 border-t border-gray-100">
-                <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
-                <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                  逻辑框架 / 反堆砌写作
+                  CDC/SCD · Delta Lake · DataOps
                 </span>
               </div>
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'mba-coach' } }))}
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent('lchuck:open-chatbot', {
+                      detail: {
+                        roleId: 'data-architect',
+                        message: '我想做一轮 DataOps & 存储优化的架构审计，请先帮我梳理当前存储架构和主要性能/成本痛点。',
+                      },
+                    })
+                  )
+                }
                 className={btnClass}
               >
-                {renderLabel('Logic Diagnosis (逻辑诊断)')}
+                {renderLabel('Architecture Audit (架构审计)')}
                 <span className="text-xs shrink-0">📋</span>
               </button>
             </div>
           </div>
 
-          {/* Card 3: 数据架构师 AI 助手 */}
+          {/* Card 2: Agentic RAG Infrastructure */}
           <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
-              <span className="text-2xl">🐍</span>
-              <span className="bg-blue-100 text-blue-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-blue-200">
-                架构
+              <span className="text-2xl">🧠</span>
+              <span className="bg-purple-100 text-purple-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-purple-200">
+                RAGAS
               </span>
             </div>
             <div className="flex-grow">
-              {renderCardTitle('Enterprise Architect Copilot (数据架构师助手)', 'group-hover:text-blue-600')}
+              {renderCardTitle('Agentic RAG Infrastructure (企业级 AI 知识引擎)', 'group-hover:text-purple-600')}
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                企业级三层架构：管理控制层（配置中心、元数据资产目录、AIOps 可观测性）、数据价值管道（三链路中台 Base/SCD/CDC、统一处理引擎）、基础安全层（密钥管理、Delta Lake、CI/CD）。
+                主导基于 RAGAS 评估框架的企业级 RAG 知识引擎架构设计与实施评审，实现多模态文档的向量化、分块策略优化与检索精度提升。通过 Agentic Workflow 实现意图理解、上下文增强与生成一致性闭环，确保商业级知识资产的转化效率。
               </p>
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
                 <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                  Azure Databricks · Delta Lake · AKS · Entra ID
+                  RAGAS · Vector DB · Agentic Workflow
+                </span>
+              </div>
+              <button
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent('lchuck:open-chatbot', {
+                      detail: {
+                        roleId: 'data-architect',
+                        message: '我想为公司搭建企业级 RAG 知识引擎，目前的数据源形态（文档类型、规模）和典型查询场景如下，请帮我评估架构方案。',
+                      },
+                    })
+                  )
+                }
+                className={btnClass}
+              >
+                {renderLabel('Knowledge Engine (知识引擎)')}
+                <span className="text-xs shrink-0">📋</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Card 3: Automated Data Engineering */}
+          <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
+            <div className="flex justify-between items-start mb-4">
+              <span className="text-2xl">🔧</span>
+              <span className="bg-blue-100 text-blue-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-blue-200">
+                DataOps
+              </span>
+            </div>
+            <div className="flex-grow">
+              {renderCardTitle('Automated Data Engineering (自动化数据工程)', 'group-hover:text-blue-600')}
+              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                提供基于配置驱动的 ETL 自动化中台规划与落地服务，实现数据质量监控、主数据治理与资产目录的端到端闭环。通过元数据资产目录与 AIOps 可观测性，将数据工程从「手工作坊」升级为「工业化流水线」，确保数据资产的标准化交付。
+              </p>
+            </div>
+            <div className="mt-auto">
+              <div className="mb-4 pt-4 border-t border-gray-100">
+                <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
+                <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
+                  DataOps · Metadata Catalog · AIOps
                 </span>
               </div>
               <div className="flex flex-col gap-2">
                 <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'data-architect' } }))}
+                  onClick={() =>
+                    window.dispatchEvent(
+                      new CustomEvent('lchuck:open-chatbot', {
+                        detail: {
+                          roleId: 'data-architect',
+                          message: '我想规划一套自动化数据工程/ETL 中台，目前的数据来源、目标仓库和交付要求大致如下，请帮我拆解架构与管道设计。',
+                        },
+                      })
+                    )
+                  }
                   className={btnClass}
                 >
-                  {renderLabel('Launch Engine (启动引擎)')}
+                  {renderLabel('Pipeline Design (管道设计)')}
                   <span className="text-xs shrink-0">📋</span>
                 </button>
                 <button
@@ -174,32 +190,41 @@ export const Agents: React.FC = () => {
             </div>
           </div>
 
-          {/* Card 4: 一人公司顾问 */}
+          {/* Card 4: Strategic Tech-ROI Audit */}
           <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
             <div className="flex justify-between items-start mb-4">
-              <span className="text-2xl">💼</span>
+              <span className="text-2xl">📊</span>
               <span className="bg-amber-100 text-amber-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-amber-200">
-                策略
+                Strategic Audit
               </span>
             </div>
             <div className="flex-grow">
-              {renderCardTitle('Digital Solopreneur Strategy (个人商业策略)', 'group-hover:text-amber-600')}
+              {renderCardTitle('Strategic Tech-ROI Audit (技术 ROI 深度审计)', 'group-hover:text-amber-600')}
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                拒绝焦虑，只谈交付。P0 管理法、独立站建设、技术变现、小红书引流。从零构建自动化数字资产系统的实战派。
+                主导基于数据驱动的技术投资决策审计框架设计，对现有技术栈进行 ROI 量化评估与架构债务分析。通过成本-收益模型与风险矩阵，输出技术选型建议与迁移路径规划，确保技术资产的战略转化与决策审计。
               </p>
             </div>
             <div className="mt-auto">
               <div className="mb-4 pt-4 border-t border-gray-100">
-                <span className="text-xs font-mono text-gray-400 block mb-1">能力</span>
+                <span className="text-xs font-mono text-gray-400 block mb-1">技术栈</span>
                 <span className="text-xs font-medium font-mono text-gray-700 bg-gray-100 px-2 py-1 rounded-sm inline-block">
-                  P0 管理法 / 技术变现
+                  Strategic Audit · ROI Modeling · Tech Debt Analysis
                 </span>
               </div>
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', { detail: { roleId: 'solo-preneur' } }))}
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent('lchuck:open-chatbot', {
+                      detail: {
+                        roleId: 'data-architect',
+                        message: '我想做一次技术 ROI 深度审计，希望评估的系统/技术栈、当前投入成本和预期收益大致如下，请帮我搭一套评估框架。',
+                      },
+                    })
+                  )
+                }
                 className={btnClass}
               >
-                {renderLabel('Deep Consultation (深度咨询)')}
+                {renderLabel('ROI Audit (ROI 审计)')}
                 <span className="text-xs shrink-0">📋</span>
               </button>
             </div>

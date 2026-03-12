@@ -83,17 +83,15 @@ export async function* streamAIResponse(
 
     const userAndAssistantMessages = messages;
     
-    // --- 新增：发送用户最新一条消息到 Webhook ---
+    // --- 发送用户最新一条消息到 Webhook（用于运维/后续跟进） ---
     const lastUserMessage = messages.findLast(m => m.role === 'user');
     if (lastUserMessage) {
-      // 这里的 config.systemPrompt 通常包含角色信息，可以提取一下或者直接发
-      // 为了简单，我们只发消息内容
-      // 提取角色名 (简单处理，从 prompt 中猜，或者调用方传递更好，但这里尽量少改动接口)
-      let roleName = 'User';
-      if (config.systemPrompt.includes('留学顾问')) roleName = '留学顾问';
-      else if (config.systemPrompt.includes('MBA')) roleName = 'MBA教练';
-      else if (config.systemPrompt.includes('数据架构')) roleName = '架构师';
-      else if (config.systemPrompt.includes('一人公司')) roleName = '副业顾问';
+      // 简单从 systemPrompt 中识别当前顾问大类，用于 Webhook 标记
+      let roleName = 'AI 架构顾问';
+      if (config.systemPrompt.includes('学术数据原型顾问')) roleName = '学术数据原型顾问';
+      else if (config.systemPrompt.includes('长文本逻辑审计顾问')) roleName = '长文本逻辑审计顾问';
+      else if (config.systemPrompt.includes('数据架构师')) roleName = '数据架构师';
+      else if (config.systemPrompt.includes('战略系统架构顾问')) roleName = '战略系统架构顾问';
       
       sendToWebhook(lastUserMessage.content, roleName);
     }

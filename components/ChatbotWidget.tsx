@@ -8,7 +8,7 @@ interface Message {
   content: string;
 }
 
-const DEFAULT_GREETING = '你好！我是 LChuck Studio 的留学顾问，专注欧洲开放大学选课咨询。有什么可以帮助你的？';
+const DEFAULT_GREETING = '你好！我是 LChuck Studio 的 AI 架构顾问，围绕数据架构、RAG 知识引擎、自动化数据工程与战略方法论提供支持。你目前最想解决的一个技术/决策问题是什么？';
 
 /** 催更类消息的固定回复 */
 const CUI_GENG_REPLY = '收到！已记录你的催更需求，主理人会尽快安排～';
@@ -45,7 +45,7 @@ export const ChatbotWidget: React.FC = () => {
 
   // 外部触发：打开 Widget 并切换到指定角色（如 Agents 页的「逻辑诊断」「运行助手」等）
   useEffect(() => {
-    const handler = (e: Event) => {
+        const handler = (e: Event) => {
       const detail = (e as CustomEvent<{ roleId?: string; message?: string }>).detail;
       const roleId = detail?.roleId;
       const initialMessage = detail?.message;
@@ -54,7 +54,7 @@ export const ChatbotWidget: React.FC = () => {
       if (roleId && PRESET_ROLES.some(r => r.id === roleId)) {
         setSelectedRoleId(roleId);
         const role = PRESET_ROLES.find(r => r.id === roleId);
-        const greeting = roleId === 'study-abroad' ? DEFAULT_GREETING : `你好！已切换至 ${role?.nameCn || role?.name}，有什么可以帮助你的？`;
+        const greeting = `你好！已切换至 ${role?.nameCn || role?.name}，请简要描述你要解决的业务或技术场景。`;
         
         // 如果有初始消息，将其作为用户消息发送，并触发 AI 响应（催更类消息用固定回复）
         if (initialMessage) {
@@ -174,7 +174,7 @@ export const ChatbotWidget: React.FC = () => {
     setSelectedRoleId(roleId);
     setRoleDropdownOpen(false);
     const role = PRESET_ROLES.find(r => r.id === roleId);
-    const greeting = roleId === 'study-abroad' ? DEFAULT_GREETING : `你好！已切换至 ${role?.nameCn || role?.name}，有什么可以帮助你的？`;
+    const greeting = `你好！已切换至 ${role?.nameCn || role?.name}，请简要描述你要解决的业务或技术场景。`;
     setMessages([{ id: Date.now().toString(), role: 'assistant', content: greeting }]);
   };
 
@@ -185,13 +185,13 @@ export const ChatbotWidget: React.FC = () => {
         className="fixed right-4 sm:right-6 z-[150] flex items-center justify-end gap-2 sm:gap-3 group"
         style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))' }}
       >
-        {/* 常驻标签：桌面端显示，更醒目 */}
+        {/* 常驻标签：桌面端显示，更偏架构咨询定位 */}
         <span className="hidden sm:inline-flex items-center font-mono text-xs font-bold text-gray-700 bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-sm border border-gray-200 shadow-sm group-hover:text-red-600 group-hover:border-red-200 transition-colors pointer-events-none">
-          AI 客服
+          AI 架构顾问
         </span>
         {/* Tooltip: 仅移动端悬浮显示（桌面端已有常驻标签） */}
         <span className="sm:hidden absolute right-full mr-3 px-2 py-1.5 bg-gray-900 text-white font-mono text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          AI 客服 · 在线咨询
+          AI 架构顾问 · 在线咨询
         </span>
         {/* Pulse 背景层：雷达式扩散，不阻挡点击 */}
         <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">

@@ -21,12 +21,12 @@ export interface Section {
 export const SECTIONS: Section[] = [
   {
     id: 'agents',
-    title: 'DIGITAL WORKFORCE',
-    titleCn: '数字员工 / 智能代理',
+    title: 'STRATEGIC CONSULTING',
+    titleCn: '战略咨询 / 架构顾问',
     type: 'AGENT',
-    tag: 'DIGITAL WORKFORCE',
-    description: '24/7 待命的 AI 数字员工。方案匹配、逻辑诊断、运行助手、架构透视、深度咨询。',
-    badge: '🟢 在线运行',
+    tag: 'STRATEGIC CONSULTING',
+    description: '面向企业的数据架构与 AI 集成咨询线。提供 DataOps 架构审计、RAG 知识引擎设计、自动化数据工程与技术 ROI 决策审计等高价值服务。',
+    badge: '🧠 高价值咨询',
     icon: '🤖'
   },
   {
@@ -35,7 +35,7 @@ export const SECTIONS: Section[] = [
     titleCn: '解决方案与原型',
     type: 'APP',
     tag: 'SOLUTIONS & PROTOTYPES',
-    description: '基于垂直行业痛点，RAG 与 Agent 编排构建的生产力工具实验场。企业数据、个人成长、开发者工具。',
+    description: '基于垂直行业痛点，RAG 与 Agent 编排构建的生产力工具实验场。Enterprise Data、Strategic Methodology 与 Developer Tools 三条产品线相互印证架构设计与落地效果。',
     badge: '🛠️ 持续更新',
     icon: '🛠️'
   },
@@ -45,8 +45,8 @@ export const SECTIONS: Section[] = [
     titleCn: '工程日志 / 博客',
     type: 'BLOG',
     tag: 'ENGINEERING LOG',
-    description: '数据架构与技术设计、个人成长与商业复盘。7 篇深度文章，从 ETL 架构到 RAG 精度工程的实战记录。',
-    badge: '📝 7 篇文章',
+    description: '数据架构与技术设计、战略方法论与实践复盘。从 ETL 架构到 RAG 精度工程，再到数字资产系统的演进记录。',
+    badge: '📝 精选文章',
     icon: '📓'
   }
 ];

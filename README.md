@@ -2,9 +2,9 @@
 
 ![LChuck Studio Screenshot](./public/web_screenshot.JPG)
 
-个人作品集与创作空间，融合物理引擎交互、3D 视觉与 AI 客服浮窗的现代化个人网站。
+个人作品集与创作空间，融合物理引擎交互、3D 视觉与 AI 架构顾问浮窗的现代化个人网站。
 
-**Slogan:** 数据架构 · 自动化 · 超级个体 | 拒绝低效内卷，用架构思维和代码，构建你的自动化资产。
+**Slogan:** 数据架构 · 自动化 · 战略咨询 | 拒绝低效内卷，用架构思维和代码，构建你的自动化资产。
 
 ---
 
@@ -12,7 +12,7 @@
 
 - **物理引擎交互** - 基于 Matter.js，卡片随鼠标产生排斥效果，支持拖拽（桌面端）
 - **网格背景** - 工程风格网格背景（GridBackground），可选 Three.js 粒子（ThreeBackground）
-- **AI 客服浮窗** - Intercom 风格浮窗，支持多角色切换（欧洲留学顾问 / MBA 写作提分教练 / 数据架构师 / 一人公司顾问），支持通过事件自动触发对话
+- **AI 架构顾问浮窗** - Intercom 风格浮窗，支持多角色切换（学术数据原型顾问 / 长文本逻辑审计顾问 / 数据架构师 / 战略系统架构顾问），支持通过事件自动触发对话
 - **响应式设计** - 移动端垂直堆叠、桌面端横向布局，支持触摸滚动
 - **打字机动画** - 副标题与 Slogan 逐字显示
 - **博客系统** - Markdown 文章，支持 `src/posts/` 源文件与 `public/posts/` 图片，支持 Frontmatter 元数据
@@ -23,9 +23,9 @@
 
 | 模块 | 说明 |
 |------|------|
-| **Digital Workforce** | 数字员工 / 智能代理：方案匹配、逻辑诊断、运行助手、架构透视、深度咨询 |
-| **Solutions & Prototypes** | AI 落地原型展示墙：企业数据、个人成长、开发者工具，申请访问 / 架构详情 |
-| **Engineering Log** | 工程日志：ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋 |
+| **Strategic Consulting** | 面向企业的数据架构与 AI 集成咨询线：DataOps 架构审计、RAG 知识引擎、自动化数据工程、技术 ROI 审计 |
+| **Solutions & Prototypes** | AI 落地原型展示墙：Enterprise Data、Strategic Methodology 与 Developer Tools 三条产品线 |
+| **Engineering Log** | 工程日志：从 ETL 架构演进到 RAG 精度工程，再到战略方法论与实践复盘的深度记录 |
 
 ---
 
@@ -48,7 +48,7 @@
 ```
 lchuck-studio/
 ├── components/
-│   ├── ChatbotWidget.tsx    # AI 客服浮窗（Intercom 风格）
+│   ├── ChatbotWidget.tsx    # AI 架构顾问浮窗（Intercom 风格）
 │   ├── Logo.tsx             # 品牌 Logo 与 System Online 状态
 │   ├── NavigationTabs.tsx   # 顶部导航
 │   ├── PhysicsSystem.tsx    # 物理引擎核心
@@ -60,7 +60,7 @@ lchuck-studio/
 │   └── contact.ts            # 主理人联系方式（微信/邮箱）
 ├── pages/
 │   ├── Home.tsx             # 首页（物理卡片 + 副标题）
-│   ├── Agents.tsx           # Digital Workforce
+│   ├── Agents.tsx           # Strategic Consulting
 │   ├── Apps.tsx             # Solutions & Prototypes
 │   ├── Blog.tsx             # Engineering Log 列表
 │   ├── BlogPost.tsx         # Markdown 文章详情
@@ -92,9 +92,9 @@ npm run dev
 
 开发服务器默认在 `http://127.0.0.1:5173` 启动（`--host 127.0.0.1` 避免网络错误）。
 
-### AI 客服交互
+### AI 架构顾问交互
 
-可以通过 `window.dispatchEvent` 触发自定义事件来控制 AI 客服：
+可以通过 `window.dispatchEvent` 触发自定义事件来控制 AI 架构顾问：
 
 ```javascript
 // 示例 1: 切换角色
@@ -116,9 +116,9 @@ window.dispatchEvent(new CustomEvent('lchuck:open-chatbot', {
 }));
 ```
 
-**可用角色 ID**：`study-abroad`（欧洲留学顾问）、`mba-coach`（MBA 写作提分教练）、`data-architect`（数据架构师）、`solo-preneur`（一人公司顾问）
+**可用角色 ID**：`study-abroad`（学术数据原型顾问）、`mba-coach`（长文本逻辑审计顾问）、`data-architect`（数据架构师）、`solo-preneur`（战略系统架构顾问）
 
-#### AI 客服配置
+#### AI 架构顾问配置
 
 | 环境 | 配置方式 |
 |------|----------|
@@ -144,10 +144,10 @@ npm run preview
 - 桌面端：鼠标靠近产生排斥力，支持拖拽
 - 移动端：禁用 Mouse 监听，保证滚动与点击
 
-### AI 客服浮窗
+### AI 架构顾问浮窗
 
-- **默认角色**：🇪🇺 欧洲留学顾问（`study-abroad`）
-- **可切换**：🎓 MBA 写作提分教练（`mba-coach`）、🐍 数据架构师（`data-architect`）、💼 一人公司顾问（`solo-preneur`）
+- **默认角色**：🐍 数据架构师（`data-architect`）
+- **可切换**：🇪🇺 学术数据原型顾问（`study-abroad`）、🎓 长文本逻辑审计顾问（`mba-coach`）、🧩 战略系统架构顾问（`solo-preneur`）
 - 点击右下角 FAB 打开/关闭浮窗
 - 角色切换时自动更新 System Prompt 并重置对话
 
@@ -167,7 +167,7 @@ npm run preview
 
 ```typescript
 export const SECTIONS: Section[] = [
-  { id: 'agents', title: 'DIGITAL WORKFORCE', titleCn: '...', type: 'AGENT', ... },
+  { id: 'agents', title: 'STRATEGIC CONSULTING', titleCn: '战略咨询 / 架构顾问', type: 'AGENT', ... },
   // ...
 ];
 ```
@@ -221,4 +221,4 @@ export const PHYSICS_CONFIG = {
 
 ---
 
-**LChuck Studio** | 数据架构 · 自动化 · 超级个体 | Build 2026
+**LChuck Studio** | 数据架构 · 自动化 · 战略咨询 | Build 2026

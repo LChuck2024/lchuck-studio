@@ -11,7 +11,7 @@ interface Tab {
 
 const tabs: Tab[] = [
   { id: 'home', labelEn: 'Home', labelCn: '首页', path: '/' },
-  { id: 'agents', labelEn: 'Digital Workforce', labelCn: '数字员工', path: '/agents' },
+  { id: 'agents', labelEn: 'Strategic Consulting', labelCn: '战略咨询', path: '/agents' },
   { id: 'apps', labelEn: 'Solutions & Prototypes', labelCn: '解决方案与原型', path: '/apps' },
   { id: 'blog', labelEn: 'Engineering Log', labelCn: '工程日志', path: '/blog' },
 ];

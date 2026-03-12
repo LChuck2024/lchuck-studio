@@ -23,7 +23,7 @@ const renderCardTitle = (titleText: string, hoverColorClass = 'group-hover:text-
 
 const BLOG_SECTIONS = [
   { id: 'data-architecture', labelEn: 'DATA ARCHITECTURE', labelCn: '数据架构与技术设计' },
-  { id: 'personal-growth', labelEn: 'PERSONAL GROWTH', labelCn: '个人成长与商业复盘' },
+  { id: 'personal-growth', labelEn: 'STRATEGIC METHODOLOGY', labelCn: '战略方法论与实践复盘' },
 ];
 
 export const Blog: React.FC = () => {
@@ -50,7 +50,10 @@ export const Blog: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-start px-6 md:px-8 py-20 relative z-10 overflow-y-auto">
       <Helmet>
         <title>Engineering Log | LChuck Studio</title>
-        <meta name="description" content="数据架构与技术设计、个人成长与商业复盘。7 篇深度文章，从 ETL 架构到 RAG 精度工程的实战记录。深度复盘，拒绝伪勤奋。" />
+        <meta
+          name="description"
+          content="数据架构与技术设计、战略方法论与实践复盘。从 ETL 架构演进、CDC 中台、MDM 实战，到 RAG 精度工程与数字资产系统设计的工程记录。"
+        />
       </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
@@ -173,66 +176,14 @@ export const Blog: React.FC = () => {
           </div>
         </section>
 
-        {/* Section: 个人成长与商业复盘 */}
+        {/* Section: 战略方法论与实践复盘 */}
         <section id="personal-growth" className="mb-16 scroll-mt-24">
           <h2 className="text-xl font-bold text-gray-900 mb-2 font-mono tracking-widest flex items-center gap-2">
             <span className="text-neutral-400">02</span> {BLOG_SECTIONS[1].labelEn} ({BLOG_SECTIONS[1].labelCn})
           </h2>
-          <p className="text-gray-500 text-sm font-mono mb-6">职业护城河、一人公司实战与精力管理的深度思考。</p>
+          <p className="text-gray-500 text-sm font-mono mb-6">围绕资源配置、战略执行与系统设计的方法论复盘，用工程视角审视个人与团队的系统架构。</p>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {/* Card: AI 职业资产防御 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">🛡️</span>
-                <span className="bg-red-100 text-red-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-red-200">
-                  职业护城河
-                </span>
-              </div>
-              <div className="flex-grow">
-                {renderCardTitle('Career Asset Audit (职业资产审计：AI 冲击下的技术复利与防御性构建)', 'group-hover:text-red-600')}
-                <div className="text-xs text-gray-400 font-mono mb-3">2026.03.06 · 深度思考</div>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  AI 不是来替代你的，是来放大资产的。如何构建可复用的代码、沉淀方法论与个人品牌，打造穿越周期的职业护城河。
-                </p>
-              </div>
-              <div className="mt-auto pt-4 border-t border-gray-100">
-                <button
-                  onClick={() => navigate('/blog/ai-asset-defense')}
-                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>READ ARTICLE (阅读文章)</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Card: MBA ROI 审计 */}
-            <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
-              <div className="flex justify-between items-start mb-4">
-                <span className="text-2xl">💰</span>
-                <span className="bg-green-100 text-green-700 text-xs font-bold font-mono px-2 py-1 rounded-sm border border-green-200">
-                  ROI 审计
-                </span>
-              </div>
-              <div className="flex-grow">
-                {renderCardTitle('ROI Deep Audit (ROI 深度审计：我如何用一套 AI 架构替代了 37.8w 的 MBA 学费)', 'group-hover:text-green-600')}
-                <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · ROI 审计</div>
-                <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  用 3.8k 成本构建「可复用的商业决策系统」，实现 MBA 核心能力的 80% 覆盖。RAG 知识库 + AI Agent 编排 + Prompt 模板库的实战方案。
-                </p>
-              </div>
-              <div className="mt-auto pt-4 border-t border-gray-100">
-                <button
-                  onClick={() => navigate('/blog/mba-roi-audit')}
-                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
-                >
-                  <span>READ ARTICLE (阅读文章)</span>
-                  <span className="text-xs opacity-50">↗</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Card: 一人公司架构设计 */}
+            {/* Card: 数字资产系统架构 */}
             <div className="bg-white shadow-none border border-neutral-200 rounded-sm p-6 hover:border-black hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 group flex flex-col h-full">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-2xl">🚀</span>
@@ -241,10 +192,10 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                {renderCardTitle('Digital Solopreneur Architecture (一人公司架构设计：从零构建自动化数字资产系统)', 'group-hover:text-green-600')}
+                {renderCardTitle('Digital Asset System Architecture (数字资产系统架构：自动化运维与边缘计算实践)', 'group-hover:text-green-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · 复盘</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  技术栈选型（Next.js + EdgeOne）、产品矩阵设计与流量冷启动的真实数据复盘。如何用架构思维经营生意。
+                  以 LChuck Studio 为样本，复盘如何从信息架构出发，设计 Strategic Consulting / Solutions &amp; Prototypes / Engineering Log 三条主线，并用物理引擎、配置化常量与 AI 架构顾问浮窗共同构建一个可观测、可扩展的数字资产系统。
                 </p>
               </div>
               <div className="mt-auto pt-4 border-t border-gray-100">
@@ -270,7 +221,7 @@ export const Blog: React.FC = () => {
                 {renderCardTitle('P0-Driven Management (P0 管理法：35+ 程序员的精力管理系统)', 'group-hover:text-purple-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.05 · 精力管理</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                  拒绝伪勤奋。如何利用飞书多维表格构建'战略指挥部'，在职场、副业与家庭之间寻找动态平衡。
+                  拒绝伪勤奋。如何利用飞书多维表格构建'战略指挥部'，在职场、工程项目与家庭之间寻找动态平衡，从“时间管理”上升到“个人执行系统架构”的层面。
                 </p>
               </div>
               <div className="mt-auto pt-4 border-t border-gray-100">
