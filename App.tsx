@@ -12,6 +12,7 @@ import { Apps } from './pages/Apps';
 import { Agents } from './pages/Agents';
 import { Blog } from './pages/Blog';
 import { BlogPost } from './pages/BlogPost';
+import { RAGAuditor } from './pages/RAGAuditor';
 import { NotFound } from './pages/NotFound';
 
 const AnimatedRoutes: React.FC = () => {
@@ -33,6 +34,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="/agents" element={<Agents />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/rag-auditor" element={<RAGAuditor />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>

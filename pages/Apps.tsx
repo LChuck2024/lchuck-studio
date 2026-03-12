@@ -56,11 +56,11 @@ export const Apps: React.FC = () => {
       </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 tracking-tight uppercase italic">
-            Solutions & Prototypes
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic flex items-baseline gap-3 flex-wrap">
+            <span>SOLUTIONS & PROTOTYPES</span>
           </h1>
-          <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            基于垂直行业痛点，利用 RAG 架构与 Agent 编排构建的生产力工具实验场。
+          <p className="text-sm font-mono text-[#999999] tracking-widest uppercase">
+            解决方案与原型
           </p>
         </div>
 

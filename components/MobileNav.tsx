@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 const tabs = [
-  { id: 'home', label: '首页', path: '/', icon: '🏠' },
-  { id: 'agents', label: '数字员工', path: '/agents', icon: '🤖' },
-  { id: 'apps', label: '解决方案', path: '/apps', icon: '🛠️' },
-  { id: 'blog', label: '工程日志', path: '/blog', icon: '📓' },
+  { id: 'home', labelEn: 'HOME', path: '/', icon: '🏠' },
+  { id: 'agents', labelEn: 'AGENTS', path: '/agents', icon: '🤖' },
+  { id: 'apps', labelEn: 'SOLUTIONS', path: '/apps', icon: '🛠️' },
+  { id: 'blog', labelEn: 'LOG', path: '/blog', icon: '📓' },
 ];
 
 export const MobileNav: React.FC = () => {
@@ -28,7 +28,7 @@ export const MobileNav: React.FC = () => {
           >
             <span className="text-lg leading-none mb-0.5">{tab.icon}</span>
             <span className="text-[10px] font-mono font-bold tracking-wider truncate max-w-full">
-              {tab.label}
+              {tab.labelEn}
             </span>
           </NavLink>
         ))}

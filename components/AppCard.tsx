@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import type { AppCardItem } from '../config/apps';
 
 interface AppCardProps {
@@ -11,18 +12,47 @@ export const AppCard: React.FC<AppCardProps> = ({ item, onScriptListClick }) => 
   const isRoadmap = index === 'Roadmap';
   const indexColor = isRoadmap ? 'text-neutral-500' : 'text-neutral-600';
 
+  const renderLabel = (text: string) => {
+    const match = text.match(/^(.*?)(?:\s*\((.*?)\))?$/);
+    if (match && match[2]) {
+      return (
+        <span className="flex items-center gap-1 justify-center overflow-hidden whitespace-nowrap min-w-0">
+          <span className="font-bold truncate">{match[1]}</span>
+          <span className="font-light text-xs hidden sm:inline opacity-80 shrink-0 truncate">({match[2]})</span>
+        </span>
+      );
+    }
+    return <span className="font-bold truncate min-w-0">{text}</span>;
+  };
+
+  const btnClass = "w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-1.5 overflow-hidden";
+
   const renderCta = () => {
     // 直接操作类：跳转链接或打开弹窗
     if (cta.type === 'link' && cta.href) {
+      const isInternal = cta.href.startsWith('/');
+      
+      if (isInternal) {
+        return (
+          <Link
+            to={cta.href}
+            className={btnClass}
+          >
+            {renderLabel(cta.label)}
+            <span className="text-xs shrink-0">→</span>
+          </Link>
+        );
+      }
+
       return (
         <a
           href={cta.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full py-2 bg-blue-600 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-700 transition-colors text-center flex items-center justify-center gap-1.5"
+          className={btnClass}
         >
-          <span>{cta.label}</span>
-          <span className="text-xs">↗</span>
+          {renderLabel(cta.label)}
+          <span className="text-xs shrink-0">↗</span>
         </a>
       );
     }
@@ -30,10 +60,10 @@ export const AppCard: React.FC<AppCardProps> = ({ item, onScriptListClick }) => 
       return (
         <button
           onClick={onScriptListClick}
-          className="w-full py-2 bg-blue-600 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-700 transition-colors flex items-center justify-center gap-1.5"
+          className={btnClass}
         >
-          <span>{cta.label}</span>
-          <span className="text-xs">→</span>
+          {renderLabel(cta.label)}
+          <span className="text-xs shrink-0">→</span>
         </button>
       );
     }
@@ -50,41 +80,36 @@ export const AppCard: React.FC<AppCardProps> = ({ item, onScriptListClick }) => 
         );
       };
       
-      // 判断是咨询类还是产品类
-      const isProductAccess = cta.label === 'Request Access';
+      const isProductAccess = cta.label.startsWith('Request Access');
       
-      if (cta.type === 'outline') {
-        return (
-          <button
-            onClick={handleClick}
-            className={`w-full py-2 border-2 rounded-sm text-sm font-medium font-mono transition-colors flex items-center justify-center gap-1.5 ${
-              isProductAccess
-                ? 'border-orange-300 text-orange-700 hover:border-orange-400 hover:bg-orange-50'
-                : 'border-neutral-300 text-gray-800 hover:border-neutral-400 hover:bg-neutral-50'
-            }`}
-          >
-            <span className="text-xs">{isProductAccess ? '🔑' : '📋'}</span>
-            <span>{cta.label}</span>
-          </button>
-        );
-      }
-      
-      // Primary 按钮：咨询类用深色，产品类用橙色
       return (
         <button
           onClick={handleClick}
-          className={`w-full py-2 text-white rounded-sm text-sm font-medium font-mono transition-colors flex items-center justify-center gap-1.5 ${
-            isProductAccess
-              ? 'bg-orange-600 hover:bg-orange-700'
-              : 'bg-[#1a1a1a] hover:bg-gray-800'
-          }`}
+          className={btnClass}
         >
-          <span className="text-xs">{isProductAccess ? '🔑' : '📋'}</span>
-          <span>{cta.label}</span>
+          {renderLabel(cta.label)}
+          <span className="text-xs shrink-0">{isProductAccess ? '🔑' : '📋'}</span>
         </button>
       );
     }
     return null;
+  };
+
+  const renderCardTitle = (titleText: string) => {
+    const match = titleText.match(/^(.*?)(?:\s*\((.*?)\))?$/);
+    if (match && match[2]) {
+      return (
+        <div className="mb-2 flex flex-col items-start justify-start">
+          <h2 className="text-xl font-bold text-[#1A1A1A] group-hover:text-red-600 transition-colors tracking-[0.02em]">
+            {match[1]}
+          </h2>
+          <span className="text-xs font-normal text-[#999999] mt-1">
+            {match[2]}
+          </span>
+        </div>
+      );
+    }
+    return <h2 className="text-xl font-bold text-[#1A1A1A] mb-2 group-hover:text-red-600 transition-colors tracking-[0.02em]">{titleText}</h2>;
   };
 
   return (
@@ -100,12 +125,10 @@ export const AppCard: React.FC<AppCardProps> = ({ item, onScriptListClick }) => 
         </span>
       </div>
       <div className="flex-grow min-h-[200px] flex flex-col">
-        <div className="mb-3">
-          <h2 className="text-xl font-semibold text-gray-900 mb-1 group-hover:text-red-600 transition-colors tracking-[0.02em]">{title}</h2>
-          {subtitle && (
-            <p className="text-sm text-gray-500 font-normal leading-tight">{subtitle}</p>
-          )}
-        </div>
+        {renderCardTitle(title)}
+        {subtitle && (
+          <p className="text-sm text-gray-500 font-normal leading-tight mb-4">{subtitle}</p>
+        )}
         <p className="text-gray-600 text-sm mb-4 leading-[1.6] flex-grow">{desc}</p>
       </div>
       <div className="mt-auto pt-4 border-t border-neutral-100">

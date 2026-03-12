@@ -4,6 +4,23 @@ import { Helmet } from 'react-helmet-async';
 import { CTASection } from '../components/CTASection';
 import { BackButton } from '../components/BackButton';
 
+const renderCardTitle = (titleText: string, hoverColorClass = 'group-hover:text-red-600') => {
+  const match = titleText.match(/^(.*?)(?:\s*\((.*?)\))?$/);
+  if (match && match[2]) {
+    return (
+      <div className="mb-5 flex flex-col items-start justify-start">
+        <h2 className={`text-xl font-bold text-[#1A1A1A] ${hoverColorClass} transition-colors tracking-[0.02em]`}>
+          {match[1]}
+        </h2>
+        <span className="text-xs font-normal text-[#999999] mt-1">
+          {match[2]}
+        </span>
+      </div>
+    );
+  }
+  return <h2 className={`text-xl font-bold text-[#1A1A1A] mb-5 ${hoverColorClass} transition-colors tracking-[0.02em]`}>{titleText}</h2>;
+};
+
 const BLOG_SECTIONS = [
   { id: 'data-architecture', labelEn: 'DATA ARCHITECTURE', labelCn: '数据架构与技术设计' },
   { id: 'personal-growth', labelEn: 'PERSONAL GROWTH', labelCn: '个人成长与商业复盘' },
@@ -37,10 +54,11 @@ export const Blog: React.FC = () => {
       </Helmet>
       <div className="max-w-[1600px] w-full mx-auto mt-10 md:mt-20">
         <div className="mb-12 text-left">
-          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic">ENGINEERING LOG</h1>
-          <p className="text-gray-400 font-mono text-sm mb-4">工程日志 · 博客</p>
-          <p className="text-gray-500 font-mono text-sm md:text-base tracking-widest border-l-2 border-red-600 pl-4 py-1">
-            ETL 架构演进、一人公司实录、P0 精力管理、主数据治理。深度复盘，拒绝伪勤奋。
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-2 tracking-tight uppercase italic flex items-baseline gap-3 flex-wrap">
+            <span>ENGINEERING LOG</span>
+          </h1>
+          <p className="text-sm font-mono text-[#999999] tracking-widest uppercase">
+            工程日志 · 博客
           </p>
         </div>
 
@@ -80,9 +98,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
-                  主数据治理实战：从同义词混乱到 SSOT 的映射表设计
-                </h2>
+                {renderCardTitle('Master Data Governance (主数据治理实战：从同义词混乱到 SSOT 的映射表设计)', 'group-hover:text-indigo-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · 技术设计</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   品类「洗发水」和「洗发液」被拆成两个统计？用配置驱动映射表替代硬编码 CASE WHEN，把主数据治理沉淀为 ETL 原子能力。
@@ -92,9 +108,9 @@ export const Blog: React.FC = () => {
                 <p className="text-xs text-gray-500 font-mono mb-2 italic">相关架构已集成至 Solutions 模块，可查看 100:1 压缩实战详情</p>
                 <button
                   onClick={() => navigate('/blog/mdm-mapping-design')}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-indigo-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
@@ -109,9 +125,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                  从 SQL 到 Python：配置驱动型 ETL 架构演进
-                </h2>
+                {renderCardTitle('ETL Architecture Evolution (从 SQL 到 Python：配置驱动型 ETL 架构演进)', 'group-hover:text-blue-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.13 · 技术设计</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   复盘如何将 95+ 个硬编码脚本重构为自动化流水线。关于 CDC 增量同步与 SCD 历史拉链的工程实践。
@@ -121,9 +135,9 @@ export const Blog: React.FC = () => {
                 <p className="text-xs text-gray-500 font-mono mb-2 italic">相关架构已集成至 Solutions 模块，可查看 100:1 压缩实战详情</p>
                 <button
                   onClick={() => navigate('/blog/etl-architecture')}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
@@ -138,9 +152,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-                  RAG 精度工程：三层知识空间的解耦与闭环实现
-                </h2>
+                {renderCardTitle('RAG Precision Engineering (RAG 精度工程：三层知识空间的解耦与闭环实现)', 'group-hover:text-purple-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.03.06 · 技术设计</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   深度拆解如何通过「知识层、意图层、反馈层」解决垂直领域 LLM 落地的幻觉难题。结合 Streamlit 原型的实战性能数据分析。
@@ -151,9 +163,9 @@ export const Blog: React.FC = () => {
                   href="https://blog.csdn.net/Chuck0415/article/details/152335828?spm=1001.2014.3001.5501"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </a>
               </div>
@@ -177,9 +189,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
-                  职业资产审计：AI 冲击下的技术复利与防御性构建
-                </h2>
+                {renderCardTitle('Career Asset Audit (职业资产审计：AI 冲击下的技术复利与防御性构建)', 'group-hover:text-red-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.03.06 · 深度思考</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   AI 不是来替代你的，是来放大资产的。如何构建可复用的代码、沉淀方法论与个人品牌，打造穿越周期的职业护城河。
@@ -188,9 +198,9 @@ export const Blog: React.FC = () => {
               <div className="mt-auto pt-4 border-t border-gray-100">
                 <button
                   onClick={() => navigate('/blog/ai-asset-defense')}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-red-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
@@ -205,9 +215,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                  ROI 深度审计：我如何用一套 AI 架构替代了 37.8w 的 MBA 学费
-                </h2>
+                {renderCardTitle('ROI Deep Audit (ROI 深度审计：我如何用一套 AI 架构替代了 37.8w 的 MBA 学费)', 'group-hover:text-green-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · ROI 审计</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   用 3.8k 成本构建「可复用的商业决策系统」，实现 MBA 核心能力的 80% 覆盖。RAG 知识库 + AI Agent 编排 + Prompt 模板库的实战方案。
@@ -216,9 +224,9 @@ export const Blog: React.FC = () => {
               <div className="mt-auto pt-4 border-t border-gray-100">
                 <button
                   onClick={() => navigate('/blog/mba-roi-audit')}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
@@ -233,9 +241,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                  一人公司架构设计：从零构建自动化数字资产系统
-                </h2>
+                {renderCardTitle('Digital Solopreneur Architecture (一人公司架构设计：从零构建自动化数字资产系统)', 'group-hover:text-green-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.26 · 复盘</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   技术栈选型（Next.js + EdgeOne）、产品矩阵设计与流量冷启动的真实数据复盘。如何用架构思维经营生意。
@@ -244,9 +250,9 @@ export const Blog: React.FC = () => {
               <div className="mt-auto pt-4 border-t border-gray-100">
                 <button
                   onClick={() => navigate('/blog/opc')}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>
@@ -261,9 +267,7 @@ export const Blog: React.FC = () => {
                 </span>
               </div>
               <div className="flex-grow">
-                <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
-                  P0 管理法：35+ 程序员的精力管理系统
-                </h2>
+                {renderCardTitle('P0-Driven Management (P0 管理法：35+ 程序员的精力管理系统)', 'group-hover:text-purple-600')}
                 <div className="text-xs text-gray-400 font-mono mb-3">2026.02.05 · 精力管理</div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                   拒绝伪勤奋。如何利用飞书多维表格构建'战略指挥部'，在职场、副业与家庭之间寻找动态平衡。
@@ -272,9 +276,9 @@ export const Blog: React.FC = () => {
               <div className="mt-auto pt-4 border-t border-gray-100">
                 <button
                   onClick={() => navigate('/blog/p0_manager')}
-                  className="w-full py-2 bg-gray-900 text-white rounded-sm text-sm font-medium font-mono hover:bg-purple-600 transition-colors flex items-center justify-center gap-2"
+                  className="w-full py-2 bg-[#1a1a1a] text-white border border-[#1a1a1a] rounded-sm text-sm font-medium font-mono hover:border-[#C8102E] transition-colors flex items-center justify-center gap-2"
                 >
-                  <span>阅读文章</span>
+                  <span>READ ARTICLE (阅读文章)</span>
                   <span className="text-xs opacity-50">↗</span>
                 </button>
               </div>

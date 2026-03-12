@@ -39,15 +39,15 @@ export const CTASection: React.FC = () => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
           <button
             onClick={handleExpertConsult}
-            className="w-full sm:w-auto px-10 py-3.5 bg-red-600 text-white font-mono text-sm font-bold rounded-sm border-2 border-red-600 transition-all duration-300 hover:bg-red-700 hover:shadow-[0_0_28px_rgba(185,28,28,0.4)] hover:border-red-800"
+            className="w-full sm:w-auto px-10 py-3.5 bg-[#1a1a1a] text-white font-mono text-sm font-bold rounded-sm border-2 border-[#1a1a1a] transition-all duration-300 hover:border-[#C8102E]"
           >
-            专家深度咨询
+            EXPERT CONSULTATION (专家咨询)
           </button>
           <button
             onClick={handleResearchTools}
-            className="w-full sm:w-auto px-10 py-3.5 bg-transparent hover:bg-neutral-100 text-gray-800 font-mono text-sm font-bold rounded-sm transition-colors duration-300 border-2 border-neutral-300 hover:border-neutral-400"
+            className="w-full sm:w-auto px-10 py-3.5 bg-transparent hover:bg-neutral-100 text-gray-800 font-mono text-sm font-bold rounded-sm transition-colors duration-300 border-2 border-neutral-300 hover:border-[#C8102E] hover:text-[#C8102E]"
           >
-            解决方案与原型
+            VIEW PROTOTYPES (查看原型)
           </button>
         </div>
       </div>

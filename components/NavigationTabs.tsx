@@ -71,10 +71,9 @@ export const NavigationTabs: React.FC = () => {
                   />
                 )}
                 
-                {/* 文字内容 - 上下两行 */}
+                {/* 文字内容 */}
                 <span className="relative z-10 flex flex-col items-center leading-tight gap-0.5">
                   <span className="uppercase tracking-wider">{tab.labelEn}</span>
-                  <span className="text-[8px] sm:text-[0.7em] md:text-[7px] lg:text-[8px] font-medium opacity-90">{tab.labelCn}</span>
                 </span>
                 
                 {/* 激活状态的发光效果 */}
